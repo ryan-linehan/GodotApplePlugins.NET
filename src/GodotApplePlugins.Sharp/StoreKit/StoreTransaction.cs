@@ -52,6 +52,35 @@ public class StoreTransaction
     public double ExpirationDate => _instance.Get(ApplePluginStringNames.ExpirationDate).AsDouble();
 
     /// <summary>
+    /// The revocation date (Unix timestamp). Returns 0 if not revoked.
+    /// </summary>
+    public double RevocationDate => _instance.Get(new StringName("revocation_date")).AsDouble();
+
+    /// <summary>
+    /// Indicates whether this subscription was upgraded.
+    /// </summary>
+    public bool IsUpgraded => _instance.Get(new StringName("is_upgraded")).AsBool();
+
+    /// <summary>
+    /// The original purchase transaction ID.
+    /// </summary>
+    public long OriginalId => _instance.Get(new StringName("original_id")).AsInt64();
+
+    /// <summary>
+    /// Ownership classification (e.g., purchased, familyShared).
+    /// </summary>
+    public string OwnershipType => _instance.Get(new StringName("ownership_type")).AsString();
+
+    /// <summary>
+    /// Notifies the App Store that purchased content has been delivered.
+    /// Call this only after your app has delivered the content or enabled the service.
+    /// </summary>
+    public void Finish()
+    {
+        _instance.Call(new StringName("finish"));
+    }
+
+    /// <summary>
     /// Gets the purchase date as a DateTime.
     /// </summary>
     public DateTime PurchaseDateTime => DateTimeOffset.FromUnixTimeSeconds((long)PurchaseDate).DateTime;
