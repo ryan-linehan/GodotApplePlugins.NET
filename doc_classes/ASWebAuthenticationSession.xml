@@ -22,7 +22,7 @@
 			web_auth.canceled.connect(_on_web_auth_canceled)
 
 		func login_facebook():
-			var auth_url = "https://www.facebook.com/v18.0/dialog/oauth?client_id=...&amp;redirect_uri=mygame://oauth&amp;response_type=code"
+			var auth_url = "https://www.facebook.com/v18.0/dialog/oauth?client_id=...&redirect_uri=mygame://oauth&response_type=code"
 			web_auth.start(auth_url, "mygame", false)
 
 		func _on_web_auth_completed(callback_url: String):

@@ -30,13 +30,6 @@ jobs:
     - name: Compare with current docs
       id: compare
       run: |
-        echo "=== Files in doc_classes ==="
-        ls -la doc_classes/
-        echo ""
-        echo "=== Files in upstream_docs ==="
-        ls -la ./upstream_docs/
-        echo ""
-
         # Compare the downloaded docs with our current docs
         DIFF_OUTPUT=$(diff -rq doc_classes ./upstream_docs 2>&1 || true)
 
@@ -48,7 +41,7 @@ jobs:
           echo "$DIFF_OUTPUT"
           echo ""
           echo "=== Detailed diff ==="
-          diff -r doc_classes ./upstream_docs 2>&1 || true
+          diff -r doc_classes ./upstream_docs || true
           echo "changed=true" >> $GITHUB_OUTPUT
         fi
 
