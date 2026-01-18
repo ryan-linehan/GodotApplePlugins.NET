@@ -114,8 +114,8 @@ class Program
                 try
                 {
                     var rawUrl = $"https://raw.githubusercontent.com/{UpstreamRepo}/{DefaultBranch}/{DocClassesPath}/{file.name}";
-                    var content = await client.GetStringAsync(rawUrl);
-                    await File.WriteAllTextAsync(localPath, content);
+                    var bytes = await client.GetByteArrayAsync(rawUrl);
+                    await File.WriteAllBytesAsync(localPath, bytes);
                     Console.WriteLine("OK");
                     downloaded++;
                 }
