@@ -200,19 +200,19 @@ public static class TypeMapper
         return className switch
         {
             _ when className.StartsWith("GK") || className == "GameCenterManager"
-                => "GodotApplePlugins.Sharp.GameCenter",
+                => "GodotApplePlugins.NET.GameCenter",
             _ when className.StartsWith("Store") || className == "ProductView"
                    || className.Contains("Subscription")
-                => "GodotApplePlugins.Sharp.StoreKit",
+                => "GodotApplePlugins.NET.StoreKit",
             _ when className.StartsWith("AS")
-                => "GodotApplePlugins.Sharp.Authentication",
+                => "GodotApplePlugins.NET.Authentication",
             _ when className.StartsWith("AV")
-                => "GodotApplePlugins.Sharp.AVFoundation",
+                => "GodotApplePlugins.NET.AVFoundation",
             _ when className == "Foundation" || className == "AppleURL"
-                => "GodotApplePlugins.Sharp.Foundation",
+                => "GodotApplePlugins.NET.Foundation",
             _ when className == "AppleFilePicker"
-                => "GodotApplePlugins.Sharp.UI",
-            _ => "GodotApplePlugins.Sharp"
+                => "GodotApplePlugins.NET.UI",
+            _ => "GodotApplePlugins.NET"
         };
     }
 }
