@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+
+  <!-- Package metadata -->
+  <PropertyGroup>
+    <PackageId>GodotApplePlugins.Sharp</PackageId>
+    <Version>0.0.1-alpha</Version>
+    <Authors>GodotApplePlugins.NET Contributors</Authors>
+    <Description>A C# wrapper for GodotApplePlugins - provides typed access to Apple APIs (GameCenter, StoreKit, Sign in with Apple) in Godot C# projects.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/ryan-linehan/GodotApplePlugins.NET</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ryan-linehan/GodotApplePlugins.NET</RepositoryUrl>
+    <PackageTags>godot;apple;gamecenter;storekit;iap;signin-with-apple;gdextension</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <!-- GodotSharp reference -->
+  <ItemGroup>
+    <PackageReference Include="GodotSharp" Version="[4.3.0,5.0.0)" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- Include README in package -->
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
