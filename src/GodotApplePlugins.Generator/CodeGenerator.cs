@@ -62,6 +62,7 @@ public class CodeGenerator
         sb.AppendLine("using Godot;");
         sb.AppendLine("using System;");
         sb.AppendLine("using System.Linq;");
+        sb.AppendLine("using System.Threading.Tasks;");
         sb.AppendLine();
         sb.AppendLine($"namespace {ns};");
         sb.AppendLine();
@@ -115,10 +116,10 @@ public class CodeGenerator
             GenerateProperty(sb, prop);
         }
 
-        // Generate methods
+        // Generate methods (pass signals for async variant generation)
         foreach (var method in gdClass.Methods)
         {
-            GenerateMethod(sb, method);
+            GenerateMethod(sb, method, gdClass.Signals);
         }
 
         // Generate signal events
@@ -164,7 +165,7 @@ public class CodeGenerator
         sb.AppendLine();
     }
 
-    private void GenerateMethod(StringBuilder sb, GdMethod method)
+    private void GenerateMethod(StringBuilder sb, GdMethod method, List<GdSignal> signals)
     {
         var methodName = TypeMapper.ToPascalCase(method.Name);
         var returnType = TypeMapper.GetCSharpType(method.ReturnType);
@@ -181,14 +182,16 @@ public class CodeGenerator
             sb.AppendLine("    /// </summary>");
         }
 
-        // Build parameter list
+        // Build parameter list (excluding Callable params for sync version)
         var paramList = new List<string>();
+        var paramListForAsync = new List<string>();
         foreach (var param in method.Parameters)
         {
             if (param.Type == "Callable")
             {
                 // Convert callback to Action/Func
                 paramList.Add($"Action? {TypeMapper.ToCamelCase(param.Name)} = null");
+                // Skip Callable params in async version
             }
             else
             {
@@ -201,6 +204,7 @@ public class CodeGenerator
                 if (paramName == "class") paramName = "@class";
 
                 paramList.Add($"{paramType} {paramName}");
+                paramListForAsync.Add($"{paramType} {paramName}");
             }
         }
 
@@ -244,6 +248,156 @@ public class CodeGenerator
 
         sb.AppendLine("    }");
         sb.AppendLine();
+
+        // Generate async version if there's a matching signal
+        var matchingSignal = FindMatchingSignal(method.Name, signals);
+        if (matchingSignal != null && !hasReturn)
+        {
+            GenerateAsyncMethod(sb, method, matchingSignal, paramListForAsync);
+        }
+    }
+
+    /// <summary>
+    /// Finds a signal that corresponds to a method's completion.
+    /// </summary>
+    private GdSignal? FindMatchingSignal(string methodName, List<GdSignal> signals)
+    {
+        // Common patterns:
+        // authenticate -> authentication_result, authentication_error
+        // request_products -> products_request_completed
+        // fetch_* -> *_completed, *_loaded
+        // load_* -> *_loaded, *_completed
+        // purchase -> purchase_completed
+        // restore_purchases -> restore_completed
+
+        foreach (var signal in signals)
+        {
+            var signalName = signal.Name.ToLower();
+            var method = methodName.ToLower();
+
+            // Direct match patterns
+            if (method == "authenticate" && signalName == "authentication_result") return signal;
+            if (method == "request_products" && signalName == "products_request_completed") return signal;
+            if (method == "purchase" && signalName == "purchase_completed") return signal;
+            if (method == "restore_purchases" && signalName == "restore_completed") return signal;
+
+            // fetch_X -> X_completed or fetched_X
+            if (method.StartsWith("fetch_"))
+            {
+                var suffix = method.Replace("fetch_", "");
+                if (signalName == $"{suffix}_completed" || signalName == $"{suffix}_loaded" ||
+                    signalName == $"fetched_{suffix}" || signalName == $"{suffix}_fetched")
+                    return signal;
+            }
+
+            // load_X -> X_loaded or X_completed
+            if (method.StartsWith("load_"))
+            {
+                var suffix = method.Replace("load_", "");
+                if (signalName == $"{suffix}_loaded" || signalName == $"{suffix}_completed")
+                    return signal;
+            }
+
+            // X -> X_completed or X_result
+            if (signalName == $"{method}_completed" || signalName == $"{method}_result")
+                return signal;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Generates an async version of a method that awaits its result signal.
+    /// </summary>
+    private void GenerateAsyncMethod(StringBuilder sb, GdMethod method, GdSignal signal, List<string> paramList)
+    {
+        var methodName = TypeMapper.ToPascalCase(method.Name);
+        var signalName = TypeMapper.ToPascalCase(signal.Name);
+        var paramsStr = string.Join(", ", paramList);
+
+        // Determine return type based on signal parameters
+        string asyncReturnType;
+        if (signal.Parameters.Count == 0)
+        {
+            asyncReturnType = "Task";
+        }
+        else if (signal.Parameters.Count == 1)
+        {
+            asyncReturnType = $"Task<{TypeMapper.GetCSharpType(signal.Parameters[0].Type)}>";
+        }
+        else
+        {
+            // Multiple params - return a tuple
+            var tupleTypes = string.Join(", ", signal.Parameters.Select(p => TypeMapper.GetCSharpType(p.Type)));
+            asyncReturnType = $"Task<({tupleTypes})>";
+        }
+
+        sb.AppendLine($"    /// <summary>");
+        sb.AppendLine($"    /// Async version of {methodName} that awaits the {signalName} signal.");
+        sb.AppendLine($"    /// </summary>");
+        sb.AppendLine($"    public async {asyncReturnType} {methodName}Async({paramsStr})");
+        sb.AppendLine("    {");
+
+        // Build call args (without Callable)
+        var callArgs = new List<string> { $"new StringName(\"{method.Name}\")" };
+        foreach (var param in method.Parameters.Where(p => p.Type != "Callable"))
+        {
+            var paramName = TypeMapper.ToCamelCase(param.Name);
+            if (paramName == "params") paramName = "@params";
+            if (paramName == "event") paramName = "@event";
+            if (paramName == "class") paramName = "@class";
+            callArgs.Add(TypeMapper.GetToGodotConversion(paramName, param.Type));
+        }
+        var callArgsStr = string.Join(", ", callArgs);
+
+        sb.AppendLine($"        _instance.Call({callArgsStr});");
+        sb.AppendLine($"        var result = await ToSignal(this, SignalName.{signalName});");
+
+        // Return based on signal parameters
+        if (signal.Parameters.Count == 0)
+        {
+            // No return needed for Task
+        }
+        else if (signal.Parameters.Count == 1)
+        {
+            var p = signal.Parameters[0];
+            var conversion = GetSignalResultConversion("result[0]", p.Type);
+            sb.AppendLine($"        return {conversion};");
+        }
+        else
+        {
+            // Build tuple return
+            var tupleItems = signal.Parameters.Select((p, i) =>
+            {
+                var conversion = GetSignalResultConversion($"result[{i}]", p.Type);
+                return conversion;
+            });
+            sb.AppendLine($"        return ({string.Join(", ", tupleItems)});");
+        }
+
+        sb.AppendLine("    }");
+        sb.AppendLine();
+    }
+
+    /// <summary>
+    /// Gets conversion code for signal result array element.
+    /// </summary>
+    private string GetSignalResultConversion(string expr, string godotType)
+    {
+        if (TypeMapper.IsWrappedClass(godotType))
+        {
+            return $"new {godotType}({expr}.AsGodotObject())";
+        }
+
+        return godotType switch
+        {
+            "bool" => $"{expr}.AsBool()",
+            "int" => $"{expr}.AsInt32()",
+            "float" => $"{expr}.AsDouble()",
+            "String" => $"{expr}.AsString()",
+            "string" => $"{expr}.AsString()",
+            _ => $"{expr}.AsGodotObject()"
+        };
     }
 
     private void GenerateSignals(StringBuilder sb, List<GdSignal> signals)
