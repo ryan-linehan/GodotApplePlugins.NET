@@ -13,7 +13,7 @@ class Program
     {
         if (args.Length > 0 && args[0] == "update-docs")
         {
-            var outputPath = args.Length > 1 ? args[1] : "../../doc_classes";
+            var outputPath = args.Length > 1 ? args[1] : "doc_classes";
             return await UpdateDocs(outputPath);
         }
 
@@ -22,8 +22,8 @@ class Program
 
     static int Generate(string[] args)
     {
-        var inputPath = args.Length > 0 ? args[0] : "../../doc_classes";
-        var outputPath = args.Length > 1 ? args[1] : "../GodotApplePlugins.Sharp/Generated";
+        var inputPath = args.Length > 0 ? args[0] : "doc_classes";
+        var outputPath = args.Length > 1 ? args[1] : "GodotApplePlugins.Sharp/Generated";
 
         // Resolve relative paths
         inputPath = Path.GetFullPath(inputPath);
