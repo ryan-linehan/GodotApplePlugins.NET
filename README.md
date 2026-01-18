@@ -1,6 +1,13 @@
 # GodotApplePlugins.Sharp
 
-A C# wrapper for [GodotApplePlugins](https://github.com/migueldeicaza/GodotApplePlugins) - provides typed access to Apple APIs (GameCenter, StoreKit, Sign in with Apple) in Godot C# projects.
+A C# wrapper for [GodotApplePlugins](https://github.com/migueldeicaza/GodotApplePlugins) - provides typed access to Apple APIs (GameCenter, StoreKit, Sign in with Apple, AVFoundation, and more) in Godot C# projects.
+
+## Features
+
+- **Generated from source** - Wrappers are automatically generated from GodotApplePlugins XML documentation
+- **Type-safe** - Compile-time checking for method names, parameters, and return types
+- **C# events** - Godot signals exposed as native C# events
+- **Full coverage** - All GodotApplePlugins classes wrapped
 
 ## Installation
 
@@ -65,19 +72,6 @@ public partial class MyGame : Node
         if (success)
         {
             GD.Print("Game Center authenticated!");
-
-            // Access the local player
-            var localPlayer = _gameCenter!.LocalPlayer;
-            GD.Print($"Player authenticated: {localPlayer?.IsAuthenticated}");
-
-            // Show the Game Center access point
-            var accessPoint = _gameCenter.AccessPoint;
-            if (accessPoint != null)
-            {
-                accessPoint.Location = GKAccessPointLocation.TopTrailing;
-                accessPoint.ShowHighlights = true;
-                accessPoint.Active = true;
-            }
         }
     }
 
@@ -88,54 +82,10 @@ public partial class MyGame : Node
 }
 ```
 
-### Achievements
-
-```csharp
-// Report achievement progress
-var achievement = new GKAchievement(achievementInstance);
-achievement.Identifier = "com.yourapp.achievement1";
-achievement.PercentComplete = 100.0;
-achievement.ShowsCompletionBanner = true;
-
-GKAchievement.ReportAchievements(achievementClass, new[] { achievement }, error =>
-{
-    if (error == null)
-        GD.Print("Achievement reported!");
-    else
-        GD.PrintErr($"Failed to report achievement: {error}");
-});
-```
-
-### Leaderboards
-
-```csharp
-// Submit a score
-leaderboard.SubmitScore(1000, 0, localPlayer, error =>
-{
-    if (error == null)
-        GD.Print("Score submitted!");
-});
-
-// Load leaderboard entries
-leaderboard.LoadLocalPlayerEntries(
-    GKLeaderboardPlayerScope.Global,
-    GKLeaderboardTimeScope.AllTime,
-    1, 10,
-    (entries, localEntry, total, error) =>
-    {
-        if (error == null)
-        {
-            foreach (var entry in entries)
-            {
-                GD.Print($"Rank {entry.Rank}: {entry.Player.DisplayName} - {entry.FormattedScore}");
-            }
-        }
-    });
-```
-
 ### StoreKit (In-App Purchases)
 
 ```csharp
+using GodotApplePlugins.Sharp;
 using GodotApplePlugins.Sharp.StoreKit;
 
 private StoreKitManager? _storeKit;
@@ -148,98 +98,49 @@ public void InitializeStore()
     // Subscribe to events
     _storeKit.ProductsRequestCompleted += OnProductsLoaded;
     _storeKit.PurchaseCompleted += OnPurchaseCompleted;
-    _storeKit.RestoreCompleted += OnRestoreCompleted;
 
     // Request products
-    _storeKit.RequestProducts(new[] { "com.yourapp.product1", "com.yourapp.premium" });
+    _storeKit.RequestProducts(new[] { "com.yourapp.product1" });
 }
 
-private void OnProductsLoaded(StoreProduct[] products, StoreKitStatus status)
+private void OnProductsLoaded(StoreProduct[] products, int status)
 {
-    if (status == StoreKitStatus.Success)
+    foreach (var product in products)
     {
-        foreach (var product in products)
-        {
-            GD.Print($"Product: {product.DisplayName} - {product.DisplayPrice}");
-        }
+        GD.Print($"Product: {product.DisplayName} - {product.DisplayPrice}");
     }
 }
 
-private void OnPurchaseCompleted(StoreTransaction? transaction, StoreKitStatus status, string message)
+private void OnPurchaseCompleted(StoreTransaction transaction, int status, string message)
 {
-    if (status == StoreKitStatus.Success && transaction != null)
+    if (status == 0) // OK
     {
         GD.Print($"Purchase successful: {transaction.ProductId}");
-        // Unlock content, save to server, etc.
+        transaction.Finish(); // Important: call finish after delivering content
     }
-    else if (status == StoreKitStatus.UserCancelled)
-    {
-        GD.Print("User cancelled purchase");
-    }
-    else
-    {
-        GD.PrintErr($"Purchase failed: {message}");
-    }
-}
-
-// Purchase a product
-public void PurchaseProduct(StoreProduct product)
-{
-    _storeKit?.Purchase(product);
-}
-
-// Restore purchases
-public void RestorePurchases()
-{
-    _storeKit?.RestorePurchases();
 }
 ```
 
 ### Sign in with Apple
 
 ```csharp
+using GodotApplePlugins.Sharp;
 using GodotApplePlugins.Sharp.Authentication;
 
-private ASAuthorizationController? _authController;
-
-public void InitializeSignIn()
+var authController = ApplePlugins.TryCreateASAuthorizationController();
+if (authController != null)
 {
-    _authController = ApplePlugins.TryCreateAuthorizationController();
-    if (_authController == null) return;
-
-    _authController.AuthorizationCompleted += OnSignInSuccess;
-    _authController.AuthorizationFailed += OnSignInFailed;
-}
-
-public void SignInWithApple()
-{
-    // Request email and full name
-    _authController?.SignInWithEmailAndFullName();
-
-    // Or use custom scopes
-    // _authController?.SignInWithScopes(new[] { ASAuthorizationScopes.Email });
-}
-
-private void OnSignInSuccess(AppleIdCredential credential)
-{
-    GD.Print($"Signed in as: {credential.User}");
-
-    if (credential.Email != null)
-        GD.Print($"Email: {credential.Email}");
-
-    if (credential.FullName != null)
-        GD.Print($"Name: {credential.FullName.FormattedName}");
-
-    // Send identity token to your server for validation
-    if (credential.IdentityToken != null)
+    authController.AuthorizationCompleted += credential =>
     {
-        // ValidateWithServer(credential.IdentityToken);
-    }
-}
+        GD.Print($"Signed in as: {credential.User}");
+    };
 
-private void OnSignInFailed(string message)
-{
-    GD.PrintErr($"Sign in failed: {message}");
+    authController.AuthorizationFailed += error =>
+    {
+        GD.PrintErr($"Sign in failed: {error}");
+    };
+
+    authController.Signin();
 }
 ```
 
@@ -247,27 +148,63 @@ private void OnSignInFailed(string message)
 
 ### Namespaces
 
-- `GodotApplePlugins.Sharp` - Main entry point and utilities
-- `GodotApplePlugins.Sharp.GameCenter` - Game Center APIs
-- `GodotApplePlugins.Sharp.StoreKit` - In-app purchase APIs
-- `GodotApplePlugins.Sharp.Authentication` - Sign in with Apple
-- `GodotApplePlugins.Sharp.Shared` - Enums and shared utilities
+| Namespace | Description |
+|-----------|-------------|
+| `GodotApplePlugins.Sharp` | Main entry point (`ApplePlugins` class) |
+| `GodotApplePlugins.Sharp.GameCenter` | Game Center APIs |
+| `GodotApplePlugins.Sharp.StoreKit` | In-app purchase APIs |
+| `GodotApplePlugins.Sharp.Authentication` | Sign in with Apple, OAuth |
+| `GodotApplePlugins.Sharp.AVFoundation` | Audio session control |
+| `GodotApplePlugins.Sharp.Foundation` | Foundation utilities (URL, UUID) |
+| `GodotApplePlugins.Sharp.UI` | Native UI (file picker) |
 
 ### Key Classes
 
 | Class | Description |
 |-------|-------------|
-| `ApplePlugins` | Static helper for creating manager instances |
+| `ApplePlugins` | Static factory for creating wrapper instances |
 | `GameCenterManager` | Entry point for Game Center authentication |
 | `GKLocalPlayer` | The authenticated local player |
-| `GKAccessPoint` | Game Center UI access point |
-| `GKAchievement` | Achievement tracking |
-| `GKLeaderboard` | Leaderboard management |
+| `GKMatch` | Real-time multiplayer match |
 | `StoreKitManager` | In-app purchase management |
 | `StoreProduct` | Product information |
 | `StoreTransaction` | Purchase transaction |
 | `ASAuthorizationController` | Sign in with Apple |
-| `AppleIdCredential` | Apple ID credential data |
+| `ASWebAuthenticationSession` | OAuth/web authentication |
+| `AVAudioSession` | iOS audio session control |
+| `AppleFilePicker` | Native file picker |
+
+## Development
+
+### Regenerating Wrappers
+
+The C# wrappers are generated from GodotApplePlugins XML documentation. To regenerate:
+
+1. Update the XML files in `doc_classes/` from upstream
+2. Run the generator:
+
+```bash
+./generate.sh
+```
+
+Or manually:
+
+```bash
+dotnet run --project src/GodotApplePlugins.Generator -- doc_classes src/GodotApplePlugins.Sharp/Generated
+```
+
+### Project Structure
+
+```
+GodotApplePlugins.NET/
+├── doc_classes/                    # XML docs from GodotApplePlugins
+├── src/
+│   ├── GodotApplePlugins.Sharp/   # The NuGet package
+│   │   └── Generated/             # Auto-generated wrappers
+│   └── GodotApplePlugins.Generator/ # Code generator
+├── generate.sh                     # Regeneration script
+└── README.md
+```
 
 ## License
 
