@@ -1,0 +1,57 @@
+name: Publish to NuGet
+
+on:
+  release:
+    types: [ published ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g., 1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Generate wrappers
+      run: dotnet run --project src/GodotApplePlugins.Generator --configuration Release
+
+    - name: Determine version
+      id: version
+      run: |
+        if [ "${{ github.event_name }}" == "release" ]; then
+          # Strip 'v' prefix if present
+          VERSION="${{ github.event.release.tag_name }}"
+          VERSION="${VERSION#v}"
+        else
+          VERSION="${{ inputs.version }}"
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+    - name: Build
+      run: dotnet build src/GodotApplePlugins.Sharp --configuration Release -p:Version=${{ steps.version.outputs.version }}
+
+    - name: Pack
+      run: dotnet pack src/GodotApplePlugins.Sharp --configuration Release --no-build -p:Version=${{ steps.version.outputs.version }} --output ./nupkg
+
+    - name: Push to NuGet
+      run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+    - name: Push to GitHub Packages
+      run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --skip-duplicate
