@@ -77,8 +77,8 @@ public class CodeGenerator
             sb.AppendLine("/// </summary>");
         }
 
-        // Class declaration
-        sb.AppendLine($"public partial class {gdClass.Name}");
+        // Class declaration - inherit from GodotObject to support [Signal]
+        sb.AppendLine($"public partial class {gdClass.Name} : GodotObject");
         sb.AppendLine("{");
 
         // Private field
@@ -251,7 +251,7 @@ public class CodeGenerator
         sb.AppendLine("    #region Signals");
         sb.AppendLine();
 
-        // Generate event declarations
+        // Generate [Signal] delegate declarations
         foreach (var signal in signals)
         {
             var eventName = TypeMapper.ToPascalCase(signal.Name);
@@ -263,39 +263,45 @@ public class CodeGenerator
                 sb.AppendLine("    /// </summary>");
             }
 
+            sb.AppendLine("    [Signal]");
             if (signal.Parameters.Count == 0)
             {
-                sb.AppendLine($"    public event Action? {eventName};");
+                sb.AppendLine($"    public delegate void {eventName}EventHandler();");
             }
             else
             {
-                var typeParams = string.Join(", ", signal.Parameters.Select(p => TypeMapper.GetCSharpType(p.Type)));
-                sb.AppendLine($"    public event Action<{typeParams}>? {eventName};");
+                // Build parameter list with names for the delegate
+                var delegateParams = signal.Parameters.Select((p, i) =>
+                {
+                    var paramType = TypeMapper.GetCSharpType(p.Type);
+                    var paramName = !string.IsNullOrEmpty(p.Name) ? TypeMapper.ToCamelCase(p.Name) : $"arg{i}";
+                    return $"{paramType} {paramName}";
+                });
+                var delegateParamsStr = string.Join(", ", delegateParams);
+                sb.AppendLine($"    public delegate void {eventName}EventHandler({delegateParamsStr});");
             }
 
             sb.AppendLine();
         }
 
-        // Generate ConnectSignals method
+        // Generate ConnectSignals method that forwards from GDExtension to our signals
         sb.AppendLine("    private void ConnectSignals()");
         sb.AppendLine("    {");
 
         foreach (var signal in signals)
         {
             var eventName = TypeMapper.ToPascalCase(signal.Name);
-            var handlerName = $"On{eventName}";
 
             if (signal.Parameters.Count == 0)
             {
                 sb.AppendLine($"        _instance.Connect(new StringName(\"{signal.Name}\"),");
-                sb.AppendLine($"            Callable.From(() => {eventName}?.Invoke()));");
+                sb.AppendLine($"            Callable.From(() => EmitSignal(SignalName.{eventName})));");
             }
             else
             {
-                // Build Callable.From with proper types
+                // Build Callable.From with proper types (raw Godot types for the callback)
                 var paramTypes = string.Join(", ", signal.Parameters.Select(p =>
                 {
-                    // For Callable.From, we need the raw Godot types, not wrapped
                     return p.Type switch
                     {
                         _ when TypeMapper.IsWrappedClass(p.Type) => "GodotObject",
@@ -308,29 +314,37 @@ public class CodeGenerator
                 var paramNames = signal.Parameters.Select((p, i) => $"p{i}").ToList();
                 var paramNamesStr = string.Join(", ", paramNames);
 
-                // Build invocation with conversions
-                var invokeArgs = signal.Parameters.Select((p, i) =>
+                // Build EmitSignal args with conversions for wrapped types
+                var emitArgs = new List<string> { $"SignalName.{eventName}" };
+                for (int i = 0; i < signal.Parameters.Count; i++)
                 {
+                    var p = signal.Parameters[i];
                     if (TypeMapper.IsWrappedClass(p.Type))
                     {
-                        return $"new {p.Type}(p{i})";
+                        emitArgs.Add($"new {p.Type}(p{i})");
                     }
                     else if (p.Type.StartsWith("Array["))
                     {
                         var innerType = p.Type.Replace("Array[", "").Replace("]", "");
                         if (TypeMapper.IsWrappedClass(innerType))
                         {
-                            return $"p{i}.Select(x => new {innerType}((GodotObject)x.Obj!)).ToArray()";
+                            emitArgs.Add($"p{i}.Select(x => new {innerType}((GodotObject)x.Obj!)).ToArray()");
                         }
-                        return $"p{i}.Select(x => x.As<{TypeMapper.GetCSharpType(innerType)}>()).ToArray()";
+                        else
+                        {
+                            emitArgs.Add($"p{i}.Select(x => x.As<{TypeMapper.GetCSharpType(innerType)}>()).ToArray()");
+                        }
                     }
-                    return $"p{i}";
-                });
-                var invokeArgsStr = string.Join(", ", invokeArgs);
+                    else
+                    {
+                        emitArgs.Add($"p{i}");
+                    }
+                }
+                var emitArgsStr = string.Join(", ", emitArgs);
 
                 sb.AppendLine($"        _instance.Connect(new StringName(\"{signal.Name}\"),");
                 sb.AppendLine($"            Callable.From<{paramTypes}>(({paramNamesStr}) =>");
-                sb.AppendLine($"                {eventName}?.Invoke({invokeArgsStr})));");
+                sb.AppendLine($"                EmitSignal({emitArgsStr})));");
             }
 
             sb.AppendLine();
