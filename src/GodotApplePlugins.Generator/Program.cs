@@ -23,7 +23,7 @@ class Program
     static int Generate(string[] args)
     {
         var inputPath = args.Length > 0 ? args[0] : "doc_classes";
-        var outputPath = args.Length > 1 ? args[1] : "GodotApplePlugins.Sharp/Generated";
+        var outputPath = args.Length > 1 ? args[1] : "GodotApplePlugins.NET/Generated";
 
         // Resolve relative paths
         inputPath = Path.GetFullPath(inputPath);

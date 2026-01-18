@@ -28,4 +28,4 @@ jobs:
       run: dotnet run --project src/GodotApplePlugins.Generator --configuration Release
 
     - name: Build with generated code
-      run: dotnet build src/GodotApplePlugins.Sharp --no-restore --configuration Release
+      run: dotnet build src/GodotApplePlugins.NET --no-restore --configuration Release

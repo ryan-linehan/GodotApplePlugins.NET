@@ -4,11 +4,6 @@ on:
   release:
     types: [ published ]
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to publish (e.g., 1.0.0)'
-        required: true
-        type: string
 
 jobs:
   publish:
@@ -28,23 +23,11 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
-    - name: Determine version
-      id: version
-      run: |
-        if [ "${{ github.event_name }}" == "release" ]; then
-          # Strip 'v' prefix if present
-          VERSION="${{ github.event.release.tag_name }}"
-          VERSION="${VERSION#v}"
-        else
-          VERSION="${{ inputs.version }}"
-        fi
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
-
     - name: Build
-      run: dotnet build src/GodotApplePlugins.Sharp --configuration Release -p:Version=${{ steps.version.outputs.version }}
+      run: dotnet build src/GodotApplePlugins.NET --configuration Release
 
     - name: Pack
-      run: dotnet pack src/GodotApplePlugins.Sharp --configuration Release --no-build -p:Version=${{ steps.version.outputs.version }} --output ./nupkg
+      run: dotnet pack src/GodotApplePlugins.NET --configuration Release --no-build --output ./nupkg
 
     - name: NuGet login (trusted publishing)
       uses: nuget/login@v1

@@ -1,4 +1,4 @@
-# GodotApplePlugins.Sharp
+# GodotApplePlugins.NET
 
 A C# wrapper for [GodotApplePlugins](https://github.com/migueldeicaza/GodotApplePlugins) - provides typed access to Apple APIs (GameCenter, StoreKit, Sign in with Apple, AVFoundation, and more) in Godot C# projects.
 
@@ -14,13 +14,13 @@ A C# wrapper for [GodotApplePlugins](https://github.com/migueldeicaza/GodotApple
 ### NuGet Package
 
 ```bash
-dotnet add package GodotApplePlugins.Sharp
+dotnet add package GodotApplePlugins.NET
 ```
 
 Or add to your `.csproj`:
 
 ```xml
-<PackageReference Include="GodotApplePlugins.Sharp" Version="0.0.1-alpha" />
+<PackageReference Include="GodotApplePlugins.NET" Version="0.0.1-alpha" />
 ```
 
 ### Requirements
@@ -35,8 +35,8 @@ Or add to your `.csproj`:
 ### Game Center
 
 ```csharp
-using GodotApplePlugins.Sharp;
-using GodotApplePlugins.Sharp.GameCenter;
+using GodotApplePlugins.NET;
+using GodotApplePlugins.NET.GameCenter;
 
 public partial class MyGame : Node
 {
@@ -85,8 +85,8 @@ public partial class MyGame : Node
 ### StoreKit (In-App Purchases)
 
 ```csharp
-using GodotApplePlugins.Sharp;
-using GodotApplePlugins.Sharp.StoreKit;
+using GodotApplePlugins.NET;
+using GodotApplePlugins.NET.StoreKit;
 
 private StoreKitManager? _storeKit;
 
@@ -124,8 +124,8 @@ private void OnPurchaseCompleted(StoreTransaction transaction, int status, strin
 ### Sign in with Apple
 
 ```csharp
-using GodotApplePlugins.Sharp;
-using GodotApplePlugins.Sharp.Authentication;
+using GodotApplePlugins.NET;
+using GodotApplePlugins.NET.Authentication;
 
 var authController = ApplePlugins.TryCreateASAuthorizationController();
 if (authController != null)
@@ -150,13 +150,13 @@ if (authController != null)
 
 | Namespace | Description |
 |-----------|-------------|
-| `GodotApplePlugins.Sharp` | Main entry point (`ApplePlugins` class) |
-| `GodotApplePlugins.Sharp.GameCenter` | Game Center APIs |
-| `GodotApplePlugins.Sharp.StoreKit` | In-app purchase APIs |
-| `GodotApplePlugins.Sharp.Authentication` | Sign in with Apple, OAuth |
-| `GodotApplePlugins.Sharp.AVFoundation` | Audio session control |
-| `GodotApplePlugins.Sharp.Foundation` | Foundation utilities (URL, UUID) |
-| `GodotApplePlugins.Sharp.UI` | Native UI (file picker) |
+| `GodotApplePlugins.NET` | Main entry point (`ApplePlugins` class) |
+| `GodotApplePlugins.NET.GameCenter` | Game Center APIs |
+| `GodotApplePlugins.NET.StoreKit` | In-app purchase APIs |
+| `GodotApplePlugins.NET.Authentication` | Sign in with Apple, OAuth |
+| `GodotApplePlugins.NET.AVFoundation` | Audio session control |
+| `GodotApplePlugins.NET.Foundation` | Foundation utilities (URL, UUID) |
+| `GodotApplePlugins.NET.UI` | Native UI (file picker) |
 
 ### Key Classes
 
@@ -190,7 +190,7 @@ The C# wrappers are generated from GodotApplePlugins XML documentation. To regen
 Or manually:
 
 ```bash
-dotnet run --project src/GodotApplePlugins.Generator -- doc_classes src/GodotApplePlugins.Sharp/Generated
+dotnet run --project src/GodotApplePlugins.Generator -- doc_classes src/GodotApplePlugins.NET/Generated
 ```
 
 ### Project Structure
@@ -199,7 +199,7 @@ dotnet run --project src/GodotApplePlugins.Generator -- doc_classes src/GodotApp
 GodotApplePlugins.NET/
 ├── doc_classes/                    # XML docs from GodotApplePlugins
 ├── src/
-│   ├── GodotApplePlugins.Sharp/   # The NuGet package
+│   ├── GodotApplePlugins.NET/   # The NuGet package
 │   │   └── Generated/             # Auto-generated wrappers
 │   └── GodotApplePlugins.Generator/ # Code generator
 ├── generate.sh                     # Regeneration script

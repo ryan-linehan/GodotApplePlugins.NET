@@ -5,9 +5,9 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOC_CLASSES="$SCRIPT_DIR/doc_classes"
-OUTPUT="$SCRIPT_DIR/src/GodotApplePlugins.Sharp/Generated"
+OUTPUT="$SCRIPT_DIR/src/GodotApplePlugins.NET/Generated"
 
-echo "=== GodotApplePlugins.Sharp Code Generator ==="
+echo "=== GodotApplePlugins.NET Code Generator ==="
 echo ""
 
 # Check if doc_classes exists
