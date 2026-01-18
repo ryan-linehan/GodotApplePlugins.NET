@@ -104,10 +104,17 @@ public static class TypeMapper
             var innerType = arrayMatch.Groups[1].Value;
             if (WrappedClasses.Contains(innerType))
             {
-                // Need to unwrap each element
-                return $"new Godot.Collections.Array({paramName}.Select(x => x.Instance))";
+                // Need to unwrap each element and convert to Variant
+                return $"new Godot.Collections.Array({paramName}.Select(x => Variant.From(x.Instance)))";
             }
-            return $"new Godot.Collections.Array({paramName})";
+            // Convert primitive arrays to Variant enumerable
+            return $"new Godot.Collections.Array({paramName}.Select(x => Variant.From(x)))";
+        }
+
+        // Handle PackedStringArray - pass directly, Godot handles the conversion
+        if (godotType == "PackedStringArray")
+        {
+            return paramName;
         }
 
         if (WrappedClasses.Contains(godotType))

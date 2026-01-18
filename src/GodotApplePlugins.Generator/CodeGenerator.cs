@@ -422,6 +422,19 @@ public class CodeGenerator
     /// </summary>
     private string GetSignalResultConversion(string expr, string godotType)
     {
+        // Handle array types like Array[StoreProduct]
+        var arrayMatch = System.Text.RegularExpressions.Regex.Match(godotType, @"Array\[(\w+)\]");
+        if (arrayMatch.Success)
+        {
+            var innerType = arrayMatch.Groups[1].Value;
+            if (TypeMapper.IsWrappedClass(innerType))
+            {
+                return $"{expr}.AsGodotArray().Select(x => new {innerType}((GodotObject)x.Obj!)).ToArray()";
+            }
+            var csharpInner = TypeMapper.GetCSharpType(innerType);
+            return $"{expr}.AsGodotArray().Select(x => x.As<{csharpInner}>()).ToArray()";
+        }
+
         if (TypeMapper.IsWrappedClass(godotType))
         {
             return $"new {godotType}({expr}.AsGodotObject())";

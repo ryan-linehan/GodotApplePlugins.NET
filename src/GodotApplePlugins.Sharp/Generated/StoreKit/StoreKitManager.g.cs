@@ -64,7 +64,7 @@ public partial class StoreKitManager : GodotObject
     /// </summary>
     public void PurchaseWithOptions(StoreProduct product, StoreProductPurchaseOption[] options)
     {
-        _instance.Call(new StringName("purchase_with_options"), product.Instance, new Godot.Collections.Array(options.Select(x => x.Instance)));
+        _instance.Call(new StringName("purchase_with_options"), product.Instance, new Godot.Collections.Array(options.Select(x => Variant.From(x.Instance))));
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ public partial class StoreKitManager : GodotObject
     {
         _instance.Call(new StringName("request_products"), productids);
         var result = await ToSignal(this, SignalName.ProductsRequestCompleted);
-        return (result[0].AsGodotObject(), result[1].AsInt32());
+        return (result[0].AsGodotArray().Select(x => new StoreProduct((GodotObject)x.Obj!)).ToArray(), result[1].AsInt32());
     }
 
     /// <summary>

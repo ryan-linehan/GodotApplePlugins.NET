@@ -39,7 +39,7 @@ public partial class AppleFilePicker : GodotObject
     /// </summary>
     public void PickDocument(string[] allowedTypes, bool allowMultiple)
     {
-        _instance.Call(new StringName("pick_document"), new Godot.Collections.Array(allowedTypes), allowMultiple);
+        _instance.Call(new StringName("pick_document"), new Godot.Collections.Array(allowedTypes.Select(x => Variant.From(x))), allowMultiple);
     }
 
     #region Signals

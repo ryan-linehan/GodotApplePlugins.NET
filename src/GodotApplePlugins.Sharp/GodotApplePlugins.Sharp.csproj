@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Godot.NET.Sdk/4.3.0">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -22,11 +22,6 @@
     <PackageTags>godot;apple;gamecenter;storekit;iap;signin-with-apple;gdextension</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
-
-  <!-- GodotSharp reference -->
-  <ItemGroup>
-    <PackageReference Include="GodotSharp" Version="[4.3.0,5.0.0)" PrivateAssets="all" />
-  </ItemGroup>
 
   <!-- Include README in package -->
   <ItemGroup>
