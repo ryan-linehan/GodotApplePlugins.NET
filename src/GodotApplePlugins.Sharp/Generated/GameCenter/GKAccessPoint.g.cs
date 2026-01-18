@@ -17,6 +17,23 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GKAccessPoint : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodTrigger = "trigger";
+    private static readonly StringName _methodTriggerWithAchievement = "trigger_with_achievement";
+    private static readonly StringName _methodTriggerWithLeaderboard = "trigger_with_leaderboard";
+    private static readonly StringName _methodTriggerWithLeaderboardSet = "trigger_with_leaderboard_set";
+    private static readonly StringName _methodTriggerWithPlayer = "trigger_with_player";
+    private static readonly StringName _methodTriggerWithState = "trigger_with_state";
+    private static readonly StringName _propertyActive = "active";
+    private static readonly StringName _propertyFrameInScreenCoordinates = "frame_in_screen_coordinates";
+    private static readonly StringName _propertyIsPresentingGameCenter = "is_presenting_game_center";
+    private static readonly StringName _propertyLocation = "location";
+    private static readonly StringName _propertyShowHighlights = "show_highlights";
+    private static readonly StringName _propertyVisible = "visible";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +54,8 @@ public partial class GKAccessPoint : GodotObject
     /// </summary>
     public bool Active
     {
-        get => _instance.Get(new StringName("active")).AsBool();
-        set => _instance.Set(new StringName("active"), value);
+        get => _instance.Get(_propertyActive).AsBool();
+        set => _instance.Set(_propertyActive, value);
     }
 
     /// <summary>
@@ -46,8 +63,8 @@ public partial class GKAccessPoint : GodotObject
     /// </summary>
     public Rect2 FrameInScreenCoordinates
     {
-        get => _instance.Get(new StringName("frame_in_screen_coordinates")).AsRect2();
-        set => _instance.Set(new StringName("frame_in_screen_coordinates"), value);
+        get => _instance.Get(_propertyFrameInScreenCoordinates).AsRect2();
+        set => _instance.Set(_propertyFrameInScreenCoordinates, value);
     }
 
     /// <summary>
@@ -55,8 +72,8 @@ public partial class GKAccessPoint : GodotObject
     /// </summary>
     public bool IsPresentingGameCenter
     {
-        get => _instance.Get(new StringName("is_presenting_game_center")).AsBool();
-        set => _instance.Set(new StringName("is_presenting_game_center"), value);
+        get => _instance.Get(_propertyIsPresentingGameCenter).AsBool();
+        set => _instance.Set(_propertyIsPresentingGameCenter, value);
     }
 
     /// <summary>
@@ -64,8 +81,8 @@ public partial class GKAccessPoint : GodotObject
     /// </summary>
     public int Location
     {
-        get => _instance.Get(new StringName("location")).AsInt32();
-        set => _instance.Set(new StringName("location"), value);
+        get => _instance.Get(_propertyLocation).AsInt32();
+        set => _instance.Set(_propertyLocation, value);
     }
 
     /// <summary>
@@ -73,8 +90,8 @@ public partial class GKAccessPoint : GodotObject
     /// </summary>
     public bool ShowHighlights
     {
-        get => _instance.Get(new StringName("show_highlights")).AsBool();
-        set => _instance.Set(new StringName("show_highlights"), value);
+        get => _instance.Get(_propertyShowHighlights).AsBool();
+        set => _instance.Set(_propertyShowHighlights, value);
     }
 
     /// <summary>
@@ -82,8 +99,8 @@ public partial class GKAccessPoint : GodotObject
     /// </summary>
     public bool Visible
     {
-        get => _instance.Get(new StringName("visible")).AsBool();
-        set => _instance.Set(new StringName("visible"), value);
+        get => _instance.Get(_propertyVisible).AsBool();
+        set => _instance.Set(_propertyVisible, value);
     }
 
     /// <summary>
@@ -91,7 +108,7 @@ public partial class GKAccessPoint : GodotObject
     /// </summary>
     public void Trigger(Action? done = null)
     {
-        _instance.Call(new StringName("trigger"), done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodTrigger, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -99,7 +116,7 @@ public partial class GKAccessPoint : GodotObject
     /// </summary>
     public void TriggerWithAchievement(string achievementid, Action? done = null)
     {
-        _instance.Call(new StringName("trigger_with_achievement"), achievementid, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodTriggerWithAchievement, achievementid, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -107,7 +124,7 @@ public partial class GKAccessPoint : GodotObject
     /// </summary>
     public void TriggerWithLeaderboard(string leaderboardid, int playerscope, int timescope, Action? done = null)
     {
-        _instance.Call(new StringName("trigger_with_leaderboard"), leaderboardid, playerscope, timescope, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodTriggerWithLeaderboard, leaderboardid, playerscope, timescope, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -115,7 +132,7 @@ public partial class GKAccessPoint : GodotObject
     /// </summary>
     public void TriggerWithLeaderboardSet(string leaderboardsetid, Action? done = null)
     {
-        _instance.Call(new StringName("trigger_with_leaderboard_set"), leaderboardsetid, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodTriggerWithLeaderboardSet, leaderboardsetid, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -123,7 +140,7 @@ public partial class GKAccessPoint : GodotObject
     /// </summary>
     public void TriggerWithPlayer(GKPlayer player, Action? done = null)
     {
-        _instance.Call(new StringName("trigger_with_player"), player.Instance, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodTriggerWithPlayer, player.Instance, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -131,7 +148,7 @@ public partial class GKAccessPoint : GodotObject
     /// </summary>
     public void TriggerWithState(GodotObject state, Action? done = null)
     {
-        _instance.Call(new StringName("trigger_with_state"), state, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodTriggerWithState, state, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
     }
 
 }

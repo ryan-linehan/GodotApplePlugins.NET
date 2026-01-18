@@ -17,6 +17,16 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GKLeaderboardEntry : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _propertyContext = "context";
+    private static readonly StringName _propertyFormattedScore = "formatted_score";
+    private static readonly StringName _propertyPlayer = "player";
+    private static readonly StringName _propertyRank = "rank";
+    private static readonly StringName _propertyScore = "score";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +47,8 @@ public partial class GKLeaderboardEntry : GodotObject
     /// </summary>
     public int Context
     {
-        get => _instance.Get(new StringName("context")).AsInt32();
-        set => _instance.Set(new StringName("context"), value);
+        get => _instance.Get(_propertyContext).AsInt32();
+        set => _instance.Set(_propertyContext, value);
     }
 
     /// <summary>
@@ -46,8 +56,8 @@ public partial class GKLeaderboardEntry : GodotObject
     /// </summary>
     public string FormattedScore
     {
-        get => _instance.Get(new StringName("formatted_score")).AsString();
-        set => _instance.Set(new StringName("formatted_score"), value);
+        get => _instance.Get(_propertyFormattedScore).AsString();
+        set => _instance.Set(_propertyFormattedScore, value);
     }
 
     /// <summary>
@@ -55,8 +65,8 @@ public partial class GKLeaderboardEntry : GodotObject
     /// </summary>
     public GKPlayer Player
     {
-        get => new GKPlayer((GodotObject)_instance.Get(new StringName("player")).Obj!);
-        set => _instance.Set(new StringName("player"), value.Instance);
+        get => new GKPlayer((GodotObject)_instance.Get(_propertyPlayer).Obj!);
+        set => _instance.Set(_propertyPlayer, value.Instance);
     }
 
     /// <summary>
@@ -64,8 +74,8 @@ public partial class GKLeaderboardEntry : GodotObject
     /// </summary>
     public int Rank
     {
-        get => _instance.Get(new StringName("rank")).AsInt32();
-        set => _instance.Set(new StringName("rank"), value);
+        get => _instance.Get(_propertyRank).AsInt32();
+        set => _instance.Set(_propertyRank, value);
     }
 
     /// <summary>
@@ -73,8 +83,8 @@ public partial class GKLeaderboardEntry : GodotObject
     /// </summary>
     public int Score
     {
-        get => _instance.Get(new StringName("score")).AsInt32();
-        set => _instance.Set(new StringName("score"), value);
+        get => _instance.Get(_propertyScore).AsInt32();
+        set => _instance.Set(_propertyScore, value);
     }
 
 }

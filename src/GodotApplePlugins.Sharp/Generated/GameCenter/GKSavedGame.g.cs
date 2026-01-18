@@ -17,6 +17,14 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GKSavedGame : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodLoadData = "load_data";
+    private static readonly StringName _propertyDeviceName = "device_name";
+    private static readonly StringName _propertyName = "name";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +45,8 @@ public partial class GKSavedGame : GodotObject
     /// </summary>
     public string DeviceName
     {
-        get => _instance.Get(new StringName("device_name")).AsString();
-        set => _instance.Set(new StringName("device_name"), value);
+        get => _instance.Get(_propertyDeviceName).AsString();
+        set => _instance.Set(_propertyDeviceName, value);
     }
 
     /// <summary>
@@ -46,8 +54,8 @@ public partial class GKSavedGame : GodotObject
     /// </summary>
     public string Name
     {
-        get => _instance.Get(new StringName("name")).AsString();
-        set => _instance.Set(new StringName("name"), value);
+        get => _instance.Get(_propertyName).AsString();
+        set => _instance.Set(_propertyName, value);
     }
 
     /// <summary>
@@ -55,7 +63,7 @@ public partial class GKSavedGame : GodotObject
     /// </summary>
     public void LoadData(Action? done = null)
     {
-        _instance.Call(new StringName("load_data"), done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadData, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
     }
 
 }

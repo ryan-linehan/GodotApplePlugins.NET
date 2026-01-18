@@ -17,6 +17,15 @@ namespace GodotApplePlugins.NET.StoreKit;
 /// </summary>
 public partial class StoreSubscriptionInfoRenewalInfo : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _propertyAppAccountToken = "app_account_token";
+    private static readonly StringName _propertyAppTransactionId = "app_transaction_id";
+    private static readonly StringName _propertyCurrentProductId = "current_product_id";
+    private static readonly StringName _propertyOriginalTransactionId = "original_transaction_id";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +46,8 @@ public partial class StoreSubscriptionInfoRenewalInfo : GodotObject
     /// </summary>
     public string AppAccountToken
     {
-        get => _instance.Get(new StringName("app_account_token")).AsString();
-        set => _instance.Set(new StringName("app_account_token"), value);
+        get => _instance.Get(_propertyAppAccountToken).AsString();
+        set => _instance.Set(_propertyAppAccountToken, value);
     }
 
     /// <summary>
@@ -46,8 +55,8 @@ public partial class StoreSubscriptionInfoRenewalInfo : GodotObject
     /// </summary>
     public string AppTransactionId
     {
-        get => _instance.Get(new StringName("app_transaction_id")).AsString();
-        set => _instance.Set(new StringName("app_transaction_id"), value);
+        get => _instance.Get(_propertyAppTransactionId).AsString();
+        set => _instance.Set(_propertyAppTransactionId, value);
     }
 
     /// <summary>
@@ -55,8 +64,8 @@ public partial class StoreSubscriptionInfoRenewalInfo : GodotObject
     /// </summary>
     public string CurrentProductId
     {
-        get => _instance.Get(new StringName("current_product_id")).AsString();
-        set => _instance.Set(new StringName("current_product_id"), value);
+        get => _instance.Get(_propertyCurrentProductId).AsString();
+        set => _instance.Set(_propertyCurrentProductId, value);
     }
 
     /// <summary>
@@ -64,8 +73,8 @@ public partial class StoreSubscriptionInfoRenewalInfo : GodotObject
     /// </summary>
     public int OriginalTransactionId
     {
-        get => _instance.Get(new StringName("original_transaction_id")).AsInt32();
-        set => _instance.Set(new StringName("original_transaction_id"), value);
+        get => _instance.Get(_propertyOriginalTransactionId).AsInt32();
+        set => _instance.Set(_propertyOriginalTransactionId, value);
     }
 
 }

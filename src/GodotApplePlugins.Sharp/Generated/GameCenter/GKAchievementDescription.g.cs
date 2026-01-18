@@ -17,6 +17,22 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GKAchievementDescription : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodLoadAchievementDescriptions = "load_achievement_descriptions";
+    private static readonly StringName _methodLoadImage = "load_image";
+    private static readonly StringName _propertyAchievedDescription = "achieved_description";
+    private static readonly StringName _propertyGroupIdentifier = "group_identifier";
+    private static readonly StringName _propertyIdentifier = "identifier";
+    private static readonly StringName _propertyIsHidden = "is_hidden";
+    private static readonly StringName _propertyIsReplayable = "is_replayable";
+    private static readonly StringName _propertyMaximumPoints = "maximum_points";
+    private static readonly StringName _propertyRarityPercent = "rarity_percent";
+    private static readonly StringName _propertyTitle = "title";
+    private static readonly StringName _propertyUnachievedDescription = "unachieved_description";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +53,8 @@ public partial class GKAchievementDescription : GodotObject
     /// </summary>
     public string AchievedDescription
     {
-        get => _instance.Get(new StringName("achieved_description")).AsString();
-        set => _instance.Set(new StringName("achieved_description"), value);
+        get => _instance.Get(_propertyAchievedDescription).AsString();
+        set => _instance.Set(_propertyAchievedDescription, value);
     }
 
     /// <summary>
@@ -46,8 +62,8 @@ public partial class GKAchievementDescription : GodotObject
     /// </summary>
     public string GroupIdentifier
     {
-        get => _instance.Get(new StringName("group_identifier")).AsString();
-        set => _instance.Set(new StringName("group_identifier"), value);
+        get => _instance.Get(_propertyGroupIdentifier).AsString();
+        set => _instance.Set(_propertyGroupIdentifier, value);
     }
 
     /// <summary>
@@ -55,8 +71,8 @@ public partial class GKAchievementDescription : GodotObject
     /// </summary>
     public string Identifier
     {
-        get => _instance.Get(new StringName("identifier")).AsString();
-        set => _instance.Set(new StringName("identifier"), value);
+        get => _instance.Get(_propertyIdentifier).AsString();
+        set => _instance.Set(_propertyIdentifier, value);
     }
 
     /// <summary>
@@ -64,8 +80,8 @@ public partial class GKAchievementDescription : GodotObject
     /// </summary>
     public bool IsHidden
     {
-        get => _instance.Get(new StringName("is_hidden")).AsBool();
-        set => _instance.Set(new StringName("is_hidden"), value);
+        get => _instance.Get(_propertyIsHidden).AsBool();
+        set => _instance.Set(_propertyIsHidden, value);
     }
 
     /// <summary>
@@ -73,8 +89,8 @@ public partial class GKAchievementDescription : GodotObject
     /// </summary>
     public bool IsReplayable
     {
-        get => _instance.Get(new StringName("is_replayable")).AsBool();
-        set => _instance.Set(new StringName("is_replayable"), value);
+        get => _instance.Get(_propertyIsReplayable).AsBool();
+        set => _instance.Set(_propertyIsReplayable, value);
     }
 
     /// <summary>
@@ -82,8 +98,8 @@ public partial class GKAchievementDescription : GodotObject
     /// </summary>
     public int MaximumPoints
     {
-        get => _instance.Get(new StringName("maximum_points")).AsInt32();
-        set => _instance.Set(new StringName("maximum_points"), value);
+        get => _instance.Get(_propertyMaximumPoints).AsInt32();
+        set => _instance.Set(_propertyMaximumPoints, value);
     }
 
     /// <summary>
@@ -91,8 +107,8 @@ public partial class GKAchievementDescription : GodotObject
     /// </summary>
     public Variant RarityPercent
     {
-        get => _instance.Get(new StringName("rarity_percent"));
-        set => _instance.Set(new StringName("rarity_percent"), value);
+        get => _instance.Get(_propertyRarityPercent);
+        set => _instance.Set(_propertyRarityPercent, value);
     }
 
     /// <summary>
@@ -100,8 +116,8 @@ public partial class GKAchievementDescription : GodotObject
     /// </summary>
     public string Title
     {
-        get => _instance.Get(new StringName("title")).AsString();
-        set => _instance.Set(new StringName("title"), value);
+        get => _instance.Get(_propertyTitle).AsString();
+        set => _instance.Set(_propertyTitle, value);
     }
 
     /// <summary>
@@ -109,8 +125,8 @@ public partial class GKAchievementDescription : GodotObject
     /// </summary>
     public string UnachievedDescription
     {
-        get => _instance.Get(new StringName("unachieved_description")).AsString();
-        set => _instance.Set(new StringName("unachieved_description"), value);
+        get => _instance.Get(_propertyUnachievedDescription).AsString();
+        set => _instance.Set(_propertyUnachievedDescription, value);
     }
 
     /// <summary>
@@ -118,7 +134,7 @@ public partial class GKAchievementDescription : GodotObject
     /// </summary>
     public void LoadAchievementDescriptions(Action? callback = null)
     {
-        _instance.Call(new StringName("load_achievement_descriptions"), callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadAchievementDescriptions, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -126,7 +142,7 @@ public partial class GKAchievementDescription : GodotObject
     /// </summary>
     public void LoadImage(Action? callback = null)
     {
-        _instance.Call(new StringName("load_image"), callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadImage, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
 }

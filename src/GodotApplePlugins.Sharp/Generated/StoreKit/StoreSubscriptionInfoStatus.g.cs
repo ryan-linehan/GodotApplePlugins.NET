@@ -17,6 +17,14 @@ namespace GodotApplePlugins.NET.StoreKit;
 /// </summary>
 public partial class StoreSubscriptionInfoStatus : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _propertyRenewalInfo = "renewal_info";
+    private static readonly StringName _propertyState = "state";
+    private static readonly StringName _propertyTransaction = "transaction";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +45,8 @@ public partial class StoreSubscriptionInfoStatus : GodotObject
     /// </summary>
     public StoreSubscriptionInfoRenewalInfo RenewalInfo
     {
-        get => new StoreSubscriptionInfoRenewalInfo((GodotObject)_instance.Get(new StringName("renewal_info")).Obj!);
-        set => _instance.Set(new StringName("renewal_info"), value.Instance);
+        get => new StoreSubscriptionInfoRenewalInfo((GodotObject)_instance.Get(_propertyRenewalInfo).Obj!);
+        set => _instance.Set(_propertyRenewalInfo, value.Instance);
     }
 
     /// <summary>
@@ -46,8 +54,8 @@ public partial class StoreSubscriptionInfoStatus : GodotObject
     /// </summary>
     public int State
     {
-        get => _instance.Get(new StringName("state")).AsInt32();
-        set => _instance.Set(new StringName("state"), value);
+        get => _instance.Get(_propertyState).AsInt32();
+        set => _instance.Set(_propertyState, value);
     }
 
     /// <summary>
@@ -55,8 +63,8 @@ public partial class StoreSubscriptionInfoStatus : GodotObject
     /// </summary>
     public StoreTransaction Transaction
     {
-        get => new StoreTransaction((GodotObject)_instance.Get(new StringName("transaction")).Obj!);
-        set => _instance.Set(new StringName("transaction"), value.Instance);
+        get => new StoreTransaction((GodotObject)_instance.Get(_propertyTransaction).Obj!);
+        set => _instance.Set(_propertyTransaction, value.Instance);
     }
 
 }

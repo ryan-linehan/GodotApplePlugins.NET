@@ -17,6 +17,13 @@ namespace GodotApplePlugins.NET.AVFoundation;
 /// </summary>
 public partial class AVAudioSession : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodSetCategory = "set_category";
+    private static readonly StringName _propertyCurrentCategory = "current_category";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +44,8 @@ public partial class AVAudioSession : GodotObject
     /// </summary>
     public int CurrentCategory
     {
-        get => _instance.Get(new StringName("current_category")).AsInt32();
-        set => _instance.Set(new StringName("current_category"), value);
+        get => _instance.Get(_propertyCurrentCategory).AsInt32();
+        set => _instance.Set(_propertyCurrentCategory, value);
     }
 
     /// <summary>
@@ -46,7 +53,7 @@ public partial class AVAudioSession : GodotObject
     /// </summary>
     public int SetCategory(GodotObject category, GodotObject mode, GodotObject policy, int options)
     {
-        var result = _instance.Call(new StringName("set_category"), category, mode, policy, options);
+        var result = _instance.Call(_methodSetCategory, category, mode, policy, options);
         return result.AsInt32();
     }
 

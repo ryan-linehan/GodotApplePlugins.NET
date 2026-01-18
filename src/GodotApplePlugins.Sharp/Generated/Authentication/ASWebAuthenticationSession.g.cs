@@ -17,6 +17,16 @@ namespace GodotApplePlugins.NET.Authentication;
 /// </summary>
 public partial class ASWebAuthenticationSession : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodCancel = "cancel";
+    private static readonly StringName _methodStart = "start";
+    private static readonly StringName _signalCanceled = "canceled";
+    private static readonly StringName _signalCompleted = "completed";
+    private static readonly StringName _signalFailed = "failed";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -38,7 +48,7 @@ public partial class ASWebAuthenticationSession : GodotObject
     /// </summary>
     public bool Start(string authUrl, string callbackScheme, bool prefersEphemeral)
     {
-        var result = _instance.Call(new StringName("start"), authUrl, callbackScheme, prefersEphemeral);
+        var result = _instance.Call(_methodStart, authUrl, callbackScheme, prefersEphemeral);
         return result.AsBool();
     }
 
@@ -47,7 +57,7 @@ public partial class ASWebAuthenticationSession : GodotObject
     /// </summary>
     public void Cancel()
     {
-        _instance.Call(new StringName("cancel"));
+        _instance.Call(_methodCancel);
     }
 
     #region Signals
@@ -72,15 +82,15 @@ public partial class ASWebAuthenticationSession : GodotObject
 
     private void ConnectSignals()
     {
-        _instance.Connect(new StringName("completed"),
+        _instance.Connect(_signalCompleted,
             Callable.From<string>((p0) =>
                 EmitSignal(SignalName.Completed, p0)));
 
-        _instance.Connect(new StringName("failed"),
+        _instance.Connect(_signalFailed,
             Callable.From<string>((p0) =>
                 EmitSignal(SignalName.Failed, p0)));
 
-        _instance.Connect(new StringName("canceled"),
+        _instance.Connect(_signalCanceled,
             Callable.From(() => EmitSignal(SignalName.Canceled)));
 
     }

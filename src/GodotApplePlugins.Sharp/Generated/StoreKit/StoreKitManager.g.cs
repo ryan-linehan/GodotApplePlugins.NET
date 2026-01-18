@@ -17,6 +17,23 @@ namespace GodotApplePlugins.NET.StoreKit;
 /// </summary>
 public partial class StoreKitManager : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodFetchCurrentEntitlements = "fetch_current_entitlements";
+    private static readonly StringName _methodPurchase = "purchase";
+    private static readonly StringName _methodPurchaseWithOptions = "purchase_with_options";
+    private static readonly StringName _methodRequestProducts = "request_products";
+    private static readonly StringName _methodRestorePurchases = "restore_purchases";
+    private static readonly StringName _signalProductsRequestCompleted = "products_request_completed";
+    private static readonly StringName _signalPurchaseCompleted = "purchase_completed";
+    private static readonly StringName _signalPurchaseIntent = "purchase_intent";
+    private static readonly StringName _signalRestoreCompleted = "restore_completed";
+    private static readonly StringName _signalSupscriptionUpdate = "supscription_update";
+    private static readonly StringName _signalTransactionUpdated = "transaction_updated";
+    private static readonly StringName _signalUnverifiedTransactionUpdated = "unverified_transaction_updated";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -38,7 +55,7 @@ public partial class StoreKitManager : GodotObject
     /// </summary>
     public void FetchCurrentEntitlements()
     {
-        _instance.Call(new StringName("fetch_current_entitlements"));
+        _instance.Call(_methodFetchCurrentEntitlements);
     }
 
     /// <summary>
@@ -46,7 +63,7 @@ public partial class StoreKitManager : GodotObject
     /// </summary>
     public void Purchase(StoreProduct product)
     {
-        _instance.Call(new StringName("purchase"), product.Instance);
+        _instance.Call(_methodPurchase, product.Instance);
     }
 
     /// <summary>
@@ -54,7 +71,7 @@ public partial class StoreKitManager : GodotObject
     /// </summary>
     public async Task<(StoreTransaction, int, string)> PurchaseAsync(StoreProduct product)
     {
-        _instance.Call(new StringName("purchase"), product.Instance);
+        _instance.Call(_methodPurchase, product.Instance);
         var result = await ToSignal(this, SignalName.PurchaseCompleted);
         return (new StoreTransaction(result[0].AsGodotObject()), result[1].AsInt32(), result[2].AsString());
     }
@@ -64,7 +81,7 @@ public partial class StoreKitManager : GodotObject
     /// </summary>
     public void PurchaseWithOptions(StoreProduct product, StoreProductPurchaseOption[] options)
     {
-        _instance.Call(new StringName("purchase_with_options"), product.Instance, new Godot.Collections.Array(options.Select(x => Variant.From(x.Instance))));
+        _instance.Call(_methodPurchaseWithOptions, product.Instance, new Godot.Collections.Array(options.Select(x => Variant.From(x.Instance))));
     }
 
     /// <summary>
@@ -72,7 +89,7 @@ public partial class StoreKitManager : GodotObject
     /// </summary>
     public void RequestProducts(string[] productids)
     {
-        _instance.Call(new StringName("request_products"), productids);
+        _instance.Call(_methodRequestProducts, productids);
     }
 
     /// <summary>
@@ -80,7 +97,7 @@ public partial class StoreKitManager : GodotObject
     /// </summary>
     public async Task<(StoreProduct[], int)> RequestProductsAsync(string[] productids)
     {
-        _instance.Call(new StringName("request_products"), productids);
+        _instance.Call(_methodRequestProducts, productids);
         var result = await ToSignal(this, SignalName.ProductsRequestCompleted);
         return (result[0].AsGodotArray().Select(x => new StoreProduct((GodotObject)x.Obj!)).ToArray(), result[1].AsInt32());
     }
@@ -90,7 +107,7 @@ public partial class StoreKitManager : GodotObject
     /// </summary>
     public void RestorePurchases()
     {
-        _instance.Call(new StringName("restore_purchases"));
+        _instance.Call(_methodRestorePurchases);
     }
 
     /// <summary>
@@ -98,7 +115,7 @@ public partial class StoreKitManager : GodotObject
     /// </summary>
     public async Task<(int, string)> RestorePurchasesAsync()
     {
-        _instance.Call(new StringName("restore_purchases"));
+        _instance.Call(_methodRestorePurchases);
         var result = await ToSignal(this, SignalName.RestoreCompleted);
         return (result[0].AsInt32(), result[1].AsString());
     }
@@ -140,31 +157,31 @@ public partial class StoreKitManager : GodotObject
 
     private void ConnectSignals()
     {
-        _instance.Connect(new StringName("products_request_completed"),
+        _instance.Connect(_signalProductsRequestCompleted,
             Callable.From<Godot.Collections.Array, int>((p0, p1) =>
                 EmitSignal(SignalName.ProductsRequestCompleted, p0.Select(x => new StoreProduct((GodotObject)x.Obj!)).ToArray(), p1)));
 
-        _instance.Connect(new StringName("purchase_completed"),
+        _instance.Connect(_signalPurchaseCompleted,
             Callable.From<GodotObject, int, string>((p0, p1, p2) =>
                 EmitSignal(SignalName.PurchaseCompleted, new StoreTransaction(p0), p1, p2)));
 
-        _instance.Connect(new StringName("purchase_intent"),
+        _instance.Connect(_signalPurchaseIntent,
             Callable.From<GodotObject>((p0) =>
                 EmitSignal(SignalName.PurchaseIntent, new StoreProduct(p0))));
 
-        _instance.Connect(new StringName("restore_completed"),
+        _instance.Connect(_signalRestoreCompleted,
             Callable.From<int, string>((p0, p1) =>
                 EmitSignal(SignalName.RestoreCompleted, p0, p1)));
 
-        _instance.Connect(new StringName("supscription_update"),
+        _instance.Connect(_signalSupscriptionUpdate,
             Callable.From<GodotObject>((p0) =>
                 EmitSignal(SignalName.SupscriptionUpdate, new StoreSubscriptionInfoStatus(p0))));
 
-        _instance.Connect(new StringName("transaction_updated"),
+        _instance.Connect(_signalTransactionUpdated,
             Callable.From<GodotObject>((p0) =>
                 EmitSignal(SignalName.TransactionUpdated, new StoreTransaction(p0))));
 
-        _instance.Connect(new StringName("unverified_transaction_updated"),
+        _instance.Connect(_signalUnverifiedTransactionUpdated,
             Callable.From<GodotObject, int>((p0, p1) =>
                 EmitSignal(SignalName.UnverifiedTransactionUpdated, new StoreTransaction(p0), p1)));
 

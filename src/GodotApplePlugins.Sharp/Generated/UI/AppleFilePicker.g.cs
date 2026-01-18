@@ -18,6 +18,15 @@ namespace GodotApplePlugins.NET.UI;
 /// </summary>
 public partial class AppleFilePicker : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodPickDocument = "pick_document";
+    private static readonly StringName _signalCanceled = "canceled";
+    private static readonly StringName _signalFileSelected = "file_selected";
+    private static readonly StringName _signalFilesSelected = "files_selected";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -39,7 +48,7 @@ public partial class AppleFilePicker : GodotObject
     /// </summary>
     public void PickDocument(string[] allowedTypes, bool allowMultiple)
     {
-        _instance.Call(new StringName("pick_document"), new Godot.Collections.Array(allowedTypes.Select(x => Variant.From(x))), allowMultiple);
+        _instance.Call(_methodPickDocument, new Godot.Collections.Array(allowedTypes.Select(x => Variant.From(x))), allowMultiple);
     }
 
     #region Signals
@@ -64,14 +73,14 @@ public partial class AppleFilePicker : GodotObject
 
     private void ConnectSignals()
     {
-        _instance.Connect(new StringName("canceled"),
+        _instance.Connect(_signalCanceled,
             Callable.From(() => EmitSignal(SignalName.Canceled)));
 
-        _instance.Connect(new StringName("file_selected"),
+        _instance.Connect(_signalFileSelected,
             Callable.From<GodotObject, string>((p0, p1) =>
                 EmitSignal(SignalName.FileSelected, new AppleURL(p0), p1)));
 
-        _instance.Connect(new StringName("files_selected"),
+        _instance.Connect(_signalFilesSelected,
             Callable.From<Godot.Collections.Array, string[]>((p0, p1) =>
                 EmitSignal(SignalName.FilesSelected, p0.Select(x => new AppleURL((GodotObject)x.Obj!)).ToArray(), p1)));
 

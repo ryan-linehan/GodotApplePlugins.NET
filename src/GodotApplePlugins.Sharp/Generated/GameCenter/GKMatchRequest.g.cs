@@ -17,6 +17,16 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GKMatchRequest : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodMaxPlayersAllowedForMatch = "max_players_allowed_for_match";
+    private static readonly StringName _propertyDefaultNumberOfPlayers = "default_number_of_players";
+    private static readonly StringName _propertyInviteMessage = "invite_message";
+    private static readonly StringName _propertyMaxPlayers = "max_players";
+    private static readonly StringName _propertyMinPlayers = "min_players";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +47,8 @@ public partial class GKMatchRequest : GodotObject
     /// </summary>
     public int DefaultNumberOfPlayers
     {
-        get => _instance.Get(new StringName("default_number_of_players")).AsInt32();
-        set => _instance.Set(new StringName("default_number_of_players"), value);
+        get => _instance.Get(_propertyDefaultNumberOfPlayers).AsInt32();
+        set => _instance.Set(_propertyDefaultNumberOfPlayers, value);
     }
 
     /// <summary>
@@ -46,8 +56,8 @@ public partial class GKMatchRequest : GodotObject
     /// </summary>
     public string InviteMessage
     {
-        get => _instance.Get(new StringName("invite_message")).AsString();
-        set => _instance.Set(new StringName("invite_message"), value);
+        get => _instance.Get(_propertyInviteMessage).AsString();
+        set => _instance.Set(_propertyInviteMessage, value);
     }
 
     /// <summary>
@@ -55,8 +65,8 @@ public partial class GKMatchRequest : GodotObject
     /// </summary>
     public int MaxPlayers
     {
-        get => _instance.Get(new StringName("max_players")).AsInt32();
-        set => _instance.Set(new StringName("max_players"), value);
+        get => _instance.Get(_propertyMaxPlayers).AsInt32();
+        set => _instance.Set(_propertyMaxPlayers, value);
     }
 
     /// <summary>
@@ -64,8 +74,8 @@ public partial class GKMatchRequest : GodotObject
     /// </summary>
     public int MinPlayers
     {
-        get => _instance.Get(new StringName("min_players")).AsInt32();
-        set => _instance.Set(new StringName("min_players"), value);
+        get => _instance.Get(_propertyMinPlayers).AsInt32();
+        set => _instance.Set(_propertyMinPlayers, value);
     }
 
     /// <summary>
@@ -73,7 +83,7 @@ public partial class GKMatchRequest : GodotObject
     /// </summary>
     public int MaxPlayersAllowedForMatch(GodotObject fortype)
     {
-        var result = _instance.Call(new StringName("max_players_allowed_for_match"), fortype);
+        var result = _instance.Call(_methodMaxPlayersAllowedForMatch, fortype);
         return result.AsInt32();
     }
 

@@ -17,6 +17,18 @@ namespace GodotApplePlugins.NET.StoreKit;
 /// </summary>
 public partial class StoreProduct : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _propertyDescriptionValue = "description_value";
+    private static readonly StringName _propertyDisplayName = "display_name";
+    private static readonly StringName _propertyDisplayPrice = "display_price";
+    private static readonly StringName _propertyIsFamilyShareable = "is_family_shareable";
+    private static readonly StringName _propertyJsonRepresentation = "json_representation";
+    private static readonly StringName _propertyPrice = "price";
+    private static readonly StringName _propertyProductId = "product_id";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +49,8 @@ public partial class StoreProduct : GodotObject
     /// </summary>
     public string DescriptionValue
     {
-        get => _instance.Get(new StringName("description_value")).AsString();
-        set => _instance.Set(new StringName("description_value"), value);
+        get => _instance.Get(_propertyDescriptionValue).AsString();
+        set => _instance.Set(_propertyDescriptionValue, value);
     }
 
     /// <summary>
@@ -46,8 +58,8 @@ public partial class StoreProduct : GodotObject
     /// </summary>
     public string DisplayName
     {
-        get => _instance.Get(new StringName("display_name")).AsString();
-        set => _instance.Set(new StringName("display_name"), value);
+        get => _instance.Get(_propertyDisplayName).AsString();
+        set => _instance.Set(_propertyDisplayName, value);
     }
 
     /// <summary>
@@ -55,8 +67,8 @@ public partial class StoreProduct : GodotObject
     /// </summary>
     public string DisplayPrice
     {
-        get => _instance.Get(new StringName("display_price")).AsString();
-        set => _instance.Set(new StringName("display_price"), value);
+        get => _instance.Get(_propertyDisplayPrice).AsString();
+        set => _instance.Set(_propertyDisplayPrice, value);
     }
 
     /// <summary>
@@ -64,8 +76,8 @@ public partial class StoreProduct : GodotObject
     /// </summary>
     public bool IsFamilyShareable
     {
-        get => _instance.Get(new StringName("is_family_shareable")).AsBool();
-        set => _instance.Set(new StringName("is_family_shareable"), value);
+        get => _instance.Get(_propertyIsFamilyShareable).AsBool();
+        set => _instance.Set(_propertyIsFamilyShareable, value);
     }
 
     /// <summary>
@@ -73,8 +85,8 @@ public partial class StoreProduct : GodotObject
     /// </summary>
     public string JsonRepresentation
     {
-        get => _instance.Get(new StringName("json_representation")).AsString();
-        set => _instance.Set(new StringName("json_representation"), value);
+        get => _instance.Get(_propertyJsonRepresentation).AsString();
+        set => _instance.Set(_propertyJsonRepresentation, value);
     }
 
     /// <summary>
@@ -82,8 +94,8 @@ public partial class StoreProduct : GodotObject
     /// </summary>
     public double Price
     {
-        get => _instance.Get(new StringName("price")).AsDouble();
-        set => _instance.Set(new StringName("price"), value);
+        get => _instance.Get(_propertyPrice).AsDouble();
+        set => _instance.Set(_propertyPrice, value);
     }
 
     /// <summary>
@@ -91,8 +103,8 @@ public partial class StoreProduct : GodotObject
     /// </summary>
     public string ProductId
     {
-        get => _instance.Get(new StringName("product_id")).AsString();
-        set => _instance.Set(new StringName("product_id"), value);
+        get => _instance.Get(_propertyProductId).AsString();
+        set => _instance.Set(_propertyProductId, value);
     }
 
 }

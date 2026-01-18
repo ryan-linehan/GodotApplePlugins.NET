@@ -17,6 +17,20 @@ namespace GodotApplePlugins.NET.Authentication;
 /// </summary>
 public partial class ASAuthorizationAppleIDCredential : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _propertyAuthorizationCode = "authorization_code";
+    private static readonly StringName _propertyAuthorizedScopes = "authorized_scopes";
+    private static readonly StringName _propertyEmail = "email";
+    private static readonly StringName _propertyFullName = "full_name";
+    private static readonly StringName _propertyIdentityToken = "identity_token";
+    private static readonly StringName _propertyRealUserStatus = "real_user_status";
+    private static readonly StringName _propertyState = "state";
+    private static readonly StringName _propertyUser = "user";
+    private static readonly StringName _propertyUserAgeRange = "user_age_range";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -34,14 +48,14 @@ public partial class ASAuthorizationAppleIDCredential : GodotObject
 
     public byte[] AuthorizationCode
     {
-        get => _instance.Get(new StringName("authorization_code")).AsByteArray();
-        set => _instance.Set(new StringName("authorization_code"), value);
+        get => _instance.Get(_propertyAuthorizationCode).AsByteArray();
+        set => _instance.Set(_propertyAuthorizationCode, value);
     }
 
     public Godot.Collections.Array AuthorizedScopes
     {
-        get => _instance.Get(new StringName("authorized_scopes")).AsGodotArray();
-        set => _instance.Set(new StringName("authorized_scopes"), value);
+        get => _instance.Get(_propertyAuthorizedScopes).AsGodotArray();
+        set => _instance.Set(_propertyAuthorizedScopes, value);
     }
 
     /// <summary>
@@ -49,26 +63,26 @@ public partial class ASAuthorizationAppleIDCredential : GodotObject
     /// </summary>
     public string Email
     {
-        get => _instance.Get(new StringName("email")).AsString();
-        set => _instance.Set(new StringName("email"), value);
+        get => _instance.Get(_propertyEmail).AsString();
+        set => _instance.Set(_propertyEmail, value);
     }
 
     public Godot.Collections.Dictionary FullName
     {
-        get => _instance.Get(new StringName("full_name")).AsGodotDictionary();
-        set => _instance.Set(new StringName("full_name"), value);
+        get => _instance.Get(_propertyFullName).AsGodotDictionary();
+        set => _instance.Set(_propertyFullName, value);
     }
 
     public byte[] IdentityToken
     {
-        get => _instance.Get(new StringName("identity_token")).AsByteArray();
-        set => _instance.Set(new StringName("identity_token"), value);
+        get => _instance.Get(_propertyIdentityToken).AsByteArray();
+        set => _instance.Set(_propertyIdentityToken, value);
     }
 
     public int RealUserStatus
     {
-        get => _instance.Get(new StringName("real_user_status")).AsInt32();
-        set => _instance.Set(new StringName("real_user_status"), value);
+        get => _instance.Get(_propertyRealUserStatus).AsInt32();
+        set => _instance.Set(_propertyRealUserStatus, value);
     }
 
     /// <summary>
@@ -76,8 +90,8 @@ public partial class ASAuthorizationAppleIDCredential : GodotObject
     /// </summary>
     public string State
     {
-        get => _instance.Get(new StringName("state")).AsString();
-        set => _instance.Set(new StringName("state"), value);
+        get => _instance.Get(_propertyState).AsString();
+        set => _instance.Set(_propertyState, value);
     }
 
     /// <summary>
@@ -85,14 +99,14 @@ public partial class ASAuthorizationAppleIDCredential : GodotObject
     /// </summary>
     public string User
     {
-        get => _instance.Get(new StringName("user")).AsString();
-        set => _instance.Set(new StringName("user"), value);
+        get => _instance.Get(_propertyUser).AsString();
+        set => _instance.Set(_propertyUser, value);
     }
 
     public int UserAgeRange
     {
-        get => _instance.Get(new StringName("user_age_range")).AsInt32();
-        set => _instance.Set(new StringName("user_age_range"), value);
+        get => _instance.Get(_propertyUserAgeRange).AsInt32();
+        set => _instance.Set(_propertyUserAgeRange, value);
     }
 
 }

@@ -17,6 +17,12 @@ namespace GodotApplePlugins.NET.Foundation;
 /// </summary>
 public partial class Foundation : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodUuid = "uuid";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,7 +43,7 @@ public partial class Foundation : GodotObject
     /// </summary>
     public string Uuid()
     {
-        var result = _instance.Call(new StringName("uuid"));
+        var result = _instance.Call(_methodUuid);
         return result.AsString();
     }
 

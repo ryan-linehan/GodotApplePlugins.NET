@@ -17,6 +17,20 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GKAchievement : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodLoadAchievements = "load_achievements";
+    private static readonly StringName _methodReportAchievement = "report_achievement";
+    private static readonly StringName _methodResetAchievements = "reset_achievements";
+    private static readonly StringName _propertyIdentifier = "identifier";
+    private static readonly StringName _propertyIsCompleted = "is_completed";
+    private static readonly StringName _propertyLastReportedDate = "last_reported_date";
+    private static readonly StringName _propertyPercentComplete = "percent_complete";
+    private static readonly StringName _propertyPlayer = "player";
+    private static readonly StringName _propertyShowsCompletionBanner = "shows_completion_banner";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +51,8 @@ public partial class GKAchievement : GodotObject
     /// </summary>
     public string Identifier
     {
-        get => _instance.Get(new StringName("identifier")).AsString();
-        set => _instance.Set(new StringName("identifier"), value);
+        get => _instance.Get(_propertyIdentifier).AsString();
+        set => _instance.Set(_propertyIdentifier, value);
     }
 
     /// <summary>
@@ -46,14 +60,14 @@ public partial class GKAchievement : GodotObject
     /// </summary>
     public bool IsCompleted
     {
-        get => _instance.Get(new StringName("is_completed")).AsBool();
-        set => _instance.Set(new StringName("is_completed"), value);
+        get => _instance.Get(_propertyIsCompleted).AsBool();
+        set => _instance.Set(_propertyIsCompleted, value);
     }
 
     public double LastReportedDate
     {
-        get => _instance.Get(new StringName("last_reported_date")).AsDouble();
-        set => _instance.Set(new StringName("last_reported_date"), value);
+        get => _instance.Get(_propertyLastReportedDate).AsDouble();
+        set => _instance.Set(_propertyLastReportedDate, value);
     }
 
     /// <summary>
@@ -61,8 +75,8 @@ public partial class GKAchievement : GodotObject
     /// </summary>
     public double PercentComplete
     {
-        get => _instance.Get(new StringName("percent_complete")).AsDouble();
-        set => _instance.Set(new StringName("percent_complete"), value);
+        get => _instance.Get(_propertyPercentComplete).AsDouble();
+        set => _instance.Set(_propertyPercentComplete, value);
     }
 
     /// <summary>
@@ -70,8 +84,8 @@ public partial class GKAchievement : GodotObject
     /// </summary>
     public GKPlayer Player
     {
-        get => new GKPlayer((GodotObject)_instance.Get(new StringName("player")).Obj!);
-        set => _instance.Set(new StringName("player"), value.Instance);
+        get => new GKPlayer((GodotObject)_instance.Get(_propertyPlayer).Obj!);
+        set => _instance.Set(_propertyPlayer, value.Instance);
     }
 
     /// <summary>
@@ -79,8 +93,8 @@ public partial class GKAchievement : GodotObject
     /// </summary>
     public bool ShowsCompletionBanner
     {
-        get => _instance.Get(new StringName("shows_completion_banner")).AsBool();
-        set => _instance.Set(new StringName("shows_completion_banner"), value);
+        get => _instance.Get(_propertyShowsCompletionBanner).AsBool();
+        set => _instance.Set(_propertyShowsCompletionBanner, value);
     }
 
     /// <summary>
@@ -88,7 +102,7 @@ public partial class GKAchievement : GodotObject
     /// </summary>
     public void LoadAchievements(Action? callback = null)
     {
-        _instance.Call(new StringName("load_achievements"), callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadAchievements, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -96,7 +110,7 @@ public partial class GKAchievement : GodotObject
     /// </summary>
     public void ReportAchievement(Godot.Collections.Array achievements, Action? callback = null)
     {
-        _instance.Call(new StringName("report_achievement"), achievements, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodReportAchievement, achievements, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -104,7 +118,7 @@ public partial class GKAchievement : GodotObject
     /// </summary>
     public void ResetAchievements(Action? callback = null)
     {
-        _instance.Call(new StringName("reset_achievements"), callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodResetAchievements, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
 }

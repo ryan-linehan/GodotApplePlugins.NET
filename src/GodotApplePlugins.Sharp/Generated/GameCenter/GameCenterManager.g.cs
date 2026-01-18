@@ -17,6 +17,16 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GameCenterManager : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodAuthenticate = "authenticate";
+    private static readonly StringName _propertyAccessPoint = "access_point";
+    private static readonly StringName _propertyLocalPlayer = "local_player";
+    private static readonly StringName _signalAuthenticationError = "authentication_error";
+    private static readonly StringName _signalAuthenticationResult = "authentication_result";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -38,8 +48,8 @@ public partial class GameCenterManager : GodotObject
     /// </summary>
     public GKAccessPoint AccessPoint
     {
-        get => new GKAccessPoint((GodotObject)_instance.Get(new StringName("access_point")).Obj!);
-        set => _instance.Set(new StringName("access_point"), value.Instance);
+        get => new GKAccessPoint((GodotObject)_instance.Get(_propertyAccessPoint).Obj!);
+        set => _instance.Set(_propertyAccessPoint, value.Instance);
     }
 
     /// <summary>
@@ -47,8 +57,8 @@ public partial class GameCenterManager : GodotObject
     /// </summary>
     public GKLocalPlayer LocalPlayer
     {
-        get => new GKLocalPlayer((GodotObject)_instance.Get(new StringName("local_player")).Obj!);
-        set => _instance.Set(new StringName("local_player"), value.Instance);
+        get => new GKLocalPlayer((GodotObject)_instance.Get(_propertyLocalPlayer).Obj!);
+        set => _instance.Set(_propertyLocalPlayer, value.Instance);
     }
 
     /// <summary>
@@ -56,7 +66,7 @@ public partial class GameCenterManager : GodotObject
     /// </summary>
     public void Authenticate()
     {
-        _instance.Call(new StringName("authenticate"));
+        _instance.Call(_methodAuthenticate);
     }
 
     /// <summary>
@@ -64,7 +74,7 @@ public partial class GameCenterManager : GodotObject
     /// </summary>
     public async Task<bool> AuthenticateAsync()
     {
-        _instance.Call(new StringName("authenticate"));
+        _instance.Call(_methodAuthenticate);
         var result = await ToSignal(this, SignalName.AuthenticationResult);
         return result[0].AsBool();
     }
@@ -85,11 +95,11 @@ public partial class GameCenterManager : GodotObject
 
     private void ConnectSignals()
     {
-        _instance.Connect(new StringName("authentication_error"),
+        _instance.Connect(_signalAuthenticationError,
             Callable.From<string>((p0) =>
                 EmitSignal(SignalName.AuthenticationError, p0)));
 
-        _instance.Connect(new StringName("authentication_result"),
+        _instance.Connect(_signalAuthenticationResult,
             Callable.From<bool>((p0) =>
                 EmitSignal(SignalName.AuthenticationResult, p0)));
 

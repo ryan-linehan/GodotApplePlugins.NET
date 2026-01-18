@@ -17,6 +17,14 @@ namespace GodotApplePlugins.NET.StoreKit;
 /// </summary>
 public partial class StoreView : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodDismiss = "dismiss";
+    private static readonly StringName _methodPresent = "present";
+    private static readonly StringName _propertyProductIds = "product_ids";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +45,8 @@ public partial class StoreView : GodotObject
     /// </summary>
     public string[] ProductIds
     {
-        get => _instance.Get(new StringName("product_ids")).AsStringArray();
-        set => _instance.Set(new StringName("product_ids"), value);
+        get => _instance.Get(_propertyProductIds).AsStringArray();
+        set => _instance.Set(_propertyProductIds, value);
     }
 
     /// <summary>
@@ -46,7 +54,7 @@ public partial class StoreView : GodotObject
     /// </summary>
     public void Dismiss()
     {
-        _instance.Call(new StringName("dismiss"));
+        _instance.Call(_methodDismiss);
     }
 
     /// <summary>
@@ -54,7 +62,7 @@ public partial class StoreView : GodotObject
     /// </summary>
     public void Present()
     {
-        _instance.Call(new StringName("present"));
+        _instance.Call(_methodPresent);
     }
 
 }

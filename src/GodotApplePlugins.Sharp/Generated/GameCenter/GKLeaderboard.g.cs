@@ -17,6 +17,24 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GKLeaderboard : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodLoadEntries = "load_entries";
+    private static readonly StringName _methodLoadImage = "load_image";
+    private static readonly StringName _methodLoadLeaderboards = "load_leaderboards";
+    private static readonly StringName _methodLoadLocalPlayerEntries = "load_local_player_entries";
+    private static readonly StringName _methodSubmitScore = "submit_score";
+    private static readonly StringName _propertyActivityIdentifier = "activity_identifier";
+    private static readonly StringName _propertyActivityProperties = "activity_properties";
+    private static readonly StringName _propertyDuration = "duration";
+    private static readonly StringName _propertyGroupIdentifier = "group_identifier";
+    private static readonly StringName _propertyNextStartDate = "next_start_date";
+    private static readonly StringName _propertyStartDate = "start_date";
+    private static readonly StringName _propertyTitle = "title";
+    private static readonly StringName _propertyType = "type";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +55,8 @@ public partial class GKLeaderboard : GodotObject
     /// </summary>
     public string ActivityIdentifier
     {
-        get => _instance.Get(new StringName("activity_identifier")).AsString();
-        set => _instance.Set(new StringName("activity_identifier"), value);
+        get => _instance.Get(_propertyActivityIdentifier).AsString();
+        set => _instance.Set(_propertyActivityIdentifier, value);
     }
 
     /// <summary>
@@ -46,8 +64,8 @@ public partial class GKLeaderboard : GodotObject
     /// </summary>
     public Godot.Collections.Dictionary ActivityProperties
     {
-        get => _instance.Get(new StringName("activity_properties")).AsGodotDictionary();
-        set => _instance.Set(new StringName("activity_properties"), value);
+        get => _instance.Get(_propertyActivityProperties).AsGodotDictionary();
+        set => _instance.Set(_propertyActivityProperties, value);
     }
 
     /// <summary>
@@ -55,8 +73,8 @@ public partial class GKLeaderboard : GodotObject
     /// </summary>
     public double Duration
     {
-        get => _instance.Get(new StringName("duration")).AsDouble();
-        set => _instance.Set(new StringName("duration"), value);
+        get => _instance.Get(_propertyDuration).AsDouble();
+        set => _instance.Set(_propertyDuration, value);
     }
 
     /// <summary>
@@ -64,20 +82,20 @@ public partial class GKLeaderboard : GodotObject
     /// </summary>
     public string GroupIdentifier
     {
-        get => _instance.Get(new StringName("group_identifier")).AsString();
-        set => _instance.Set(new StringName("group_identifier"), value);
+        get => _instance.Get(_propertyGroupIdentifier).AsString();
+        set => _instance.Set(_propertyGroupIdentifier, value);
     }
 
     public double NextStartDate
     {
-        get => _instance.Get(new StringName("next_start_date")).AsDouble();
-        set => _instance.Set(new StringName("next_start_date"), value);
+        get => _instance.Get(_propertyNextStartDate).AsDouble();
+        set => _instance.Set(_propertyNextStartDate, value);
     }
 
     public double StartDate
     {
-        get => _instance.Get(new StringName("start_date")).AsDouble();
-        set => _instance.Set(new StringName("start_date"), value);
+        get => _instance.Get(_propertyStartDate).AsDouble();
+        set => _instance.Set(_propertyStartDate, value);
     }
 
     /// <summary>
@@ -85,8 +103,8 @@ public partial class GKLeaderboard : GodotObject
     /// </summary>
     public string Title
     {
-        get => _instance.Get(new StringName("title")).AsString();
-        set => _instance.Set(new StringName("title"), value);
+        get => _instance.Get(_propertyTitle).AsString();
+        set => _instance.Set(_propertyTitle, value);
     }
 
     /// <summary>
@@ -94,8 +112,8 @@ public partial class GKLeaderboard : GodotObject
     /// </summary>
     public int Type
     {
-        get => _instance.Get(new StringName("type")).AsInt32();
-        set => _instance.Set(new StringName("type"), value);
+        get => _instance.Get(_propertyType).AsInt32();
+        set => _instance.Set(_propertyType, value);
     }
 
     /// <summary>
@@ -103,7 +121,7 @@ public partial class GKLeaderboard : GodotObject
     /// </summary>
     public void LoadEntries(Godot.Collections.Array players, GodotObject timescope, Action? callback = null)
     {
-        _instance.Call(new StringName("load_entries"), players, timescope, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadEntries, players, timescope, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -111,7 +129,7 @@ public partial class GKLeaderboard : GodotObject
     /// </summary>
     public void LoadImage(Action? callback = null)
     {
-        _instance.Call(new StringName("load_image"), callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadImage, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -119,7 +137,7 @@ public partial class GKLeaderboard : GodotObject
     /// </summary>
     public void LoadLeaderboards(string[] ids, Action? callback = null)
     {
-        _instance.Call(new StringName("load_leaderboards"), ids, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadLeaderboards, ids, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -127,7 +145,7 @@ public partial class GKLeaderboard : GodotObject
     /// </summary>
     public void LoadLocalPlayerEntries(GodotObject playerscope, GodotObject timescope, int rangestart, int rangelenght, Action? callback = null)
     {
-        _instance.Call(new StringName("load_local_player_entries"), playerscope, timescope, rangestart, rangelenght, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadLocalPlayerEntries, playerscope, timescope, rangestart, rangelenght, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -135,7 +153,7 @@ public partial class GKLeaderboard : GodotObject
     /// </summary>
     public void SubmitScore(int score, int context, GKPlayer player, Action? callback = null)
     {
-        _instance.Call(new StringName("submit_score"), score, context, player.Instance, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodSubmitScore, score, context, player.Instance, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
 }

@@ -17,6 +17,16 @@ namespace GodotApplePlugins.NET.StoreKit;
 /// </summary>
 public partial class SubscriptionStoreView : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodDismiss = "dismiss";
+    private static readonly StringName _methodPresent = "present";
+    private static readonly StringName _propertyControlStyle = "control_style";
+    private static readonly StringName _propertyGroupId = "group_id";
+    private static readonly StringName _propertyProductIDs = "product_i_ds";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +47,8 @@ public partial class SubscriptionStoreView : GodotObject
     /// </summary>
     public int ControlStyle
     {
-        get => _instance.Get(new StringName("control_style")).AsInt32();
-        set => _instance.Set(new StringName("control_style"), value);
+        get => _instance.Get(_propertyControlStyle).AsInt32();
+        set => _instance.Set(_propertyControlStyle, value);
     }
 
     /// <summary>
@@ -46,8 +56,8 @@ public partial class SubscriptionStoreView : GodotObject
     /// </summary>
     public string GroupId
     {
-        get => _instance.Get(new StringName("group_id")).AsString();
-        set => _instance.Set(new StringName("group_id"), value);
+        get => _instance.Get(_propertyGroupId).AsString();
+        set => _instance.Set(_propertyGroupId, value);
     }
 
     /// <summary>
@@ -55,8 +65,8 @@ public partial class SubscriptionStoreView : GodotObject
     /// </summary>
     public string[] ProductIDs
     {
-        get => _instance.Get(new StringName("product_i_ds")).AsStringArray();
-        set => _instance.Set(new StringName("product_i_ds"), value);
+        get => _instance.Get(_propertyProductIDs).AsStringArray();
+        set => _instance.Set(_propertyProductIDs, value);
     }
 
     /// <summary>
@@ -64,7 +74,7 @@ public partial class SubscriptionStoreView : GodotObject
     /// </summary>
     public void Dismiss()
     {
-        _instance.Call(new StringName("dismiss"));
+        _instance.Call(_methodDismiss);
     }
 
     /// <summary>
@@ -72,7 +82,7 @@ public partial class SubscriptionStoreView : GodotObject
     /// </summary>
     public void Present()
     {
-        _instance.Call(new StringName("present"));
+        _instance.Call(_methodPresent);
     }
 
 }

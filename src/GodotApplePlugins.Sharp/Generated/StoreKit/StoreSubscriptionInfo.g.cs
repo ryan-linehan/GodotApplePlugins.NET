@@ -17,6 +17,17 @@ namespace GodotApplePlugins.NET.StoreKit;
 /// </summary>
 public partial class StoreSubscriptionInfo : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodGetstatus = "getStatus";
+    private static readonly StringName _methodStatusForGroupId = "status_for_group_id";
+    private static readonly StringName _methodStatusForTransaction = "status_for_transaction";
+    private static readonly StringName _propertyGroupDisplayName = "group_display_name";
+    private static readonly StringName _propertyGroupLevel = "group_level";
+    private static readonly StringName _propertySubscriptionGroupId = "subscription_group_id";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +48,8 @@ public partial class StoreSubscriptionInfo : GodotObject
     /// </summary>
     public string GroupDisplayName
     {
-        get => _instance.Get(new StringName("group_display_name")).AsString();
-        set => _instance.Set(new StringName("group_display_name"), value);
+        get => _instance.Get(_propertyGroupDisplayName).AsString();
+        set => _instance.Set(_propertyGroupDisplayName, value);
     }
 
     /// <summary>
@@ -46,8 +57,8 @@ public partial class StoreSubscriptionInfo : GodotObject
     /// </summary>
     public int GroupLevel
     {
-        get => _instance.Get(new StringName("group_level")).AsInt32();
-        set => _instance.Set(new StringName("group_level"), value);
+        get => _instance.Get(_propertyGroupLevel).AsInt32();
+        set => _instance.Set(_propertyGroupLevel, value);
     }
 
     /// <summary>
@@ -55,8 +66,8 @@ public partial class StoreSubscriptionInfo : GodotObject
     /// </summary>
     public string SubscriptionGroupId
     {
-        get => _instance.Get(new StringName("subscription_group_id")).AsString();
-        set => _instance.Set(new StringName("subscription_group_id"), value);
+        get => _instance.Get(_propertySubscriptionGroupId).AsString();
+        set => _instance.Set(_propertySubscriptionGroupId, value);
     }
 
     /// <summary>
@@ -64,7 +75,7 @@ public partial class StoreSubscriptionInfo : GodotObject
     /// </summary>
     public void Getstatus(Action? callback = null)
     {
-        _instance.Call(new StringName("getStatus"), callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodGetstatus, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -72,7 +83,7 @@ public partial class StoreSubscriptionInfo : GodotObject
     /// </summary>
     public void StatusForGroupId(string groupId, Action? status = null)
     {
-        _instance.Call(new StringName("status_for_group_id"), groupId, status != null ? Callable.From(() => status()) : Callable.From(() => { }));
+        _instance.Call(_methodStatusForGroupId, groupId, status != null ? Callable.From(() => status()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -80,7 +91,7 @@ public partial class StoreSubscriptionInfo : GodotObject
     /// </summary>
     public void StatusForTransaction(int transactionId, Action? status = null)
     {
-        _instance.Call(new StringName("status_for_transaction"), transactionId, status != null ? Callable.From(() => status()) : Callable.From(() => { }));
+        _instance.Call(_methodStatusForTransaction, transactionId, status != null ? Callable.From(() => status()) : Callable.From(() => { }));
     }
 
 }

@@ -17,6 +17,20 @@ namespace GodotApplePlugins.NET.StoreKit;
 /// </summary>
 public partial class StoreTransaction : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodFinish = "finish";
+    private static readonly StringName _propertyExpirationDate = "expiration_date";
+    private static readonly StringName _propertyIsUpgraded = "is_upgraded";
+    private static readonly StringName _propertyOriginalId = "original_id";
+    private static readonly StringName _propertyOwnershipType = "ownership_type";
+    private static readonly StringName _propertyProductId = "product_id";
+    private static readonly StringName _propertyPurchaseDate = "purchase_date";
+    private static readonly StringName _propertyRevocationDate = "revocation_date";
+    private static readonly StringName _propertyTransactionId = "transaction_id";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +51,8 @@ public partial class StoreTransaction : GodotObject
     /// </summary>
     public double ExpirationDate
     {
-        get => _instance.Get(new StringName("expiration_date")).AsDouble();
-        set => _instance.Set(new StringName("expiration_date"), value);
+        get => _instance.Get(_propertyExpirationDate).AsDouble();
+        set => _instance.Set(_propertyExpirationDate, value);
     }
 
     /// <summary>
@@ -46,8 +60,8 @@ public partial class StoreTransaction : GodotObject
     /// </summary>
     public bool IsUpgraded
     {
-        get => _instance.Get(new StringName("is_upgraded")).AsBool();
-        set => _instance.Set(new StringName("is_upgraded"), value);
+        get => _instance.Get(_propertyIsUpgraded).AsBool();
+        set => _instance.Set(_propertyIsUpgraded, value);
     }
 
     /// <summary>
@@ -55,8 +69,8 @@ public partial class StoreTransaction : GodotObject
     /// </summary>
     public int OriginalId
     {
-        get => _instance.Get(new StringName("original_id")).AsInt32();
-        set => _instance.Set(new StringName("original_id"), value);
+        get => _instance.Get(_propertyOriginalId).AsInt32();
+        set => _instance.Set(_propertyOriginalId, value);
     }
 
     /// <summary>
@@ -64,8 +78,8 @@ public partial class StoreTransaction : GodotObject
     /// </summary>
     public string OwnershipType
     {
-        get => _instance.Get(new StringName("ownership_type")).AsString();
-        set => _instance.Set(new StringName("ownership_type"), value);
+        get => _instance.Get(_propertyOwnershipType).AsString();
+        set => _instance.Set(_propertyOwnershipType, value);
     }
 
     /// <summary>
@@ -73,8 +87,8 @@ public partial class StoreTransaction : GodotObject
     /// </summary>
     public string ProductId
     {
-        get => _instance.Get(new StringName("product_id")).AsString();
-        set => _instance.Set(new StringName("product_id"), value);
+        get => _instance.Get(_propertyProductId).AsString();
+        set => _instance.Set(_propertyProductId, value);
     }
 
     /// <summary>
@@ -82,8 +96,8 @@ public partial class StoreTransaction : GodotObject
     /// </summary>
     public double PurchaseDate
     {
-        get => _instance.Get(new StringName("purchase_date")).AsDouble();
-        set => _instance.Set(new StringName("purchase_date"), value);
+        get => _instance.Get(_propertyPurchaseDate).AsDouble();
+        set => _instance.Set(_propertyPurchaseDate, value);
     }
 
     /// <summary>
@@ -91,8 +105,8 @@ public partial class StoreTransaction : GodotObject
     /// </summary>
     public double RevocationDate
     {
-        get => _instance.Get(new StringName("revocation_date")).AsDouble();
-        set => _instance.Set(new StringName("revocation_date"), value);
+        get => _instance.Get(_propertyRevocationDate).AsDouble();
+        set => _instance.Set(_propertyRevocationDate, value);
     }
 
     /// <summary>
@@ -100,8 +114,8 @@ public partial class StoreTransaction : GodotObject
     /// </summary>
     public int TransactionId
     {
-        get => _instance.Get(new StringName("transaction_id")).AsInt32();
-        set => _instance.Set(new StringName("transaction_id"), value);
+        get => _instance.Get(_propertyTransactionId).AsInt32();
+        set => _instance.Set(_propertyTransactionId, value);
     }
 
     /// <summary>
@@ -109,7 +123,7 @@ public partial class StoreTransaction : GodotObject
     /// </summary>
     public void Finish()
     {
-        _instance.Call(new StringName("finish"));
+        _instance.Call(_methodFinish);
     }
 
 }

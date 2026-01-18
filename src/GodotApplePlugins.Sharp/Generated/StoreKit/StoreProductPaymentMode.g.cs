@@ -17,6 +17,15 @@ namespace GodotApplePlugins.NET.StoreKit;
 /// </summary>
 public partial class StoreProductPaymentMode : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodGetFreeTrial = "get_free_trial";
+    private static readonly StringName _methodGetPayAsYouGo = "get_pay_as_you_go";
+    private static readonly StringName _methodPayUpFront = "pay_up_front";
+    private static readonly StringName _propertyLocalizedDescription = "localized_description";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +46,8 @@ public partial class StoreProductPaymentMode : GodotObject
     /// </summary>
     public string LocalizedDescription
     {
-        get => _instance.Get(new StringName("localized_description")).AsString();
-        set => _instance.Set(new StringName("localized_description"), value);
+        get => _instance.Get(_propertyLocalizedDescription).AsString();
+        set => _instance.Set(_propertyLocalizedDescription, value);
     }
 
     /// <summary>
@@ -46,7 +55,7 @@ public partial class StoreProductPaymentMode : GodotObject
     /// </summary>
     public GodotObject GetFreeTrial()
     {
-        var result = _instance.Call(new StringName("get_free_trial"));
+        var result = _instance.Call(_methodGetFreeTrial);
         return result.AsGodotObject();
     }
 
@@ -55,7 +64,7 @@ public partial class StoreProductPaymentMode : GodotObject
     /// </summary>
     public GodotObject GetPayAsYouGo()
     {
-        var result = _instance.Call(new StringName("get_pay_as_you_go"));
+        var result = _instance.Call(_methodGetPayAsYouGo);
         return result.AsGodotObject();
     }
 
@@ -64,7 +73,7 @@ public partial class StoreProductPaymentMode : GodotObject
     /// </summary>
     public GodotObject PayUpFront()
     {
-        var result = _instance.Call(new StringName("pay_up_front"));
+        var result = _instance.Call(_methodPayUpFront);
         return result.AsGodotObject();
     }
 

@@ -17,6 +17,15 @@ namespace GodotApplePlugins.NET.Authentication;
 /// </summary>
 public partial class ASAuthorizationController : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodSignin = "signin";
+    private static readonly StringName _methodSigninWithScopes = "signin_with_scopes";
+    private static readonly StringName _signalAuthorizationCompleted = "authorization_completed";
+    private static readonly StringName _signalAuthorizationFailed = "authorization_failed";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -38,7 +47,7 @@ public partial class ASAuthorizationController : GodotObject
     /// </summary>
     public void Signin()
     {
-        _instance.Call(new StringName("signin"));
+        _instance.Call(_methodSignin);
     }
 
     /// <summary>
@@ -46,7 +55,7 @@ public partial class ASAuthorizationController : GodotObject
     /// </summary>
     public void SigninWithScopes(Godot.Collections.Array scopestrings)
     {
-        _instance.Call(new StringName("signin_with_scopes"), scopestrings);
+        _instance.Call(_methodSigninWithScopes, scopestrings);
     }
 
     #region Signals
@@ -65,11 +74,11 @@ public partial class ASAuthorizationController : GodotObject
 
     private void ConnectSignals()
     {
-        _instance.Connect(new StringName("authorization_completed"),
+        _instance.Connect(_signalAuthorizationCompleted,
             Callable.From<GodotObject>((p0) =>
                 EmitSignal(SignalName.AuthorizationCompleted, p0)));
 
-        _instance.Connect(new StringName("authorization_failed"),
+        _instance.Connect(_signalAuthorizationFailed,
             Callable.From<string>((p0) =>
                 EmitSignal(SignalName.AuthorizationFailed, p0)));
 

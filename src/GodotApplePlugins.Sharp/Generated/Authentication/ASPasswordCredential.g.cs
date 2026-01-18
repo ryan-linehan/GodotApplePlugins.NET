@@ -17,6 +17,13 @@ namespace GodotApplePlugins.NET.Authentication;
 /// </summary>
 public partial class ASPasswordCredential : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _propertyPassword = "password";
+    private static readonly StringName _propertyUser = "user";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +44,8 @@ public partial class ASPasswordCredential : GodotObject
     /// </summary>
     public string Password
     {
-        get => _instance.Get(new StringName("password")).AsString();
-        set => _instance.Set(new StringName("password"), value);
+        get => _instance.Get(_propertyPassword).AsString();
+        set => _instance.Set(_propertyPassword, value);
     }
 
     /// <summary>
@@ -46,8 +53,8 @@ public partial class ASPasswordCredential : GodotObject
     /// </summary>
     public string User
     {
-        get => _instance.Get(new StringName("user")).AsString();
-        set => _instance.Set(new StringName("user"), value);
+        get => _instance.Get(_propertyUser).AsString();
+        set => _instance.Set(_propertyUser, value);
     }
 
 }

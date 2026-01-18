@@ -17,6 +17,17 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GKGameCenterViewController : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodShowAchievement = "show_achievement";
+    private static readonly StringName _methodShowLeaderboard = "show_leaderboard";
+    private static readonly StringName _methodShowLeaderboardset = "show_leaderboardset";
+    private static readonly StringName _methodShowLeaderboardTimePeriod = "show_leaderboard_time_period";
+    private static readonly StringName _methodShowPlayer = "show_player";
+    private static readonly StringName _methodShowType = "show_type";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,7 +48,7 @@ public partial class GKGameCenterViewController : GodotObject
     /// </summary>
     public void ShowAchievement(string id)
     {
-        _instance.Call(new StringName("show_achievement"), id);
+        _instance.Call(_methodShowAchievement, id);
     }
 
     /// <summary>
@@ -45,7 +56,7 @@ public partial class GKGameCenterViewController : GodotObject
     /// </summary>
     public void ShowLeaderboard(GKLeaderboard leaderboard, GodotObject scope)
     {
-        _instance.Call(new StringName("show_leaderboard"), leaderboard.Instance, scope);
+        _instance.Call(_methodShowLeaderboard, leaderboard.Instance, scope);
     }
 
     /// <summary>
@@ -53,7 +64,7 @@ public partial class GKGameCenterViewController : GodotObject
     /// </summary>
     public void ShowLeaderboardTimePeriod(string id, GodotObject scope, GodotObject timescope)
     {
-        _instance.Call(new StringName("show_leaderboard_time_period"), id, scope, timescope);
+        _instance.Call(_methodShowLeaderboardTimePeriod, id, scope, timescope);
     }
 
     /// <summary>
@@ -61,7 +72,7 @@ public partial class GKGameCenterViewController : GodotObject
     /// </summary>
     public void ShowLeaderboardset(string id)
     {
-        _instance.Call(new StringName("show_leaderboardset"), id);
+        _instance.Call(_methodShowLeaderboardset, id);
     }
 
     /// <summary>
@@ -69,7 +80,7 @@ public partial class GKGameCenterViewController : GodotObject
     /// </summary>
     public void ShowPlayer(GKPlayer player)
     {
-        _instance.Call(new StringName("show_player"), player.Instance);
+        _instance.Call(_methodShowPlayer, player.Instance);
     }
 
     /// <summary>
@@ -77,7 +88,7 @@ public partial class GKGameCenterViewController : GodotObject
     /// </summary>
     public void ShowType(GodotObject type)
     {
-        _instance.Call(new StringName("show_type"), type);
+        _instance.Call(_methodShowType, type);
     }
 
 }

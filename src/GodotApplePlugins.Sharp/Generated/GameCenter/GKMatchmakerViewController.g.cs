@@ -17,6 +17,18 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GKMatchmakerViewController : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodCreateController = "create_controller";
+    private static readonly StringName _methodPresent = "present";
+    private static readonly StringName _methodRequestMatch = "request_match";
+    private static readonly StringName _signalCancelled = "cancelled";
+    private static readonly StringName _signalDidFindHostedPlayers = "did_find_hosted_players";
+    private static readonly StringName _signalDidFindMatch = "did_find_match";
+    private static readonly StringName _signalFailedWithError = "failed_with_error";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -38,7 +50,7 @@ public partial class GKMatchmakerViewController : GodotObject
     /// </summary>
     public GKMatchmakerViewController CreateController(GKMatchRequest request)
     {
-        var result = _instance.Call(new StringName("create_controller"), request.Instance);
+        var result = _instance.Call(_methodCreateController, request.Instance);
         return new GKMatchmakerViewController((GodotObject)result.Obj!);
     }
 
@@ -47,7 +59,7 @@ public partial class GKMatchmakerViewController : GodotObject
     /// </summary>
     public void Present()
     {
-        _instance.Call(new StringName("present"));
+        _instance.Call(_methodPresent);
     }
 
     /// <summary>
@@ -55,7 +67,7 @@ public partial class GKMatchmakerViewController : GodotObject
     /// </summary>
     public void RequestMatch(GKMatchRequest request, Action? callback = null)
     {
-        _instance.Call(new StringName("request_match"), request.Instance, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodRequestMatch, request.Instance, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     #region Signals
@@ -86,19 +98,19 @@ public partial class GKMatchmakerViewController : GodotObject
 
     private void ConnectSignals()
     {
-        _instance.Connect(new StringName("cancelled"),
+        _instance.Connect(_signalCancelled,
             Callable.From<string>((p0) =>
                 EmitSignal(SignalName.Cancelled, p0)));
 
-        _instance.Connect(new StringName("did_find_hosted_players"),
+        _instance.Connect(_signalDidFindHostedPlayers,
             Callable.From<Godot.Collections.Array>((p0) =>
                 EmitSignal(SignalName.DidFindHostedPlayers, p0)));
 
-        _instance.Connect(new StringName("did_find_match"),
+        _instance.Connect(_signalDidFindMatch,
             Callable.From<GodotObject>((p0) =>
                 EmitSignal(SignalName.DidFindMatch, new GKMatch(p0))));
 
-        _instance.Connect(new StringName("failed_with_error"),
+        _instance.Connect(_signalFailedWithError,
             Callable.From<string>((p0) =>
                 EmitSignal(SignalName.FailedWithError, p0)));
 

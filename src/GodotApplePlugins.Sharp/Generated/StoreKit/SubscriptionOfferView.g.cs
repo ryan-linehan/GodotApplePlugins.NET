@@ -17,6 +17,16 @@ namespace GodotApplePlugins.NET.StoreKit;
 /// </summary>
 public partial class SubscriptionOfferView : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodDismiss = "dismiss";
+    private static readonly StringName _methodPresent = "present";
+    private static readonly StringName _propertyTitle = "title";
+    private static readonly StringName _signalError = "error";
+    private static readonly StringName _signalSuccess = "success";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -38,8 +48,8 @@ public partial class SubscriptionOfferView : GodotObject
     /// </summary>
     public string Title
     {
-        get => _instance.Get(new StringName("title")).AsString();
-        set => _instance.Set(new StringName("title"), value);
+        get => _instance.Get(_propertyTitle).AsString();
+        set => _instance.Set(_propertyTitle, value);
     }
 
     /// <summary>
@@ -47,7 +57,7 @@ public partial class SubscriptionOfferView : GodotObject
     /// </summary>
     public void Dismiss()
     {
-        _instance.Call(new StringName("dismiss"));
+        _instance.Call(_methodDismiss);
     }
 
     /// <summary>
@@ -55,7 +65,7 @@ public partial class SubscriptionOfferView : GodotObject
     /// </summary>
     public void Present(Action? callback = null)
     {
-        _instance.Call(new StringName("present"), callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodPresent, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     #region Signals
@@ -74,11 +84,11 @@ public partial class SubscriptionOfferView : GodotObject
 
     private void ConnectSignals()
     {
-        _instance.Connect(new StringName("error"),
+        _instance.Connect(_signalError,
             Callable.From<string>((p0) =>
                 EmitSignal(SignalName.Error, p0)));
 
-        _instance.Connect(new StringName("success"),
+        _instance.Connect(_signalSuccess,
             Callable.From(() => EmitSignal(SignalName.Success)));
 
     }

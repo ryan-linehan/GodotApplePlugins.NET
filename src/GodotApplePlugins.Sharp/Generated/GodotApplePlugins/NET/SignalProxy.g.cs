@@ -14,6 +14,12 @@ namespace GodotApplePlugins.NET;
 
 public partial class SignalProxy : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodProxy = "proxy";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -31,7 +37,7 @@ public partial class SignalProxy : GodotObject
 
     public void Proxy()
     {
-        _instance.Call(new StringName("proxy"));
+        _instance.Call(_methodProxy);
     }
 
 }

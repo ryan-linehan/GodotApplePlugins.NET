@@ -17,6 +17,22 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GKLocalPlayer : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodDeleteSavedGames = "delete_saved_games";
+    private static readonly StringName _methodFetchItemsForIdentityVerificationSignature = "fetch_items_for_identity_verification_signature";
+    private static readonly StringName _methodFetchSavedGames = "fetch_saved_games";
+    private static readonly StringName _methodLoadChallengeableFriends = "load_challengeable_friends";
+    private static readonly StringName _methodLoadFriends = "load_friends";
+    private static readonly StringName _methodLoadRecentFriends = "load_recent_friends";
+    private static readonly StringName _methodSaveGameData = "save_game_data";
+    private static readonly StringName _propertyIsAuthenticated = "is_authenticated";
+    private static readonly StringName _propertyIsMultiplayerGamingRestricted = "is_multiplayer_gaming_restricted";
+    private static readonly StringName _propertyIsPersonalizedCommunicationRestricted = "is_personalized_communication_restricted";
+    private static readonly StringName _propertyIsUnderage = "is_underage";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +53,8 @@ public partial class GKLocalPlayer : GodotObject
     /// </summary>
     public bool IsAuthenticated
     {
-        get => _instance.Get(new StringName("is_authenticated")).AsBool();
-        set => _instance.Set(new StringName("is_authenticated"), value);
+        get => _instance.Get(_propertyIsAuthenticated).AsBool();
+        set => _instance.Set(_propertyIsAuthenticated, value);
     }
 
     /// <summary>
@@ -46,8 +62,8 @@ public partial class GKLocalPlayer : GodotObject
     /// </summary>
     public bool IsMultiplayerGamingRestricted
     {
-        get => _instance.Get(new StringName("is_multiplayer_gaming_restricted")).AsBool();
-        set => _instance.Set(new StringName("is_multiplayer_gaming_restricted"), value);
+        get => _instance.Get(_propertyIsMultiplayerGamingRestricted).AsBool();
+        set => _instance.Set(_propertyIsMultiplayerGamingRestricted, value);
     }
 
     /// <summary>
@@ -55,8 +71,8 @@ public partial class GKLocalPlayer : GodotObject
     /// </summary>
     public bool IsPersonalizedCommunicationRestricted
     {
-        get => _instance.Get(new StringName("is_personalized_communication_restricted")).AsBool();
-        set => _instance.Set(new StringName("is_personalized_communication_restricted"), value);
+        get => _instance.Get(_propertyIsPersonalizedCommunicationRestricted).AsBool();
+        set => _instance.Set(_propertyIsPersonalizedCommunicationRestricted, value);
     }
 
     /// <summary>
@@ -64,13 +80,13 @@ public partial class GKLocalPlayer : GodotObject
     /// </summary>
     public bool IsUnderage
     {
-        get => _instance.Get(new StringName("is_underage")).AsBool();
-        set => _instance.Set(new StringName("is_underage"), value);
+        get => _instance.Get(_propertyIsUnderage).AsBool();
+        set => _instance.Set(_propertyIsUnderage, value);
     }
 
     public void DeleteSavedGames(string named, Action? callback = null)
     {
-        _instance.Call(new StringName("delete_saved_games"), named, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodDeleteSavedGames, named, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -78,7 +94,7 @@ public partial class GKLocalPlayer : GodotObject
     /// </summary>
     public void FetchItemsForIdentityVerificationSignature(Action? callback = null)
     {
-        _instance.Call(new StringName("fetch_items_for_identity_verification_signature"), callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodFetchItemsForIdentityVerificationSignature, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -86,7 +102,7 @@ public partial class GKLocalPlayer : GodotObject
     /// </summary>
     public void FetchSavedGames(Action? callback = null)
     {
-        _instance.Call(new StringName("fetch_saved_games"), callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodFetchSavedGames, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -94,7 +110,7 @@ public partial class GKLocalPlayer : GodotObject
     /// </summary>
     public void LoadChallengeableFriends(Action? callback = null)
     {
-        _instance.Call(new StringName("load_challengeable_friends"), callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadChallengeableFriends, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -102,7 +118,7 @@ public partial class GKLocalPlayer : GodotObject
     /// </summary>
     public void LoadFriends(Action? callback = null)
     {
-        _instance.Call(new StringName("load_friends"), callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadFriends, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -110,7 +126,7 @@ public partial class GKLocalPlayer : GodotObject
     /// </summary>
     public void LoadRecentFriends(Action? callback = null)
     {
-        _instance.Call(new StringName("load_recent_friends"), callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadRecentFriends, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -118,7 +134,7 @@ public partial class GKLocalPlayer : GodotObject
     /// </summary>
     public void SaveGameData(byte[] data, string withname, Action? callback = null)
     {
-        _instance.Call(new StringName("save_game_data"), data, withname, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodSaveGameData, data, withname, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
 }

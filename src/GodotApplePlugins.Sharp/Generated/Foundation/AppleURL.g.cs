@@ -17,6 +17,20 @@ namespace GodotApplePlugins.NET.Foundation;
 /// </summary>
 public partial class AppleURL : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodGetAbsoluteString = "get_absolute_string";
+    private static readonly StringName _methodGetData = "get_data";
+    private static readonly StringName _methodGetPath = "get_path";
+    private static readonly StringName _methodGetPathEncoded = "get_path_encoded";
+    private static readonly StringName _methodGetString = "get_string";
+    private static readonly StringName _methodSetFromFilepath = "set_from_filepath";
+    private static readonly StringName _methodSetValue = "set_value";
+    private static readonly StringName _methodStartAccessingSecurityScopedResource = "start_accessing_security_scoped_resource";
+    private static readonly StringName _methodStopAccessingSecurityScopedResource = "stop_accessing_security_scoped_resource";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,7 +51,7 @@ public partial class AppleURL : GodotObject
     /// </summary>
     public string GetAbsoluteString()
     {
-        var result = _instance.Call(new StringName("get_absolute_string"));
+        var result = _instance.Call(_methodGetAbsoluteString);
         return result.AsString();
     }
 
@@ -46,7 +60,7 @@ public partial class AppleURL : GodotObject
     /// </summary>
     public byte[] GetData()
     {
-        var result = _instance.Call(new StringName("get_data"));
+        var result = _instance.Call(_methodGetData);
         return result.AsByteArray();
     }
 
@@ -55,7 +69,7 @@ public partial class AppleURL : GodotObject
     /// </summary>
     public string GetPath()
     {
-        var result = _instance.Call(new StringName("get_path"));
+        var result = _instance.Call(_methodGetPath);
         return result.AsString();
     }
 
@@ -64,7 +78,7 @@ public partial class AppleURL : GodotObject
     /// </summary>
     public string GetPathEncoded()
     {
-        var result = _instance.Call(new StringName("get_path_encoded"));
+        var result = _instance.Call(_methodGetPathEncoded);
         return result.AsString();
     }
 
@@ -73,7 +87,7 @@ public partial class AppleURL : GodotObject
     /// </summary>
     public string GetString()
     {
-        var result = _instance.Call(new StringName("get_string"));
+        var result = _instance.Call(_methodGetString);
         return result.AsString();
     }
 
@@ -82,7 +96,7 @@ public partial class AppleURL : GodotObject
     /// </summary>
     public void SetFromFilepath(string path)
     {
-        _instance.Call(new StringName("set_from_filepath"), path);
+        _instance.Call(_methodSetFromFilepath, path);
     }
 
     /// <summary>
@@ -90,7 +104,7 @@ public partial class AppleURL : GodotObject
     /// </summary>
     public bool SetValue(string str)
     {
-        var result = _instance.Call(new StringName("set_value"), str);
+        var result = _instance.Call(_methodSetValue, str);
         return result.AsBool();
     }
 
@@ -99,7 +113,7 @@ public partial class AppleURL : GodotObject
     /// </summary>
     public bool StartAccessingSecurityScopedResource()
     {
-        var result = _instance.Call(new StringName("start_accessing_security_scoped_resource"));
+        var result = _instance.Call(_methodStartAccessingSecurityScopedResource);
         return result.AsBool();
     }
 
@@ -108,7 +122,7 @@ public partial class AppleURL : GodotObject
     /// </summary>
     public void StopAccessingSecurityScopedResource()
     {
-        _instance.Call(new StringName("stop_accessing_security_scoped_resource"));
+        _instance.Call(_methodStopAccessingSecurityScopedResource);
     }
 
 }

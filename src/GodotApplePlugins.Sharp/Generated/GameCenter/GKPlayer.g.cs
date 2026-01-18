@@ -17,6 +17,18 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GKPlayer : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodLoadPhoto = "load_photo";
+    private static readonly StringName _methodScopedidsarepersistent = "scopedIDsArePersistent";
+    private static readonly StringName _propertyAlias = "alias";
+    private static readonly StringName _propertyDisplayName = "display_name";
+    private static readonly StringName _propertyGamePlayerId = "game_player_id";
+    private static readonly StringName _propertyIsInvitable = "is_invitable";
+    private static readonly StringName _propertyTeamPlayerId = "team_player_id";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +49,8 @@ public partial class GKPlayer : GodotObject
     /// </summary>
     public string Alias
     {
-        get => _instance.Get(new StringName("alias")).AsString();
-        set => _instance.Set(new StringName("alias"), value);
+        get => _instance.Get(_propertyAlias).AsString();
+        set => _instance.Set(_propertyAlias, value);
     }
 
     /// <summary>
@@ -46,8 +58,8 @@ public partial class GKPlayer : GodotObject
     /// </summary>
     public string DisplayName
     {
-        get => _instance.Get(new StringName("display_name")).AsString();
-        set => _instance.Set(new StringName("display_name"), value);
+        get => _instance.Get(_propertyDisplayName).AsString();
+        set => _instance.Set(_propertyDisplayName, value);
     }
 
     /// <summary>
@@ -55,8 +67,8 @@ public partial class GKPlayer : GodotObject
     /// </summary>
     public string GamePlayerId
     {
-        get => _instance.Get(new StringName("game_player_id")).AsString();
-        set => _instance.Set(new StringName("game_player_id"), value);
+        get => _instance.Get(_propertyGamePlayerId).AsString();
+        set => _instance.Set(_propertyGamePlayerId, value);
     }
 
     /// <summary>
@@ -64,8 +76,8 @@ public partial class GKPlayer : GodotObject
     /// </summary>
     public bool IsInvitable
     {
-        get => _instance.Get(new StringName("is_invitable")).AsBool();
-        set => _instance.Set(new StringName("is_invitable"), value);
+        get => _instance.Get(_propertyIsInvitable).AsBool();
+        set => _instance.Set(_propertyIsInvitable, value);
     }
 
     /// <summary>
@@ -73,8 +85,8 @@ public partial class GKPlayer : GodotObject
     /// </summary>
     public string TeamPlayerId
     {
-        get => _instance.Get(new StringName("team_player_id")).AsString();
-        set => _instance.Set(new StringName("team_player_id"), value);
+        get => _instance.Get(_propertyTeamPlayerId).AsString();
+        set => _instance.Set(_propertyTeamPlayerId, value);
     }
 
     /// <summary>
@@ -82,7 +94,7 @@ public partial class GKPlayer : GodotObject
     /// </summary>
     public void LoadPhoto(bool small, Action? callback = null)
     {
-        _instance.Call(new StringName("load_photo"), small, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadPhoto, small, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
     }
 
     /// <summary>
@@ -90,7 +102,7 @@ public partial class GKPlayer : GodotObject
     /// </summary>
     public bool Scopedidsarepersistent()
     {
-        var result = _instance.Call(new StringName("scopedIDsArePersistent"));
+        var result = _instance.Call(_methodScopedidsarepersistent);
         return result.AsBool();
     }
 

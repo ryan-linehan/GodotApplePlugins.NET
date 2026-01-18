@@ -17,6 +17,17 @@ namespace GodotApplePlugins.NET.StoreKit;
 /// </summary>
 public partial class ProductView : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodDismiss = "dismiss";
+    private static readonly StringName _methodPresent = "present";
+    private static readonly StringName _propertyPrefersPromotionalIcon = "prefers_promotional_icon";
+    private static readonly StringName _propertyProductId = "product_id";
+    private static readonly StringName _propertyStyle = "style";
+    private static readonly StringName _propertySystemIconName = "system_icon_name";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,8 +48,8 @@ public partial class ProductView : GodotObject
     /// </summary>
     public bool PrefersPromotionalIcon
     {
-        get => _instance.Get(new StringName("prefers_promotional_icon")).AsBool();
-        set => _instance.Set(new StringName("prefers_promotional_icon"), value);
+        get => _instance.Get(_propertyPrefersPromotionalIcon).AsBool();
+        set => _instance.Set(_propertyPrefersPromotionalIcon, value);
     }
 
     /// <summary>
@@ -46,8 +57,8 @@ public partial class ProductView : GodotObject
     /// </summary>
     public string ProductId
     {
-        get => _instance.Get(new StringName("product_id")).AsString();
-        set => _instance.Set(new StringName("product_id"), value);
+        get => _instance.Get(_propertyProductId).AsString();
+        set => _instance.Set(_propertyProductId, value);
     }
 
     /// <summary>
@@ -55,8 +66,8 @@ public partial class ProductView : GodotObject
     /// </summary>
     public int Style
     {
-        get => _instance.Get(new StringName("style")).AsInt32();
-        set => _instance.Set(new StringName("style"), value);
+        get => _instance.Get(_propertyStyle).AsInt32();
+        set => _instance.Set(_propertyStyle, value);
     }
 
     /// <summary>
@@ -64,8 +75,8 @@ public partial class ProductView : GodotObject
     /// </summary>
     public string SystemIconName
     {
-        get => _instance.Get(new StringName("system_icon_name")).AsString();
-        set => _instance.Set(new StringName("system_icon_name"), value);
+        get => _instance.Get(_propertySystemIconName).AsString();
+        set => _instance.Set(_propertySystemIconName, value);
     }
 
     /// <summary>
@@ -73,7 +84,7 @@ public partial class ProductView : GodotObject
     /// </summary>
     public void Dismiss()
     {
-        _instance.Call(new StringName("dismiss"));
+        _instance.Call(_methodDismiss);
     }
 
     /// <summary>
@@ -81,7 +92,7 @@ public partial class ProductView : GodotObject
     /// </summary>
     public void Present()
     {
-        _instance.Call(new StringName("present"));
+        _instance.Call(_methodPresent);
     }
 
 }

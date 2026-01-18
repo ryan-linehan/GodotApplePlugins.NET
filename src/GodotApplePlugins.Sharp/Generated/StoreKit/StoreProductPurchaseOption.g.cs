@@ -17,6 +17,16 @@ namespace GodotApplePlugins.NET.StoreKit;
 /// </summary>
 public partial class StoreProductPurchaseOption : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodAppAccountToken = "app_account_token";
+    private static readonly StringName _methodIntroductoryOfferElligibility = "introductory_offer_elligibility";
+    private static readonly StringName _methodQuantity = "quantity";
+    private static readonly StringName _methodSimulateAskToBuyInSandbox = "simulate_ask_to_buy_in_sandbox";
+    private static readonly StringName _methodWinBackOffer = "win_back_offer";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -37,7 +47,7 @@ public partial class StoreProductPurchaseOption : GodotObject
     /// </summary>
     public StoreProductPurchaseOption AppAccountToken(string stringuuidtoken)
     {
-        var result = _instance.Call(new StringName("app_account_token"), stringuuidtoken);
+        var result = _instance.Call(_methodAppAccountToken, stringuuidtoken);
         return new StoreProductPurchaseOption((GodotObject)result.Obj!);
     }
 
@@ -46,7 +56,7 @@ public partial class StoreProductPurchaseOption : GodotObject
     /// </summary>
     public StoreProductPurchaseOption IntroductoryOfferElligibility(string jws)
     {
-        var result = _instance.Call(new StringName("introductory_offer_elligibility"), jws);
+        var result = _instance.Call(_methodIntroductoryOfferElligibility, jws);
         return new StoreProductPurchaseOption((GodotObject)result.Obj!);
     }
 
@@ -55,7 +65,7 @@ public partial class StoreProductPurchaseOption : GodotObject
     /// </summary>
     public StoreProductPurchaseOption Quantity(int value)
     {
-        var result = _instance.Call(new StringName("quantity"), value);
+        var result = _instance.Call(_methodQuantity, value);
         return new StoreProductPurchaseOption((GodotObject)result.Obj!);
     }
 
@@ -64,7 +74,7 @@ public partial class StoreProductPurchaseOption : GodotObject
     /// </summary>
     public StoreProductPurchaseOption SimulateAskToBuyInSandbox(bool enabled)
     {
-        var result = _instance.Call(new StringName("simulate_ask_to_buy_in_sandbox"), enabled);
+        var result = _instance.Call(_methodSimulateAskToBuyInSandbox, enabled);
         return new StoreProductPurchaseOption((GodotObject)result.Obj!);
     }
 
@@ -73,7 +83,7 @@ public partial class StoreProductPurchaseOption : GodotObject
     /// </summary>
     public StoreProductPurchaseOption WinBackOffer(StoreProductSubscriptionOffer offer)
     {
-        var result = _instance.Call(new StringName("win_back_offer"), offer.Instance);
+        var result = _instance.Call(_methodWinBackOffer, offer.Instance);
         return new StoreProductPurchaseOption((GodotObject)result.Obj!);
     }
 

@@ -17,6 +17,21 @@ namespace GodotApplePlugins.NET.GameCenter;
 /// </summary>
 public partial class GKMatch : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodDisconnect = "disconnect";
+    private static readonly StringName _methodSend = "send";
+    private static readonly StringName _methodSendDataToAllPlayers = "send_data_to_all_players";
+    private static readonly StringName _propertyExpectedPlayerCount = "expected_player_count";
+    private static readonly StringName _propertyPlayers = "players";
+    private static readonly StringName _propertyShouldReinviteDisconnectedPlayer = "should_reinvite_disconnected_player";
+    private static readonly StringName _signalDataReceived = "data_received";
+    private static readonly StringName _signalDataReceivedForRecipientFromPlayer = "data_received_for_recipient_from_player";
+    private static readonly StringName _signalDidFailWithError = "did_fail_with_error";
+    private static readonly StringName _signalPlayerChanged = "player_changed";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -38,8 +53,8 @@ public partial class GKMatch : GodotObject
     /// </summary>
     public int ExpectedPlayerCount
     {
-        get => _instance.Get(new StringName("expected_player_count")).AsInt32();
-        set => _instance.Set(new StringName("expected_player_count"), value);
+        get => _instance.Get(_propertyExpectedPlayerCount).AsInt32();
+        set => _instance.Set(_propertyExpectedPlayerCount, value);
     }
 
     /// <summary>
@@ -47,8 +62,8 @@ public partial class GKMatch : GodotObject
     /// </summary>
     public Godot.Collections.Array Players
     {
-        get => _instance.Get(new StringName("players")).AsGodotArray();
-        set => _instance.Set(new StringName("players"), value);
+        get => _instance.Get(_propertyPlayers).AsGodotArray();
+        set => _instance.Set(_propertyPlayers, value);
     }
 
     /// <summary>
@@ -56,8 +71,8 @@ public partial class GKMatch : GodotObject
     /// </summary>
     public Variant ShouldReinviteDisconnectedPlayer
     {
-        get => _instance.Get(new StringName("should_reinvite_disconnected_player"));
-        set => _instance.Set(new StringName("should_reinvite_disconnected_player"), value);
+        get => _instance.Get(_propertyShouldReinviteDisconnectedPlayer);
+        set => _instance.Set(_propertyShouldReinviteDisconnectedPlayer, value);
     }
 
     /// <summary>
@@ -65,7 +80,7 @@ public partial class GKMatch : GodotObject
     /// </summary>
     public void Disconnect()
     {
-        _instance.Call(new StringName("disconnect"));
+        _instance.Call(_methodDisconnect);
     }
 
     /// <summary>
@@ -73,7 +88,7 @@ public partial class GKMatch : GodotObject
     /// </summary>
     public int Send(byte[] data, Godot.Collections.Array toplayers, GodotObject datamode)
     {
-        var result = _instance.Call(new StringName("send"), data, toplayers, datamode);
+        var result = _instance.Call(_methodSend, data, toplayers, datamode);
         return result.AsInt32();
     }
 
@@ -82,7 +97,7 @@ public partial class GKMatch : GodotObject
     /// </summary>
     public int SendDataToAllPlayers(byte[] data, GodotObject datamode)
     {
-        var result = _instance.Call(new StringName("send_data_to_all_players"), data, datamode);
+        var result = _instance.Call(_methodSendDataToAllPlayers, data, datamode);
         return result.AsInt32();
     }
 
@@ -114,19 +129,19 @@ public partial class GKMatch : GodotObject
 
     private void ConnectSignals()
     {
-        _instance.Connect(new StringName("data_received"),
+        _instance.Connect(_signalDataReceived,
             Callable.From<byte[], GodotObject>((p0, p1) =>
                 EmitSignal(SignalName.DataReceived, p0, new GKPlayer(p1))));
 
-        _instance.Connect(new StringName("data_received_for_recipient_from_player"),
+        _instance.Connect(_signalDataReceivedForRecipientFromPlayer,
             Callable.From<byte[], GodotObject, GodotObject>((p0, p1, p2) =>
                 EmitSignal(SignalName.DataReceivedForRecipientFromPlayer, p0, new GKPlayer(p1), new GKPlayer(p2))));
 
-        _instance.Connect(new StringName("did_fail_with_error"),
+        _instance.Connect(_signalDidFailWithError,
             Callable.From<string>((p0) =>
                 EmitSignal(SignalName.DidFailWithError, p0)));
 
-        _instance.Connect(new StringName("player_changed"),
+        _instance.Connect(_signalPlayerChanged,
             Callable.From<GodotObject, bool>((p0, p1) =>
                 EmitSignal(SignalName.PlayerChanged, new GKPlayer(p0), p1)));
 
