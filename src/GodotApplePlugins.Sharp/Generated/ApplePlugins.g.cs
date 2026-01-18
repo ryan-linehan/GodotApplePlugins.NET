@@ -70,14 +70,14 @@ public static class ApplePlugins
     }
 
     /// <summary>Creates a Foundation wrapper from a GDExtension instance.</summary>
-    public static Foundation CreateFoundation(GodotObject instance)
+    public static GodotApplePlugins.NET.Foundation.Foundation CreateFoundation(GodotObject instance)
         => new(instance);
 
     /// <summary>Creates a new Foundation instance if available.</summary>
-    public static Foundation? TryCreateFoundation()
+    public static GodotApplePlugins.NET.Foundation.Foundation? TryCreateFoundation()
     {
         var instance = TryCreateInstance("Foundation");
-        return instance != null ? new Foundation(instance) : null;
+        return instance != null ? new GodotApplePlugins.NET.Foundation.Foundation(instance) : null;
     }
 
     #endregion
