@@ -17,8 +17,17 @@ class Program
             return await UpdateDocs(outputPath);
         }
 
+        if (args.Length > 0 && args[0] == "extract-callbacks")
+        {
+            var inputPath = args.Length > 1 ? args[1] : "doc_classes";
+            var outputPath = args.Length > 2 ? args[2] : "callback-signatures.json";
+            return ExtractCallbacks(inputPath, outputPath);
+        }
+
         return Generate(args);
     }
+
+    private const string CallbackSignaturesFileName = "callback-signatures.json";
 
     static int Generate(string[] args)
     {
@@ -45,6 +54,23 @@ class Program
         Console.WriteLine("Parsing XML documentation...");
         var classes = XmlDocParser.ParseDirectory(inputPath);
         Console.WriteLine($"Found {classes.Count} classes");
+
+        // Load callback signatures if available
+        var callbackSigPath = Path.Combine(Path.GetDirectoryName(inputPath) ?? ".", CallbackSignaturesFileName);
+        CallbackSignaturesFile? callbackSignatures = null;
+        if (File.Exists(callbackSigPath))
+        {
+            Console.WriteLine($"Loading callback signatures from {callbackSigPath}...");
+            callbackSignatures = CallbackSignaturesManager.Load(callbackSigPath);
+            var validCount = callbackSignatures.Callbacks.Count(c => c.Value.Description?.StartsWith("TODO:") != true);
+            Console.WriteLine($"Loaded {validCount} typed callback signatures");
+        }
+        else
+        {
+            Console.WriteLine($"No callback signatures file found at {callbackSigPath}");
+            Console.WriteLine("Run 'extract-callbacks' to generate one for typed callback support.");
+        }
+
         Console.WriteLine();
 
         // Clean output directory
@@ -56,7 +82,7 @@ class Program
 
         // Generate code
         Console.WriteLine("Generating C# code...");
-        var generator = new CodeGenerator(outputPath);
+        var generator = new CodeGenerator(outputPath, callbackSignatures);
         generator.GenerateAll(classes);
 
         Console.WriteLine();
@@ -148,6 +174,67 @@ class Program
         }
     }
 
+    static int ExtractCallbacks(string inputPath, string outputPath)
+    {
+        inputPath = Path.GetFullPath(inputPath);
+        outputPath = Path.GetFullPath(outputPath);
+
+        Console.WriteLine($"Extracting callback signatures...");
+        Console.WriteLine($"Input:  {inputPath}");
+        Console.WriteLine($"Output: {outputPath}");
+        Console.WriteLine();
+
+        if (!Directory.Exists(inputPath))
+        {
+            Console.Error.WriteLine($"Error: Input directory not found: {inputPath}");
+            return 1;
+        }
+
+        // Parse all XML files
+        var classes = XmlDocParser.ParseDirectory(inputPath);
+        Console.WriteLine($"Found {classes.Count} classes");
+
+        // Extract callback signatures from descriptions
+        var extracted = CallbackSignaturesManager.ExtractFromClasses(classes);
+        Console.WriteLine($"Found {extracted.Callbacks.Count} methods with Callable parameters");
+        Console.WriteLine();
+
+        // If output file exists, merge with existing (preserve manual edits)
+        if (File.Exists(outputPath))
+        {
+            Console.WriteLine($"Merging with existing {outputPath}...");
+            var existing = CallbackSignaturesManager.Load(outputPath);
+            extracted = CallbackSignaturesManager.Merge(existing, extracted);
+        }
+
+        // Save
+        CallbackSignaturesManager.Save(extracted, outputPath);
+        Console.WriteLine($"Saved to: {outputPath}");
+        Console.WriteLine();
+
+        // Report status
+        var needsReview = extracted.Callbacks.Count(c => c.Value.Description?.StartsWith("TODO:") == true);
+        var complete = extracted.Callbacks.Count - needsReview;
+
+        Console.WriteLine($"Complete:     {complete}");
+        Console.WriteLine($"Needs review: {needsReview}");
+
+        if (needsReview > 0)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Methods needing manual callback signature definition:");
+            foreach (var kvp in extracted.Callbacks.Where(c => c.Value.Description?.StartsWith("TODO:") == true))
+            {
+                Console.WriteLine($"  - {kvp.Key}");
+            }
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Done! Review the JSON file and fill in any TODO entries.");
+
+        return 0;
+    }
+
     static void PrintUsage()
     {
         Console.Error.WriteLine("Usage:");
@@ -158,9 +245,12 @@ class Program
         Console.Error.WriteLine("  Update XML documentation from upstream:");
         Console.Error.WriteLine("    dotnet run -- update-docs [output-path]");
         Console.Error.WriteLine();
+        Console.Error.WriteLine("  Extract callback signatures from XML descriptions:");
+        Console.Error.WriteLine("    dotnet run -- extract-callbacks [input-path] [output-path]");
+        Console.Error.WriteLine();
         Console.Error.WriteLine("Arguments:");
         Console.Error.WriteLine("  input-path   Path to doc_classes directory with XML files");
-        Console.Error.WriteLine("  output-path  Path for output (generated C# or downloaded XML)");
+        Console.Error.WriteLine("  output-path  Path for output (generated C#, downloaded XML, or callback JSON)");
     }
 
     // GitHub API response model

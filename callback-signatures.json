@@ -1,0 +1,165 @@
+{
+  "$schema": "./callback-signatures.schema.json",
+  "callbacks": {
+    "GKAccessPoint.trigger": {
+      "parameters": []
+    },
+    "GKAccessPoint.trigger_with_achievement": {
+      "parameters": []
+    },
+    "GKAccessPoint.trigger_with_leaderboard": {
+      "parameters": []
+    },
+    "GKAccessPoint.trigger_with_leaderboard_set": {
+      "parameters": []
+    },
+    "GKAccessPoint.trigger_with_player": {
+      "parameters": []
+    },
+    "GKAccessPoint.trigger_with_state": {
+      "parameters": []
+    },
+    "GKAchievement.load_achievements": {
+      "parameters": [
+        { "name": "achievements", "type": "Array[GKAchievement]" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKAchievement.report_achievement": {
+      "parameters": [
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKAchievement.reset_achievements": {
+      "parameters": [
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKAchievementDescription.load_achievement_descriptions": {
+      "parameters": [
+        { "name": "descriptions", "type": "Array[GKAchievementDescription]" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKAchievementDescription.load_image": {
+      "parameters": [
+        { "name": "image", "type": "Image" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKLeaderboard.load_entries": {
+      "parameters": [
+        { "name": "localEntry", "type": "GKLeaderboardEntry" },
+        { "name": "entries", "type": "Array[GKLeaderboardEntry]" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKLeaderboard.load_image": {
+      "parameters": [
+        { "name": "image", "type": "Image" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKLeaderboard.load_leaderboards": {
+      "parameters": [
+        { "name": "leaderboards", "type": "Array[GKLeaderboard]" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKLeaderboard.load_local_player_entries": {
+      "parameters": [
+        { "name": "localEntry", "type": "GKLeaderboardEntry" },
+        { "name": "entries", "type": "Array[GKLeaderboardEntry]" },
+        { "name": "totalPlayerCount", "type": "int" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKLeaderboard.submit_score": {
+      "parameters": [
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKLocalPlayer.delete_saved_games": {
+      "parameters": [
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKLocalPlayer.fetch_items_for_identity_verification_signature": {
+      "parameters": [
+        { "name": "data", "type": "Dictionary" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKLocalPlayer.fetch_saved_games": {
+      "parameters": [
+        { "name": "savedGames", "type": "Array[GKSavedGame]" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKLocalPlayer.load_challengeable_friends": {
+      "parameters": [
+        { "name": "friends", "type": "Array[GKPlayer]" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKLocalPlayer.load_friends": {
+      "parameters": [
+        { "name": "friends", "type": "Array[GKPlayer]" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKLocalPlayer.load_recent_friends": {
+      "parameters": [
+        { "name": "friends", "type": "Array[GKPlayer]" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKLocalPlayer.save_game_data": {
+      "parameters": [
+        { "name": "savedGame", "type": "GKSavedGame" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKMatchmakerViewController.find_match": {
+      "parameters": [
+        { "name": "match", "type": "GKMatch" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKPlayer.load_photo": {
+      "parameters": [
+        { "name": "image", "type": "Image" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "GKSavedGame.load_data": {
+      "parameters": [
+        { "name": "data", "type": "PackedByteArray" },
+        { "name": "error", "type": "Variant" }
+      ]
+    },
+    "StoreSubscriptionInfo.getStatus": {
+      "parameters": [
+        { "name": "statuses", "type": "Array[StoreSubscriptionInfoStatus]" },
+        { "name": "error", "type": "String" }
+      ]
+    },
+    "StoreSubscriptionInfo.status_for_group_id": {
+      "parameters": [
+        { "name": "statuses", "type": "Array[StoreSubscriptionInfoStatus]" },
+        { "name": "error", "type": "String" }
+      ]
+    },
+    "StoreSubscriptionInfo.status_for_transaction": {
+      "parameters": [
+        { "name": "status", "type": "StoreSubscriptionInfoStatus" },
+        { "name": "error", "type": "String" }
+      ]
+    },
+    "SubscriptionOfferView.present": {
+      "parameters": [
+        { "name": "dismissed", "type": "bool" }
+      ]
+    }
+  }
+}

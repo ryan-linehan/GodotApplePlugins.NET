@@ -8,10 +8,12 @@ namespace GodotApplePlugins.Generator;
 public class CodeGenerator
 {
     private readonly string _outputPath;
+    private readonly CallbackSignaturesFile _callbackSignatures;
 
-    public CodeGenerator(string outputPath)
+    public CodeGenerator(string outputPath, CallbackSignaturesFile? callbackSignatures = null)
     {
         _outputPath = outputPath;
+        _callbackSignatures = callbackSignatures ?? new CallbackSignaturesFile();
     }
 
     /// <summary>
@@ -186,7 +188,7 @@ public class CodeGenerator
         // Generate methods (pass signals for async variant generation)
         foreach (var method in gdClass.Methods)
         {
-            GenerateMethod(sb, method, gdClass.Signals, stringNames);
+            GenerateMethod(sb, gdClass.Name, method, gdClass.Signals, stringNames);
         }
 
         // Generate signal events
@@ -233,19 +235,39 @@ public class CodeGenerator
         sb.AppendLine();
     }
 
-    private void GenerateMethod(StringBuilder sb, GdMethod method, List<GdSignal> signals, Dictionary<string, string> stringNames)
+    private void GenerateMethod(StringBuilder sb, string className, GdMethod method, List<GdSignal> signals, Dictionary<string, string> stringNames)
     {
         var methodName = TypeMapper.ToPascalCase(method.Name);
         var returnType = TypeMapper.GetCSharpType(method.ReturnType);
         var hasReturn = method.ReturnType != "void";
         var stringNameConst = stringNames[method.Name];
 
+        // Check if we have a typed callback signature for this method
+        var callbackKey = $"{className}.{method.Name}";
+        var hasTypedCallback = _callbackSignatures.Callbacks.TryGetValue(callbackKey, out var callbackSig)
+            && callbackSig?.Parameters.Count > 0
+            && callbackSig.Description?.StartsWith("TODO:") != true;
+
         // Build parameter list
         var paramList = new List<string>();
         var paramListForAsync = new List<string>();
         foreach (var param in method.Parameters)
         {
-            var paramType = param.Type == "Callable" ? "Callable" : TypeMapper.GetCSharpType(param.Type);
+            string paramType;
+            if (param.Type == "Callable" && hasTypedCallback)
+            {
+                // Use typed Action delegate instead of Callable
+                paramType = GetTypedCallbackType(callbackSig!);
+            }
+            else if (param.Type == "Callable")
+            {
+                paramType = "Callable";
+            }
+            else
+            {
+                paramType = TypeMapper.GetCSharpType(param.Type);
+            }
+
             var paramName = SanitizeParamName(TypeMapper.ToCamelCase(param.Name));
             paramList.Add($"{paramType} {paramName}");
             if (param.Type != "Callable")
@@ -271,7 +293,13 @@ public class CodeGenerator
         foreach (var param in method.Parameters)
         {
             var paramName = SanitizeParamName(TypeMapper.ToCamelCase(param.Name));
-            if (param.Type == "Callable")
+            if (param.Type == "Callable" && hasTypedCallback)
+            {
+                // Wrap the typed callback in a Callable
+                var wrappedCallable = GenerateCallableWrapper(paramName, callbackSig!);
+                callArgs.Add(wrappedCallable);
+            }
+            else if (param.Type == "Callable")
             {
                 callArgs.Add(paramName);
             }
@@ -303,6 +331,85 @@ public class CodeGenerator
         {
             GenerateAsyncMethod(sb, method, matchingSignal, paramListForAsync, stringNames);
         }
+    }
+
+    /// <summary>
+    /// Gets the C# Action type for a typed callback signature.
+    /// </summary>
+    private string GetTypedCallbackType(CallbackSignature sig)
+    {
+        if (sig.Parameters.Count == 0)
+            return "Action";
+
+        var types = sig.Parameters.Select(p => TypeMapper.GetCSharpType(p.Type));
+        return $"Action<{string.Join(", ", types)}>";
+    }
+
+    /// <summary>
+    /// Generates a Callable.From wrapper for a typed callback.
+    /// </summary>
+    private string GenerateCallableWrapper(string paramName, CallbackSignature sig)
+    {
+        if (sig.Parameters.Count == 0)
+            return $"Callable.From(() => {paramName}())";
+
+        // Build Callable.From<T1, T2, ...>((p0, p1, ...) => callback(convert(p0), convert(p1), ...))
+        var godotTypes = sig.Parameters.Select(p =>
+        {
+            return p.Type switch
+            {
+                "Variant" => "Variant",
+                "Image" => "Image",
+                "Dictionary" => "Godot.Collections.Dictionary",
+                "PackedByteArray" => "byte[]",
+                _ when TypeMapper.IsWrappedClass(p.Type) => "GodotObject",
+                "Array" => "Godot.Collections.Array",
+                _ when p.Type.StartsWith("Array[") => "Godot.Collections.Array",
+                _ => TypeMapper.GetCSharpType(p.Type)
+            };
+        });
+
+        var paramNames = sig.Parameters.Select((p, i) => $"p{i}").ToList();
+
+        // Build conversion for each parameter
+        var convertedArgs = sig.Parameters.Select((p, i) =>
+        {
+            var pName = $"p{i}";
+
+            // Variant passes through unchanged
+            if (p.Type == "Variant")
+            {
+                return pName;
+            }
+
+            // Godot built-in types pass through
+            if (p.Type is "Image" or "Dictionary" or "PackedByteArray")
+            {
+                return pName;
+            }
+
+            if (TypeMapper.IsWrappedClass(p.Type))
+            {
+                return $"new {p.Type}({pName})";
+            }
+
+            if (p.Type.StartsWith("Array["))
+            {
+                var innerType = p.Type.Replace("Array[", "").Replace("]", "");
+                if (TypeMapper.IsWrappedClass(innerType))
+                {
+                    return $"{pName}.Select(x => new {innerType}((GodotObject)x.Obj!)).ToArray()";
+                }
+                else
+                {
+                    return $"{pName}.Select(x => x.As<{TypeMapper.GetCSharpType(innerType)}>()).ToArray()";
+                }
+            }
+
+            return pName;
+        });
+
+        return $"Callable.From<{string.Join(", ", godotTypes)}>(({string.Join(", ", paramNames)}) => {paramName}({string.Join(", ", convertedArgs)}))";
     }
 
     private static string SanitizeParamName(string name)
