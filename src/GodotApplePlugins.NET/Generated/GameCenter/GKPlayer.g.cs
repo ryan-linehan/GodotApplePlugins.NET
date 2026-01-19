@@ -92,9 +92,9 @@ public partial class GKPlayer : GodotObject
     /// <summary>
     /// Downloads the player's avatar. Pass 'true' for a small image or 'false' for the normal size. The callback receives '(Image image, Variant error)' and exactly one argument is 'null', mirroring the Swift inline documentation.
     /// </summary>
-    public void LoadPhoto(bool small, Action? callback = null)
+    public void LoadPhoto(bool small, Callable callback)
     {
-        _instance.Call(_methodLoadPhoto, small, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadPhoto, small, callback);
     }
 
     /// <summary>

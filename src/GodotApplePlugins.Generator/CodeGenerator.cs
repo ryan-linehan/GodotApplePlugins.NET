@@ -240,8 +240,19 @@ public class CodeGenerator
         var hasReturn = method.ReturnType != "void";
         var stringNameConst = stringNames[method.Name];
 
-        // Check if last param is Callable (callback pattern)
-        var isCallbackMethod = method.Parameters.LastOrDefault()?.Type == "Callable";
+        // Build parameter list
+        var paramList = new List<string>();
+        var paramListForAsync = new List<string>();
+        foreach (var param in method.Parameters)
+        {
+            var paramType = param.Type == "Callable" ? "Callable" : TypeMapper.GetCSharpType(param.Type);
+            var paramName = SanitizeParamName(TypeMapper.ToCamelCase(param.Name));
+            paramList.Add($"{paramType} {paramName}");
+            if (param.Type != "Callable")
+            {
+                paramListForAsync.Add($"{paramType} {paramName}");
+            }
+        }
 
         // XML doc
         if (!string.IsNullOrEmpty(method.Description))
@@ -251,50 +262,18 @@ public class CodeGenerator
             sb.AppendLine("    /// </summary>");
         }
 
-        // Build parameter list (excluding Callable params for sync version)
-        var paramList = new List<string>();
-        var paramListForAsync = new List<string>();
-        foreach (var param in method.Parameters)
-        {
-            if (param.Type == "Callable")
-            {
-                // Convert callback to Action/Func
-                paramList.Add($"Action? {TypeMapper.ToCamelCase(param.Name)} = null");
-                // Skip Callable params in async version
-            }
-            else
-            {
-                var paramType = TypeMapper.GetCSharpType(param.Type);
-                var paramName = TypeMapper.ToCamelCase(param.Name);
-
-                // Avoid C# reserved keywords
-                if (paramName == "params") paramName = "@params";
-                if (paramName == "event") paramName = "@event";
-                if (paramName == "class") paramName = "@class";
-
-                paramList.Add($"{paramType} {paramName}");
-                paramListForAsync.Add($"{paramType} {paramName}");
-            }
-        }
-
         var paramsStr = string.Join(", ", paramList);
         sb.AppendLine($"    public {returnType} {methodName}({paramsStr})");
         sb.AppendLine("    {");
 
         // Build call arguments
-        var callArgs = new List<string>();
-        callArgs.Add(stringNameConst);
-
+        var callArgs = new List<string> { stringNameConst };
         foreach (var param in method.Parameters)
         {
-            var paramName = TypeMapper.ToCamelCase(param.Name);
-            if (paramName == "params") paramName = "@params";
-            if (paramName == "event") paramName = "@event";
-            if (paramName == "class") paramName = "@class";
-
+            var paramName = SanitizeParamName(TypeMapper.ToCamelCase(param.Name));
             if (param.Type == "Callable")
             {
-                callArgs.Add($"{paramName} != null ? Callable.From(() => {paramName}()) : Callable.From(() => {{ }})");
+                callArgs.Add(paramName);
             }
             else
             {
@@ -324,6 +303,20 @@ public class CodeGenerator
         {
             GenerateAsyncMethod(sb, method, matchingSignal, paramListForAsync, stringNames);
         }
+    }
+
+    private static string SanitizeParamName(string name)
+    {
+        // Avoid C# reserved keywords
+        return name switch
+        {
+            "params" => "@params",
+            "event" => "@event",
+            "class" => "@class",
+            "object" => "@object",
+            "string" => "@string",
+            _ => name
+        };
     }
 
     /// <summary>

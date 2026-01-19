@@ -100,25 +100,25 @@ public partial class GKAchievement : GodotObject
     /// <summary>
     /// Loads the achievements that the local player has already reported. The callback is invoked with [code skip-lint]ArrayGKAchievement' and a [code skip-lint]Variant' error argument ('null' on success, or a localized error string).
     /// </summary>
-    public void LoadAchievements(Action? callback = null)
+    public void LoadAchievements(Callable callback)
     {
-        _instance.Call(_methodLoadAchievements, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadAchievements, callback);
     }
 
     /// <summary>
     /// Submits the new state for the provided achievements. The callback receives a single [code skip-lint]Variant' that is 'null' on success or contains an error string reported by GameKit. This is the method used in the "Report Progress" snippet inside [code skip-lint]GameCenterGuide.md'.
     /// </summary>
-    public void ReportAchievement(Godot.Collections.Array achievements, Action? callback = null)
+    public void ReportAchievement(Godot.Collections.Array achievements, Callable callback)
     {
-        _instance.Call(_methodReportAchievement, achievements, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodReportAchievement, achievements, callback);
     }
 
     /// <summary>
     /// Asks GameKit to clear every achievement for the local player. The callback receives 'null' on success or a [code skip-lint]Variant' with the error description, matching Apple's 'resetAchievements' API.
     /// </summary>
-    public void ResetAchievements(Action? callback = null)
+    public void ResetAchievements(Callable callback)
     {
-        _instance.Call(_methodResetAchievements, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodResetAchievements, callback);
     }
 
 }

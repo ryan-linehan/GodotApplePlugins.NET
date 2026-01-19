@@ -13,7 +13,7 @@
   <PropertyGroup>
     <PackageId>GodotApplePlugins.NET</PackageId>
     <RootNamespace>GodotApplePlugins.NET</RootNamespace>
-    <Version>0.0.1-alpha</Version>
+    <Version>0.0.2-alpha</Version>
     <Authors>GodotApplePlugins.NET Contributors</Authors>
     <Description>A C# wrapper for GodotApplePlugins - provides typed access to Apple APIs (GameCenter, StoreKit, Sign in with Apple) in Godot C# projects.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

@@ -117,17 +117,6 @@ public static class ApplePlugins
         return instance != null ? new ASPasswordCredential(instance) : null;
     }
 
-    /// <summary>Creates a ASWebAuthenticationSession wrapper from a GDExtension instance.</summary>
-    public static ASWebAuthenticationSession CreateASWebAuthenticationSession(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new ASWebAuthenticationSession instance if available.</summary>
-    public static ASWebAuthenticationSession? TryCreateASWebAuthenticationSession()
-    {
-        var instance = TryCreateInstance("ASWebAuthenticationSession");
-        return instance != null ? new ASWebAuthenticationSession(instance) : null;
-    }
-
     #endregion
 
     #region AVFoundation

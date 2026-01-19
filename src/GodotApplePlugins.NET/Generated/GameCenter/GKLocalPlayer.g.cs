@@ -84,57 +84,57 @@ public partial class GKLocalPlayer : GodotObject
         set => _instance.Set(_propertyIsUnderage, value);
     }
 
-    public void DeleteSavedGames(string named, Action? callback = null)
+    public void DeleteSavedGames(string named, Callable callback)
     {
-        _instance.Call(_methodDeleteSavedGames, named, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodDeleteSavedGames, named, callback);
     }
 
     /// <summary>
     /// Calls Apple's 'fetchItems' helper for server-side authentication. The callback receives '(Dictionary data, Variant error)'. The dictionary contains the 'url', 'data', 'salt', and 'timestamp' keys described in the inline Swift documentation, letting your backend verify the player's identity.
     /// </summary>
-    public void FetchItemsForIdentityVerificationSignature(Action? callback = null)
+    public void FetchItemsForIdentityVerificationSignature(Callable callback)
     {
-        _instance.Call(_methodFetchItemsForIdentityVerificationSignature, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodFetchItemsForIdentityVerificationSignature, callback);
     }
 
     /// <summary>
     /// Use this API to retrieve the list of saved games, upon completion, this method invokes the provided callback with both an array of GKSavedGame objects and a variant error, if not nil it contains a string describing the problem.
     /// </summary>
-    public void FetchSavedGames(Action? callback = null)
+    public void FetchSavedGames(Callable callback)
     {
-        _instance.Call(_methodFetchSavedGames, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodFetchSavedGames, callback);
     }
 
     /// <summary>
     /// Loads players whom the local user can challenge. The callback receives '(ArrayGKPlayer friends, Variant error)' where either argument can be 'null'.
     /// </summary>
-    public void LoadChallengeableFriends(Action? callback = null)
+    public void LoadChallengeableFriends(Callable callback)
     {
-        _instance.Call(_methodLoadChallengeableFriends, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadChallengeableFriends, callback);
     }
 
     /// <summary>
     /// Fetches the friends list. The callback receives '(ArrayGKPlayer friends, Variant error)'; a non-null error [code skip-lint]Variant' holds the localized error string.
     /// </summary>
-    public void LoadFriends(Action? callback = null)
+    public void LoadFriends(Callable callback)
     {
-        _instance.Call(_methodLoadFriends, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadFriends, callback);
     }
 
     /// <summary>
     /// Loads friends that recently played together with the local player. The callback signature matches load_challengeable_friends.
     /// </summary>
-    public void LoadRecentFriends(Action? callback = null)
+    public void LoadRecentFriends(Callable callback)
     {
-        _instance.Call(_methodLoadRecentFriends, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadRecentFriends, callback);
     }
 
     /// <summary>
     /// Saves the packed byte array as the game data with the specified name, upon completion the callback is invoked with both a GKSavedObject parameter and a Variant parameter for the error. The GKSavedObject is not-nil on success, and on error, the second parameter is not-nil and contains the error message.
     /// </summary>
-    public void SaveGameData(byte[] data, string withname, Action? callback = null)
+    public void SaveGameData(byte[] data, string withname, Callable callback)
     {
-        _instance.Call(_methodSaveGameData, data, withname, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodSaveGameData, data, withname, callback);
     }
 
 }

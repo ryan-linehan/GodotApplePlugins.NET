@@ -132,17 +132,17 @@ public partial class GKAchievementDescription : GodotObject
     /// <summary>
     /// Loads the entire catalog of achievement descriptions and calls the callback with [code skip-lint]ArrayGKAchievementDescription' and a [code skip-lint]Variant' error ('null' on success, or a string from GameKit).
     /// </summary>
-    public void LoadAchievementDescriptions(Action? callback = null)
+    public void LoadAchievementDescriptions(Callable callback)
     {
-        _instance.Call(_methodLoadAchievementDescriptions, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadAchievementDescriptions, callback);
     }
 
     /// <summary>
     /// Downloads the image for this description. The callback receives '(Image image, Variant error)' where exactly one argument is 'null', matching the helper described in the guide's "Load Achievement Description Image" section.
     /// </summary>
-    public void LoadImage(Action? callback = null)
+    public void LoadImage(Callable callback)
     {
-        _instance.Call(_methodLoadImage, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadImage, callback);
     }
 
 }

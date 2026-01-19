@@ -73,25 +73,25 @@ public partial class StoreSubscriptionInfo : GodotObject
     /// <summary>
     /// Fetches the current status entries for this subscription. The callback receives a [code skip-lint]ArrayStoreSubscriptionInfoStatus' on success, or a 'String' describing the error.
     /// </summary>
-    public void Getstatus(Action? callback = null)
+    public void Getstatus(Callable callback)
     {
-        _instance.Call(_methodGetstatus, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodGetstatus, callback);
     }
 
     /// <summary>
     /// Fetches status entries for the subscription group identifier. The callback receives a [code skip-lint]ArrayStoreSubscriptionInfoStatus' on success, or a 'String' describing the error.
     /// </summary>
-    public void StatusForGroupId(string groupId, Action? status = null)
+    public void StatusForGroupId(string groupId, Callable status)
     {
-        _instance.Call(_methodStatusForGroupId, groupId, status != null ? Callable.From(() => status()) : Callable.From(() => { }));
+        _instance.Call(_methodStatusForGroupId, groupId, status);
     }
 
     /// <summary>
     /// Fetches the status entry for the provided transaction identifier. The callback receives a [code skip-lint]StoreSubscriptionInfoStatus' when available, an empty [code skip-lint]ArrayStoreSubscriptionInfoStatus' when no status is found, or a 'String' describing the error. On macOS, this requires macOS 15.4 or newer; earlier versions perform no action.
     /// </summary>
-    public void StatusForTransaction(int transactionId, Action? status = null)
+    public void StatusForTransaction(int transactionId, Callable status)
     {
-        _instance.Call(_methodStatusForTransaction, transactionId, status != null ? Callable.From(() => status()) : Callable.From(() => { }));
+        _instance.Call(_methodStatusForTransaction, transactionId, status);
     }
 
 }

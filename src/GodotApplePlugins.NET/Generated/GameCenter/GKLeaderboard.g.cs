@@ -119,41 +119,41 @@ public partial class GKLeaderboard : GodotObject
     /// <summary>
     /// Loads the local player's score together with the specified [code skip-lint]Array' of [code skip-lint]GKPlayer' objects for the given time scope (use the TimeScope values). The callback receives '(GKLeaderboardEntry local, ArrayGKLeaderboardEntry scores, Variant error)' where the first entry can be 'null' if the local player has not posted a score.
     /// </summary>
-    public void LoadEntries(Godot.Collections.Array players, GodotObject timescope, Action? callback = null)
+    public void LoadEntries(Godot.Collections.Array players, GodotObject timescope, Callable callback)
     {
-        _instance.Call(_methodLoadEntries, players, timescope, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadEntries, players, timescope, callback);
     }
 
     /// <summary>
     /// Downloads the leaderboard icon. The callback arguments are '(Image image, Variant error)' with exactly one being 'null', matching the [code skip-lint]load_image' helper shown in the guide.
     /// </summary>
-    public void LoadImage(Action? callback = null)
+    public void LoadImage(Callable callback)
     {
-        _instance.Call(_methodLoadImage, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadImage, callback);
     }
 
     /// <summary>
     /// Fetches leaderboard metadata. Pass an empty array to load every leaderboard configured for the app, or provide specific identifiers. The callback receives [code skip-lint]ArrayGKLeaderboard' and a [code skip-lint]Variant' error string ('null' on success).
     /// </summary>
-    public void LoadLeaderboards(string[] ids, Action? callback = null)
+    public void LoadLeaderboards(string[] ids, Callable callback)
     {
-        _instance.Call(_methodLoadLeaderboards, ids, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadLeaderboards, ids, callback);
     }
 
     /// <summary>
     /// Loads leaderboard entries for the local player. The callback receives '(GKLeaderboardEntry local, ArrayGKLeaderboardEntry scores, Variant range, Variant error)' where the first entry can be 'null' if the local player has not posted a score. The value `range` is the number of total player count that matched the scope. Supply PlayerScope and TimeScope integers for the first two parameters.
     /// </summary>
-    public void LoadLocalPlayerEntries(GodotObject playerscope, GodotObject timescope, int rangestart, int rangelenght, Action? callback = null)
+    public void LoadLocalPlayerEntries(GodotObject playerscope, GodotObject timescope, int rangestart, int rangelenght, Callable callback)
     {
-        _instance.Call(_methodLoadLocalPlayerEntries, playerscope, timescope, rangestart, rangelenght, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadLocalPlayerEntries, playerscope, timescope, rangestart, rangelenght, callback);
     }
 
     /// <summary>
     /// Submits a score for the provided player. The callback receives a [code skip-lint]Variant' with the error string or 'null' when the submission succeeds. See [code skip-lint]GameCenterGuide.md' for an end-to-end example.
     /// </summary>
-    public void SubmitScore(int score, int context, GKPlayer player, Action? callback = null)
+    public void SubmitScore(int score, int context, GKPlayer player, Callable callback)
     {
-        _instance.Call(_methodSubmitScore, score, context, player.Instance, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodSubmitScore, score, context, player.Instance, callback);
     }
 
 }

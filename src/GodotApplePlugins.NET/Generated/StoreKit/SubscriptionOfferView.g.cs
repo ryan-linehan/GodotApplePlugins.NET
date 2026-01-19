@@ -63,9 +63,9 @@ public partial class SubscriptionOfferView : GodotObject
     /// <summary>
     /// Presents the offer code redemption view. note: The `callback` parameter is currently unused; use the success and error signals to handle the result.
     /// </summary>
-    public void Present(Action? callback = null)
+    public void Present(Callable callback)
     {
-        _instance.Call(_methodPresent, callback != null ? Callable.From(() => callback()) : Callable.From(() => { }));
+        _instance.Call(_methodPresent, callback);
     }
 
     #region Signals

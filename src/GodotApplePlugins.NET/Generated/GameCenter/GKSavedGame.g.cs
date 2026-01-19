@@ -61,9 +61,9 @@ public partial class GKSavedGame : GodotObject
     /// <summary>
     /// Loads the game data, and invokes the provided callbacj with the first argument being a PackedByteArray and the second argument being a Variant encoding an error, if not-nil it contains a string description of the problem.
     /// </summary>
-    public void LoadData(Action? done = null)
+    public void LoadData(Callable done)
     {
-        _instance.Call(_methodLoadData, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodLoadData, done);
     }
 
 }

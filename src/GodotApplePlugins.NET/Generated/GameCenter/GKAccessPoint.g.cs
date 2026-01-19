@@ -106,49 +106,49 @@ public partial class GKAccessPoint : GodotObject
     /// <summary>
     /// Displays the Game Center dashboard as if the player taps or presses the access point. done is called (with no arguments) when the dashboard presentation completes or is dismissed.
     /// </summary>
-    public void Trigger(Action? done = null)
+    public void Trigger(Callable done)
     {
-        _instance.Call(_methodTrigger, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodTrigger, done);
     }
 
     /// <summary>
     /// Displays the Game Center dashboard in a state that shows a specific achievement. done is called (with no arguments) when the dashboard presentation completes or is dismissed. Only available on macOS 15, iOS 18, tvOS 14, and visionOS 1; earlier versions perform no action.
     /// </summary>
-    public void TriggerWithAchievement(string achievementid, Action? done = null)
+    public void TriggerWithAchievement(string achievementid, Callable done)
     {
-        _instance.Call(_methodTriggerWithAchievement, achievementid, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodTriggerWithAchievement, achievementid, done);
     }
 
     /// <summary>
     /// Displays the Game Center dashboard in a state that shows a specific leaderboard. Use [enum GKLeaderboard.PlayerScope] for playerScope and [enum GKLeaderboard.TimeScope] for timeScope. done is called (with no arguments) when the dashboard presentation completes or is dismissed. Only available on macOS 15, iOS 18, tvOS 14, and visionOS 1; earlier versions perform no action.
     /// </summary>
-    public void TriggerWithLeaderboard(string leaderboardid, int playerscope, int timescope, Action? done = null)
+    public void TriggerWithLeaderboard(string leaderboardid, int playerscope, int timescope, Callable done)
     {
-        _instance.Call(_methodTriggerWithLeaderboard, leaderboardid, playerscope, timescope, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodTriggerWithLeaderboard, leaderboardid, playerscope, timescope, done);
     }
 
     /// <summary>
     /// Displays the Game Center dashboard in a state that shows a specific leaderboard set. done is called (with no arguments) when the dashboard presentation completes or is dismissed. Only available on macOS 15, iOS 18, tvOS 14, and visionOS 1; earlier versions perform no action.
     /// </summary>
-    public void TriggerWithLeaderboardSet(string leaderboardsetid, Action? done = null)
+    public void TriggerWithLeaderboardSet(string leaderboardsetid, Callable done)
     {
-        _instance.Call(_methodTriggerWithLeaderboardSet, leaderboardsetid, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodTriggerWithLeaderboardSet, leaderboardsetid, done);
     }
 
     /// <summary>
     /// Displays the Game Center dashboard in a state that shows a player profile. done is called (with no arguments) when the dashboard presentation completes or is dismissed. Only available on macOS 15, iOS 18, tvOS 14, and visionOS 1; earlier versions perform no action.
     /// </summary>
-    public void TriggerWithPlayer(GKPlayer player, Action? done = null)
+    public void TriggerWithPlayer(GKPlayer player, Callable done)
     {
-        _instance.Call(_methodTriggerWithPlayer, player.Instance, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodTriggerWithPlayer, player.Instance, done);
     }
 
     /// <summary>
     /// Displays the Game Center dashboard in the specified state. See [enum GKGameCenterViewController.State] for values. done is called (with no arguments) when the dashboard presentation completes or is dismissed.
     /// </summary>
-    public void TriggerWithState(GodotObject state, Action? done = null)
+    public void TriggerWithState(GodotObject state, Callable done)
     {
-        _instance.Call(_methodTriggerWithState, state, done != null ? Callable.From(() => done()) : Callable.From(() => { }));
+        _instance.Call(_methodTriggerWithState, state, done);
     }
 
 }
