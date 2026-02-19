@@ -33,12 +33,13 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v8
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.PAT }}
         commit-message: "Update generated wrappers from upstream docs"
         title: "Update generated wrappers from upstream docs"
         body: |
           Automated update from upstream [GodotApplePlugins](https://github.com/migueldeicaza/GodotApplePlugins) documentation.
 
-          This PR was created automatically by the generate workflow.
+          This PR was created automatically by the generate.yml workflow.
         branch: auto-update/generate
         delete-branch: true
+        reviewers: ryan-linehan
