@@ -1,0 +1,39 @@
+name: Generate Wrappers
+
+on:
+  schedule:
+    # Run every Saturday at 9am UTC
+    - cron: '0 9 * * 6'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore src/GodotApplePlugins.Generator
+
+    - name: Run generate.sh
+      run: |
+        chmod +x generate.sh
+        ./generate.sh
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v7
+      with:
+        commit-message: "Update generated wrappers from upstream docs"
+        title: "Update generated wrappers from upstream docs"
+        body: |
+          Automated update from upstream [GodotApplePlugins](https://github.com/migueldeicaza/GodotApplePlugins) documentation.
+
+          This PR was created automatically by the generate workflow.
+        branch: auto-update/generate
+        delete-branch: true

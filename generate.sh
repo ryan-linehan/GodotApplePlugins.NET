@@ -10,20 +10,19 @@ OUTPUT="$SCRIPT_DIR/src/GodotApplePlugins.NET/Generated"
 echo "=== GodotApplePlugins.NET Code Generator ==="
 echo ""
 
-# Check if doc_classes exists
-if [ ! -d "$DOC_CLASSES" ]; then
-    echo "Error: doc_classes directory not found at $DOC_CLASSES"
-    echo "Please download the XML files from https://github.com/migueldeicaza/GodotApplePlugins/tree/main/doc_classes"
-    exit 1
-fi
-
-# Build and run the generator
+# Build the generator
 echo "Building generator..."
 dotnet build "$SCRIPT_DIR/src/GodotApplePlugins.Generator" -c Release -v q
 
+# Download latest XML docs from upstream
+echo ""
+echo "Downloading latest docs from upstream..."
+dotnet run --project "$SCRIPT_DIR/src/GodotApplePlugins.Generator" -c Release --no-build -- update-docs "$DOC_CLASSES"
+
+# Generate C# wrappers
 echo ""
 echo "Running generator..."
-dotnet run --project "$SCRIPT_DIR/src/GodotApplePlugins.Generator" -c Release -- "$DOC_CLASSES" "$OUTPUT"
+dotnet run --project "$SCRIPT_DIR/src/GodotApplePlugins.Generator" -c Release --no-build -- "$DOC_CLASSES" "$OUTPUT"
 
 echo ""
 echo "=== Generation complete ==="
