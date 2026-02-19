@@ -50,4 +50,3 @@ jobs:
           This PR was created automatically by the generate.yml workflow.
         branch: auto-update/generate
         delete-branch: true
-        reviewers: ryan-linehan
