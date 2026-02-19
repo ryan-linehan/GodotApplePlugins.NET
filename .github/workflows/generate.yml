@@ -1,4 +1,4 @@
-name: Generate Wrappers
+name: Generate Wrappers & Create Pull Request
 
 on:
   schedule:
@@ -33,6 +33,7 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v8
       with:
+        token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: "Update generated wrappers from upstream docs"
         title: "Update generated wrappers from upstream docs"
         body: |
