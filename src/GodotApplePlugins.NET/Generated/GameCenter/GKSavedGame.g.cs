@@ -21,6 +21,7 @@ public partial class GKSavedGame : GodotObject
 
     private static readonly StringName _methodLoadData = "load_data";
     private static readonly StringName _propertyDeviceName = "device_name";
+    private static readonly StringName _propertyModificationDate = "modification_date";
     private static readonly StringName _propertyName = "name";
 
     #endregion
@@ -56,6 +57,15 @@ public partial class GKSavedGame : GodotObject
     {
         get => _instance.Get(_propertyName).AsString();
         set => _instance.Set(_propertyName, value);
+    }
+
+    /// <summary>
+    /// The date when you saved the game data or modified it. Game Center sets this property when you save game data using the save_game_data method. If you save game data using an existing filename, Game Center overwrites the file with the new data and changes the modification date.
+    /// </summary>
+    public double ModificationDate
+    {
+        get => _instance.Get(_propertyModificationDate).AsDouble();
+        set => _instance.Set(_propertyModificationDate, value);
     }
 
     /// <summary>

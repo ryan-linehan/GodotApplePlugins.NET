@@ -130,7 +130,7 @@ public partial class GKAchievementDescription : GodotObject
     }
 
     /// <summary>
-    /// Loads the entire catalog of achievement descriptions and calls the callback with [code skip-lint]ArrayGKAchievementDescription' and a [code skip-lint]Variant' error ('null' on success, or a string from GameKit).
+    /// Loads the entire catalog of achievement descriptions and calls the callback with [code skip-lint]ArrayGKAchievementDescription' and a [code skip-lint]Variant' error ('null' on success, or a GKError from GameKit).
     /// </summary>
     public void LoadAchievementDescriptions(Callable callback)
     {
@@ -138,7 +138,7 @@ public partial class GKAchievementDescription : GodotObject
     }
 
     /// <summary>
-    /// Downloads the image for this description. The callback receives '(Image image, Variant error)' where exactly one argument is 'null', matching the helper described in the guide's "Load Achievement Description Image" section.
+    /// Downloads the image for this description. The callback receives '(Image image, Variant error)' where exactly one argument is 'null'. If an error occurs, it is returned as a GKError.
     /// </summary>
     public void LoadImage(Callable callback)
     {

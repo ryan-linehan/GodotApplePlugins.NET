@@ -27,5 +27,8 @@
 		<member name="name" type="String" setter="" getter="get_name" default="&quot;&quot;">
 			The name of the device where the player saved the game.
 		</member>
+		<member name="modification_date" type="float" setter="" getter="get_modification_date" default="0.0">
+			The date when you saved the game data or modified it. Game Center sets this property when you save game data using the save_game_data method. If you save game data using an existing filename, Game Center overwrites the file with the new data and changes the modification date.
+		</member>
 	</members>
 </class>

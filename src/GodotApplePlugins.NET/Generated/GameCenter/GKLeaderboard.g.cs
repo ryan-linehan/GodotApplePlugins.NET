@@ -117,7 +117,7 @@ public partial class GKLeaderboard : GodotObject
     }
 
     /// <summary>
-    /// Loads the local player's score together with the specified [code skip-lint]Array' of [code skip-lint]GKPlayer' objects for the given time scope (use the TimeScope values). The callback receives '(GKLeaderboardEntry local, ArrayGKLeaderboardEntry scores, Variant error)' where the first entry can be 'null' if the local player has not posted a score.
+    /// Loads the local player's score together with the specified [code skip-lint]Array' of [code skip-lint]GKPlayer' objects for the given time scope (use the TimeScope values). The callback receives '(GKLeaderboardEntry local, ArrayGKLeaderboardEntry scores, Variant error)' where the first entry can be 'null' if the local player has not posted a score. If 'error' is not null, it contains a GKError.
     /// </summary>
     public void LoadEntries(Godot.Collections.Array players, GodotObject timescope, Callable callback)
     {
@@ -125,7 +125,7 @@ public partial class GKLeaderboard : GodotObject
     }
 
     /// <summary>
-    /// Downloads the leaderboard icon. The callback arguments are '(Image image, Variant error)' with exactly one being 'null', matching the [code skip-lint]load_image' helper shown in the guide.
+    /// Downloads the leaderboard icon. The callback arguments are '(Image image, Variant error)' with exactly one being 'null', matching the [code skip-lint]load_image' helper shown in the guide. 'error' is a GKError.
     /// </summary>
     public void LoadImage(Callable callback)
     {
@@ -141,7 +141,7 @@ public partial class GKLeaderboard : GodotObject
     }
 
     /// <summary>
-    /// Loads leaderboard entries for the local player. The callback receives '(GKLeaderboardEntry local, ArrayGKLeaderboardEntry scores, Variant range, Variant error)' where the first entry can be 'null' if the local player has not posted a score. The value `range` is the number of total player count that matched the scope. Supply PlayerScope and TimeScope integers for the first two parameters.
+    /// Loads leaderboard entries for the local player. The callback receives '(GKLeaderboardEntry local, ArrayGKLeaderboardEntry scores, Variant range, Variant error)' where the first entry can be 'null' if the local player has not posted a score. The value `range` is the number of total player count that matched the scope. Supply PlayerScope and TimeScope integers for the first two parameters. If 'error' is not null, it is a GKError.
     /// </summary>
     public void LoadLocalPlayerEntries(GodotObject playerscope, GodotObject timescope, int rangestart, int rangelenght, Callable callback)
     {
@@ -149,7 +149,7 @@ public partial class GKLeaderboard : GodotObject
     }
 
     /// <summary>
-    /// Submits a score for the provided player. The callback receives a [code skip-lint]Variant' with the error string or 'null' when the submission succeeds. See [code skip-lint]GameCenterGuide.md' for an end-to-end example.
+    /// Submits a score for the provided player. The callback receives a [code skip-lint]Variant' with the GKError or 'null' when the submission succeeds. See [code skip-lint]GameCenterGuide.md' for an end-to-end example.
     /// </summary>
     public void SubmitScore(int score, int context, GKPlayer player, Callable callback)
     {
