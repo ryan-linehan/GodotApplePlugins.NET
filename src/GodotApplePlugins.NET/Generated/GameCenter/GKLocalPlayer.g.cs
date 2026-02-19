@@ -25,11 +25,16 @@ public partial class GKLocalPlayer : GodotObject
     private static readonly StringName _methodLoadChallengeableFriends = "load_challengeable_friends";
     private static readonly StringName _methodLoadFriends = "load_friends";
     private static readonly StringName _methodLoadRecentFriends = "load_recent_friends";
+    private static readonly StringName _methodRegisterListener = "register_listener";
+    private static readonly StringName _methodResolveConflictingSavedGames = "resolve_conflicting_saved_games";
     private static readonly StringName _methodSaveGameData = "save_game_data";
+    private static readonly StringName _methodUnregisterListener = "unregister_listener";
     private static readonly StringName _propertyIsAuthenticated = "is_authenticated";
     private static readonly StringName _propertyIsMultiplayerGamingRestricted = "is_multiplayer_gaming_restricted";
     private static readonly StringName _propertyIsPersonalizedCommunicationRestricted = "is_personalized_communication_restricted";
     private static readonly StringName _propertyIsUnderage = "is_underage";
+    private static readonly StringName _signalConflictingSavedGames = "conflicting_saved_games";
+    private static readonly StringName _signalSavedGameModified = "saved_game_modified";
 
     #endregion
 
@@ -41,6 +46,7 @@ public partial class GKLocalPlayer : GodotObject
     public GKLocalPlayer(GodotObject instance)
     {
         _instance = instance ?? throw new ArgumentNullException(nameof(instance));
+        ConnectSignals();
     }
 
     /// <summary>
@@ -90,7 +96,7 @@ public partial class GKLocalPlayer : GodotObject
     }
 
     /// <summary>
-    /// Calls Apple's 'fetchItems' helper for server-side authentication. The callback receives '(Dictionary data, Variant error)'. The dictionary contains the 'url', 'data', 'salt', and 'timestamp' keys described in the inline Swift documentation, letting your backend verify the player's identity.
+    /// Calls Apple's 'fetchItems' helper for server-side authentication. The callback receives '(Dictionary data, Variant error)'. The dictionary contains the 'url', 'data', 'salt', and 'timestamp' keys described in the inline Swift documentation, letting your backend verify the player's identity. If not null, 'error' contains a GKError.
     /// </summary>
     public void FetchItemsForIdentityVerificationSignature(Callable callback)
     {
@@ -98,7 +104,7 @@ public partial class GKLocalPlayer : GodotObject
     }
 
     /// <summary>
-    /// Use this API to retrieve the list of saved games, upon completion, this method invokes the provided callback with both an array of GKSavedGame objects and a variant error, if not nil it contains a string describing the problem.
+    /// Use this API to retrieve the list of saved games, upon completion, this method invokes the provided callback with both an array of GKSavedGame objects and a variant error, if not nil it contains a GKError describing the problem.
     /// </summary>
     public void FetchSavedGames(Callable callback)
     {
@@ -106,7 +112,7 @@ public partial class GKLocalPlayer : GodotObject
     }
 
     /// <summary>
-    /// Loads players whom the local user can challenge. The callback receives '(ArrayGKPlayer friends, Variant error)' where either argument can be 'null'.
+    /// Loads players whom the local user can challenge. The callback receives '(ArrayGKPlayer friends, Variant error)' where either argument can be 'null'. If error is present, it is a GKError.
     /// </summary>
     public void LoadChallengeableFriends(Callable callback)
     {
@@ -114,7 +120,7 @@ public partial class GKLocalPlayer : GodotObject
     }
 
     /// <summary>
-    /// Fetches the friends list. The callback receives '(ArrayGKPlayer friends, Variant error)'; a non-null error [code skip-lint]Variant' holds the localized error string.
+    /// Fetches the friends list. The callback receives '(ArrayGKPlayer friends, Variant error)'; a non-null error [code skip-lint]Variant' holds the GKError.
     /// </summary>
     public void LoadFriends(Callable callback)
     {
@@ -130,11 +136,62 @@ public partial class GKLocalPlayer : GodotObject
     }
 
     /// <summary>
-    /// Saves the packed byte array as the game data with the specified name, upon completion the callback is invoked with both a GKSavedObject parameter and a Variant parameter for the error. The GKSavedObject is not-nil on success, and on error, the second parameter is not-nil and contains the error message.
+    /// Saves the packed byte array as the game data with the specified name, upon completion the callback is invoked with both a GKSavedObject parameter and a Variant parameter for the error. The GKSavedObject is not-nil on success, and on error, the second parameter is not-nil and contains the GKError.
     /// </summary>
     public void SaveGameData(byte[] data, string withname, Callable callback)
     {
         _instance.Call(_methodSaveGameData, data, withname, callback);
     }
 
+    /// <summary>
+    /// Registers the local player listener to receive events like saved game conflicts. You typically call this in your '_ready()' function.
+    /// </summary>
+    public void RegisterListener()
+    {
+        _instance.Call(_methodRegisterListener);
+    }
+
+    /// <summary>
+    /// Unregisters the local player listener.
+    /// </summary>
+    public void UnregisterListener()
+    {
+        _instance.Call(_methodUnregisterListener);
+    }
+
+    /// <summary>
+    /// Resolves conflicting saved games using the provided data. The 'conflicts' array should contain the GKSavedGame objects that are in conflict (received from the conflicting_saved_games). The 'data' is the correct game data to save. The callback receives '(ArrayGKSavedGame saved_games, Variant error)'. 'error' is a GKError if not null.
+    /// </summary>
+    public void ResolveConflictingSavedGames(Godot.Collections.Array conflicts, byte[] data, Callable callback)
+    {
+        _instance.Call(_methodResolveConflictingSavedGames, conflicts, data, callback);
+    }
+
+    #region Signals
+
+    /// <summary>
+    /// Emitted when there is a conflict between saved games. You should listen to this signal and then call resolve_conflicting_saved_games with the chosen data.
+    /// </summary>
+    [Signal]
+    public delegate void ConflictingSavedGamesEventHandler(GKPlayer player, Godot.Collections.Array conflictingSavedGames);
+
+    /// <summary>
+    /// Emitted when a saved game is modified.
+    /// </summary>
+    [Signal]
+    public delegate void SavedGameModifiedEventHandler(GKPlayer player, GKSavedGame savedGame);
+
+    private void ConnectSignals()
+    {
+        _instance.Connect(_signalConflictingSavedGames,
+            Callable.From<GodotObject, Godot.Collections.Array>((p0, p1) =>
+                EmitSignal(SignalName.ConflictingSavedGames, new GKPlayer(p0), p1)));
+
+        _instance.Connect(_signalSavedGameModified,
+            Callable.From<GodotObject, GodotObject>((p0, p1) =>
+                EmitSignal(SignalName.SavedGameModified, new GKPlayer(p0), new GKSavedGame(p1))));
+
+    }
+
+    #endregion
 }

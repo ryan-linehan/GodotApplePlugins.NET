@@ -41,17 +41,318 @@ public static class ApplePlugins
         return ClassDB.Instantiate(className).AsGodotObject();
     }
 
-    #region UI
+    #region GameCenter
 
-    /// <summary>Creates a AppleFilePicker wrapper from a GDExtension instance.</summary>
-    public static AppleFilePicker CreateAppleFilePicker(GodotObject instance)
+    /// <summary>Creates a GKAchievementDescription wrapper from a GDExtension instance.</summary>
+    public static GKAchievementDescription CreateGKAchievementDescription(GodotObject instance)
         => new(instance);
 
-    /// <summary>Creates a new AppleFilePicker instance if available.</summary>
-    public static AppleFilePicker? TryCreateAppleFilePicker()
+    /// <summary>Creates a new GKAchievementDescription instance if available.</summary>
+    public static GKAchievementDescription? TryCreateGKAchievementDescription()
     {
-        var instance = TryCreateInstance("AppleFilePicker");
-        return instance != null ? new AppleFilePicker(instance) : null;
+        var instance = TryCreateInstance("GKAchievementDescription");
+        return instance != null ? new GKAchievementDescription(instance) : null;
+    }
+
+    /// <summary>Creates a GKMatchmakerViewController wrapper from a GDExtension instance.</summary>
+    public static GKMatchmakerViewController CreateGKMatchmakerViewController(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKMatchmakerViewController instance if available.</summary>
+    public static GKMatchmakerViewController? TryCreateGKMatchmakerViewController()
+    {
+        var instance = TryCreateInstance("GKMatchmakerViewController");
+        return instance != null ? new GKMatchmakerViewController(instance) : null;
+    }
+
+    /// <summary>Creates a GKAccessPoint wrapper from a GDExtension instance.</summary>
+    public static GKAccessPoint CreateGKAccessPoint(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKAccessPoint instance if available.</summary>
+    public static GKAccessPoint? TryCreateGKAccessPoint()
+    {
+        var instance = TryCreateInstance("GKAccessPoint");
+        return instance != null ? new GKAccessPoint(instance) : null;
+    }
+
+    /// <summary>Creates a GKMatch wrapper from a GDExtension instance.</summary>
+    public static GKMatch CreateGKMatch(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKMatch instance if available.</summary>
+    public static GKMatch? TryCreateGKMatch()
+    {
+        var instance = TryCreateInstance("GKMatch");
+        return instance != null ? new GKMatch(instance) : null;
+    }
+
+    /// <summary>Creates a GKLeaderboard wrapper from a GDExtension instance.</summary>
+    public static GKLeaderboard CreateGKLeaderboard(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKLeaderboard instance if available.</summary>
+    public static GKLeaderboard? TryCreateGKLeaderboard()
+    {
+        var instance = TryCreateInstance("GKLeaderboard");
+        return instance != null ? new GKLeaderboard(instance) : null;
+    }
+
+    /// <summary>Creates a GKPlayer wrapper from a GDExtension instance.</summary>
+    public static GKPlayer CreateGKPlayer(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKPlayer instance if available.</summary>
+    public static GKPlayer? TryCreateGKPlayer()
+    {
+        var instance = TryCreateInstance("GKPlayer");
+        return instance != null ? new GKPlayer(instance) : null;
+    }
+
+    /// <summary>Creates a GKAchievement wrapper from a GDExtension instance.</summary>
+    public static GKAchievement CreateGKAchievement(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKAchievement instance if available.</summary>
+    public static GKAchievement? TryCreateGKAchievement()
+    {
+        var instance = TryCreateInstance("GKAchievement");
+        return instance != null ? new GKAchievement(instance) : null;
+    }
+
+    /// <summary>Creates a GKLeaderboardSet wrapper from a GDExtension instance.</summary>
+    public static GKLeaderboardSet CreateGKLeaderboardSet(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKLeaderboardSet instance if available.</summary>
+    public static GKLeaderboardSet? TryCreateGKLeaderboardSet()
+    {
+        var instance = TryCreateInstance("GKLeaderboardSet");
+        return instance != null ? new GKLeaderboardSet(instance) : null;
+    }
+
+    /// <summary>Creates a GKLeaderboardEntry wrapper from a GDExtension instance.</summary>
+    public static GKLeaderboardEntry CreateGKLeaderboardEntry(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKLeaderboardEntry instance if available.</summary>
+    public static GKLeaderboardEntry? TryCreateGKLeaderboardEntry()
+    {
+        var instance = TryCreateInstance("GKLeaderboardEntry");
+        return instance != null ? new GKLeaderboardEntry(instance) : null;
+    }
+
+    /// <summary>Creates a GKLocalPlayer wrapper from a GDExtension instance.</summary>
+    public static GKLocalPlayer CreateGKLocalPlayer(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKLocalPlayer instance if available.</summary>
+    public static GKLocalPlayer? TryCreateGKLocalPlayer()
+    {
+        var instance = TryCreateInstance("GKLocalPlayer");
+        return instance != null ? new GKLocalPlayer(instance) : null;
+    }
+
+    /// <summary>Creates a GameCenterManager wrapper from a GDExtension instance.</summary>
+    public static GameCenterManager CreateGameCenterManager(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GameCenterManager instance if available.</summary>
+    public static GameCenterManager? TryCreateGameCenterManager()
+    {
+        var instance = TryCreateInstance("GameCenterManager");
+        return instance != null ? new GameCenterManager(instance) : null;
+    }
+
+    /// <summary>Creates a GKMatchRequest wrapper from a GDExtension instance.</summary>
+    public static GKMatchRequest CreateGKMatchRequest(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKMatchRequest instance if available.</summary>
+    public static GKMatchRequest? TryCreateGKMatchRequest()
+    {
+        var instance = TryCreateInstance("GKMatchRequest");
+        return instance != null ? new GKMatchRequest(instance) : null;
+    }
+
+    /// <summary>Creates a GKSavedGame wrapper from a GDExtension instance.</summary>
+    public static GKSavedGame CreateGKSavedGame(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKSavedGame instance if available.</summary>
+    public static GKSavedGame? TryCreateGKSavedGame()
+    {
+        var instance = TryCreateInstance("GKSavedGame");
+        return instance != null ? new GKSavedGame(instance) : null;
+    }
+
+    /// <summary>Creates a GKGameCenterViewController wrapper from a GDExtension instance.</summary>
+    public static GKGameCenterViewController CreateGKGameCenterViewController(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKGameCenterViewController instance if available.</summary>
+    public static GKGameCenterViewController? TryCreateGKGameCenterViewController()
+    {
+        var instance = TryCreateInstance("GKGameCenterViewController");
+        return instance != null ? new GKGameCenterViewController(instance) : null;
+    }
+
+    #endregion
+
+    #region StoreKit
+
+    /// <summary>Creates a ProductView wrapper from a GDExtension instance.</summary>
+    public static ProductView CreateProductView(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ProductView instance if available.</summary>
+    public static ProductView? TryCreateProductView()
+    {
+        var instance = TryCreateInstance("ProductView");
+        return instance != null ? new ProductView(instance) : null;
+    }
+
+    /// <summary>Creates a StoreSubscriptionInfo wrapper from a GDExtension instance.</summary>
+    public static StoreSubscriptionInfo CreateStoreSubscriptionInfo(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new StoreSubscriptionInfo instance if available.</summary>
+    public static StoreSubscriptionInfo? TryCreateStoreSubscriptionInfo()
+    {
+        var instance = TryCreateInstance("StoreSubscriptionInfo");
+        return instance != null ? new StoreSubscriptionInfo(instance) : null;
+    }
+
+    /// <summary>Creates a StoreSubscriptionInfoRenewalInfo wrapper from a GDExtension instance.</summary>
+    public static StoreSubscriptionInfoRenewalInfo CreateStoreSubscriptionInfoRenewalInfo(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new StoreSubscriptionInfoRenewalInfo instance if available.</summary>
+    public static StoreSubscriptionInfoRenewalInfo? TryCreateStoreSubscriptionInfoRenewalInfo()
+    {
+        var instance = TryCreateInstance("StoreSubscriptionInfoRenewalInfo");
+        return instance != null ? new StoreSubscriptionInfoRenewalInfo(instance) : null;
+    }
+
+    /// <summary>Creates a StoreProductSubscriptionPeriod wrapper from a GDExtension instance.</summary>
+    public static StoreProductSubscriptionPeriod CreateStoreProductSubscriptionPeriod(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new StoreProductSubscriptionPeriod instance if available.</summary>
+    public static StoreProductSubscriptionPeriod? TryCreateStoreProductSubscriptionPeriod()
+    {
+        var instance = TryCreateInstance("StoreProductSubscriptionPeriod");
+        return instance != null ? new StoreProductSubscriptionPeriod(instance) : null;
+    }
+
+    /// <summary>Creates a StoreKitManager wrapper from a GDExtension instance.</summary>
+    public static StoreKitManager CreateStoreKitManager(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new StoreKitManager instance if available.</summary>
+    public static StoreKitManager? TryCreateStoreKitManager()
+    {
+        var instance = TryCreateInstance("StoreKitManager");
+        return instance != null ? new StoreKitManager(instance) : null;
+    }
+
+    /// <summary>Creates a SubscriptionStoreView wrapper from a GDExtension instance.</summary>
+    public static SubscriptionStoreView CreateSubscriptionStoreView(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new SubscriptionStoreView instance if available.</summary>
+    public static SubscriptionStoreView? TryCreateSubscriptionStoreView()
+    {
+        var instance = TryCreateInstance("SubscriptionStoreView");
+        return instance != null ? new SubscriptionStoreView(instance) : null;
+    }
+
+    /// <summary>Creates a StoreProduct wrapper from a GDExtension instance.</summary>
+    public static StoreProduct CreateStoreProduct(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new StoreProduct instance if available.</summary>
+    public static StoreProduct? TryCreateStoreProduct()
+    {
+        var instance = TryCreateInstance("StoreProduct");
+        return instance != null ? new StoreProduct(instance) : null;
+    }
+
+    /// <summary>Creates a StoreProductPurchaseOption wrapper from a GDExtension instance.</summary>
+    public static StoreProductPurchaseOption CreateStoreProductPurchaseOption(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new StoreProductPurchaseOption instance if available.</summary>
+    public static StoreProductPurchaseOption? TryCreateStoreProductPurchaseOption()
+    {
+        var instance = TryCreateInstance("StoreProductPurchaseOption");
+        return instance != null ? new StoreProductPurchaseOption(instance) : null;
+    }
+
+    /// <summary>Creates a StoreView wrapper from a GDExtension instance.</summary>
+    public static StoreView CreateStoreView(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new StoreView instance if available.</summary>
+    public static StoreView? TryCreateStoreView()
+    {
+        var instance = TryCreateInstance("StoreView");
+        return instance != null ? new StoreView(instance) : null;
+    }
+
+    /// <summary>Creates a StoreTransaction wrapper from a GDExtension instance.</summary>
+    public static StoreTransaction CreateStoreTransaction(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new StoreTransaction instance if available.</summary>
+    public static StoreTransaction? TryCreateStoreTransaction()
+    {
+        var instance = TryCreateInstance("StoreTransaction");
+        return instance != null ? new StoreTransaction(instance) : null;
+    }
+
+    /// <summary>Creates a StoreProductSubscriptionOffer wrapper from a GDExtension instance.</summary>
+    public static StoreProductSubscriptionOffer CreateStoreProductSubscriptionOffer(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new StoreProductSubscriptionOffer instance if available.</summary>
+    public static StoreProductSubscriptionOffer? TryCreateStoreProductSubscriptionOffer()
+    {
+        var instance = TryCreateInstance("StoreProductSubscriptionOffer");
+        return instance != null ? new StoreProductSubscriptionOffer(instance) : null;
+    }
+
+    /// <summary>Creates a StoreProductPaymentMode wrapper from a GDExtension instance.</summary>
+    public static StoreProductPaymentMode CreateStoreProductPaymentMode(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new StoreProductPaymentMode instance if available.</summary>
+    public static StoreProductPaymentMode? TryCreateStoreProductPaymentMode()
+    {
+        var instance = TryCreateInstance("StoreProductPaymentMode");
+        return instance != null ? new StoreProductPaymentMode(instance) : null;
+    }
+
+    /// <summary>Creates a StoreSubscriptionInfoStatus wrapper from a GDExtension instance.</summary>
+    public static StoreSubscriptionInfoStatus CreateStoreSubscriptionInfoStatus(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new StoreSubscriptionInfoStatus instance if available.</summary>
+    public static StoreSubscriptionInfoStatus? TryCreateStoreSubscriptionInfoStatus()
+    {
+        var instance = TryCreateInstance("StoreSubscriptionInfoStatus");
+        return instance != null ? new StoreSubscriptionInfoStatus(instance) : null;
+    }
+
+    /// <summary>Creates a SubscriptionOfferView wrapper from a GDExtension instance.</summary>
+    public static SubscriptionOfferView CreateSubscriptionOfferView(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new SubscriptionOfferView instance if available.</summary>
+    public static SubscriptionOfferView? TryCreateSubscriptionOfferView()
+    {
+        var instance = TryCreateInstance("SubscriptionOfferView");
+        return instance != null ? new SubscriptionOfferView(instance) : null;
     }
 
     #endregion
@@ -84,6 +385,17 @@ public static class ApplePlugins
 
     #region Authentication
 
+    /// <summary>Creates a ASPasswordCredential wrapper from a GDExtension instance.</summary>
+    public static ASPasswordCredential CreateASPasswordCredential(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ASPasswordCredential instance if available.</summary>
+    public static ASPasswordCredential? TryCreateASPasswordCredential()
+    {
+        var instance = TryCreateInstance("ASPasswordCredential");
+        return instance != null ? new ASPasswordCredential(instance) : null;
+    }
+
     /// <summary>Creates a ASAuthorizationAppleIDCredential wrapper from a GDExtension instance.</summary>
     public static ASAuthorizationAppleIDCredential CreateASAuthorizationAppleIDCredential(GodotObject instance)
         => new(instance);
@@ -106,17 +418,6 @@ public static class ApplePlugins
         return instance != null ? new ASAuthorizationController(instance) : null;
     }
 
-    /// <summary>Creates a ASPasswordCredential wrapper from a GDExtension instance.</summary>
-    public static ASPasswordCredential CreateASPasswordCredential(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new ASPasswordCredential instance if available.</summary>
-    public static ASPasswordCredential? TryCreateASPasswordCredential()
-    {
-        var instance = TryCreateInstance("ASPasswordCredential");
-        return instance != null ? new ASPasswordCredential(instance) : null;
-    }
-
     #endregion
 
     #region AVFoundation
@@ -134,318 +435,17 @@ public static class ApplePlugins
 
     #endregion
 
-    #region GameCenter
+    #region UI
 
-    /// <summary>Creates a GameCenterManager wrapper from a GDExtension instance.</summary>
-    public static GameCenterManager CreateGameCenterManager(GodotObject instance)
+    /// <summary>Creates a AppleFilePicker wrapper from a GDExtension instance.</summary>
+    public static AppleFilePicker CreateAppleFilePicker(GodotObject instance)
         => new(instance);
 
-    /// <summary>Creates a new GameCenterManager instance if available.</summary>
-    public static GameCenterManager? TryCreateGameCenterManager()
+    /// <summary>Creates a new AppleFilePicker instance if available.</summary>
+    public static AppleFilePicker? TryCreateAppleFilePicker()
     {
-        var instance = TryCreateInstance("GameCenterManager");
-        return instance != null ? new GameCenterManager(instance) : null;
-    }
-
-    /// <summary>Creates a GKAccessPoint wrapper from a GDExtension instance.</summary>
-    public static GKAccessPoint CreateGKAccessPoint(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKAccessPoint instance if available.</summary>
-    public static GKAccessPoint? TryCreateGKAccessPoint()
-    {
-        var instance = TryCreateInstance("GKAccessPoint");
-        return instance != null ? new GKAccessPoint(instance) : null;
-    }
-
-    /// <summary>Creates a GKAchievement wrapper from a GDExtension instance.</summary>
-    public static GKAchievement CreateGKAchievement(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKAchievement instance if available.</summary>
-    public static GKAchievement? TryCreateGKAchievement()
-    {
-        var instance = TryCreateInstance("GKAchievement");
-        return instance != null ? new GKAchievement(instance) : null;
-    }
-
-    /// <summary>Creates a GKAchievementDescription wrapper from a GDExtension instance.</summary>
-    public static GKAchievementDescription CreateGKAchievementDescription(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKAchievementDescription instance if available.</summary>
-    public static GKAchievementDescription? TryCreateGKAchievementDescription()
-    {
-        var instance = TryCreateInstance("GKAchievementDescription");
-        return instance != null ? new GKAchievementDescription(instance) : null;
-    }
-
-    /// <summary>Creates a GKGameCenterViewController wrapper from a GDExtension instance.</summary>
-    public static GKGameCenterViewController CreateGKGameCenterViewController(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKGameCenterViewController instance if available.</summary>
-    public static GKGameCenterViewController? TryCreateGKGameCenterViewController()
-    {
-        var instance = TryCreateInstance("GKGameCenterViewController");
-        return instance != null ? new GKGameCenterViewController(instance) : null;
-    }
-
-    /// <summary>Creates a GKLeaderboard wrapper from a GDExtension instance.</summary>
-    public static GKLeaderboard CreateGKLeaderboard(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKLeaderboard instance if available.</summary>
-    public static GKLeaderboard? TryCreateGKLeaderboard()
-    {
-        var instance = TryCreateInstance("GKLeaderboard");
-        return instance != null ? new GKLeaderboard(instance) : null;
-    }
-
-    /// <summary>Creates a GKLeaderboardEntry wrapper from a GDExtension instance.</summary>
-    public static GKLeaderboardEntry CreateGKLeaderboardEntry(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKLeaderboardEntry instance if available.</summary>
-    public static GKLeaderboardEntry? TryCreateGKLeaderboardEntry()
-    {
-        var instance = TryCreateInstance("GKLeaderboardEntry");
-        return instance != null ? new GKLeaderboardEntry(instance) : null;
-    }
-
-    /// <summary>Creates a GKLeaderboardSet wrapper from a GDExtension instance.</summary>
-    public static GKLeaderboardSet CreateGKLeaderboardSet(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKLeaderboardSet instance if available.</summary>
-    public static GKLeaderboardSet? TryCreateGKLeaderboardSet()
-    {
-        var instance = TryCreateInstance("GKLeaderboardSet");
-        return instance != null ? new GKLeaderboardSet(instance) : null;
-    }
-
-    /// <summary>Creates a GKLocalPlayer wrapper from a GDExtension instance.</summary>
-    public static GKLocalPlayer CreateGKLocalPlayer(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKLocalPlayer instance if available.</summary>
-    public static GKLocalPlayer? TryCreateGKLocalPlayer()
-    {
-        var instance = TryCreateInstance("GKLocalPlayer");
-        return instance != null ? new GKLocalPlayer(instance) : null;
-    }
-
-    /// <summary>Creates a GKMatch wrapper from a GDExtension instance.</summary>
-    public static GKMatch CreateGKMatch(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKMatch instance if available.</summary>
-    public static GKMatch? TryCreateGKMatch()
-    {
-        var instance = TryCreateInstance("GKMatch");
-        return instance != null ? new GKMatch(instance) : null;
-    }
-
-    /// <summary>Creates a GKMatchmakerViewController wrapper from a GDExtension instance.</summary>
-    public static GKMatchmakerViewController CreateGKMatchmakerViewController(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKMatchmakerViewController instance if available.</summary>
-    public static GKMatchmakerViewController? TryCreateGKMatchmakerViewController()
-    {
-        var instance = TryCreateInstance("GKMatchmakerViewController");
-        return instance != null ? new GKMatchmakerViewController(instance) : null;
-    }
-
-    /// <summary>Creates a GKMatchRequest wrapper from a GDExtension instance.</summary>
-    public static GKMatchRequest CreateGKMatchRequest(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKMatchRequest instance if available.</summary>
-    public static GKMatchRequest? TryCreateGKMatchRequest()
-    {
-        var instance = TryCreateInstance("GKMatchRequest");
-        return instance != null ? new GKMatchRequest(instance) : null;
-    }
-
-    /// <summary>Creates a GKPlayer wrapper from a GDExtension instance.</summary>
-    public static GKPlayer CreateGKPlayer(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKPlayer instance if available.</summary>
-    public static GKPlayer? TryCreateGKPlayer()
-    {
-        var instance = TryCreateInstance("GKPlayer");
-        return instance != null ? new GKPlayer(instance) : null;
-    }
-
-    /// <summary>Creates a GKSavedGame wrapper from a GDExtension instance.</summary>
-    public static GKSavedGame CreateGKSavedGame(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new GKSavedGame instance if available.</summary>
-    public static GKSavedGame? TryCreateGKSavedGame()
-    {
-        var instance = TryCreateInstance("GKSavedGame");
-        return instance != null ? new GKSavedGame(instance) : null;
-    }
-
-    #endregion
-
-    #region StoreKit
-
-    /// <summary>Creates a ProductView wrapper from a GDExtension instance.</summary>
-    public static ProductView CreateProductView(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new ProductView instance if available.</summary>
-    public static ProductView? TryCreateProductView()
-    {
-        var instance = TryCreateInstance("ProductView");
-        return instance != null ? new ProductView(instance) : null;
-    }
-
-    /// <summary>Creates a StoreKitManager wrapper from a GDExtension instance.</summary>
-    public static StoreKitManager CreateStoreKitManager(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new StoreKitManager instance if available.</summary>
-    public static StoreKitManager? TryCreateStoreKitManager()
-    {
-        var instance = TryCreateInstance("StoreKitManager");
-        return instance != null ? new StoreKitManager(instance) : null;
-    }
-
-    /// <summary>Creates a StoreProduct wrapper from a GDExtension instance.</summary>
-    public static StoreProduct CreateStoreProduct(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new StoreProduct instance if available.</summary>
-    public static StoreProduct? TryCreateStoreProduct()
-    {
-        var instance = TryCreateInstance("StoreProduct");
-        return instance != null ? new StoreProduct(instance) : null;
-    }
-
-    /// <summary>Creates a StoreProductPaymentMode wrapper from a GDExtension instance.</summary>
-    public static StoreProductPaymentMode CreateStoreProductPaymentMode(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new StoreProductPaymentMode instance if available.</summary>
-    public static StoreProductPaymentMode? TryCreateStoreProductPaymentMode()
-    {
-        var instance = TryCreateInstance("StoreProductPaymentMode");
-        return instance != null ? new StoreProductPaymentMode(instance) : null;
-    }
-
-    /// <summary>Creates a StoreProductPurchaseOption wrapper from a GDExtension instance.</summary>
-    public static StoreProductPurchaseOption CreateStoreProductPurchaseOption(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new StoreProductPurchaseOption instance if available.</summary>
-    public static StoreProductPurchaseOption? TryCreateStoreProductPurchaseOption()
-    {
-        var instance = TryCreateInstance("StoreProductPurchaseOption");
-        return instance != null ? new StoreProductPurchaseOption(instance) : null;
-    }
-
-    /// <summary>Creates a StoreProductSubscriptionOffer wrapper from a GDExtension instance.</summary>
-    public static StoreProductSubscriptionOffer CreateStoreProductSubscriptionOffer(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new StoreProductSubscriptionOffer instance if available.</summary>
-    public static StoreProductSubscriptionOffer? TryCreateStoreProductSubscriptionOffer()
-    {
-        var instance = TryCreateInstance("StoreProductSubscriptionOffer");
-        return instance != null ? new StoreProductSubscriptionOffer(instance) : null;
-    }
-
-    /// <summary>Creates a StoreProductSubscriptionPeriod wrapper from a GDExtension instance.</summary>
-    public static StoreProductSubscriptionPeriod CreateStoreProductSubscriptionPeriod(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new StoreProductSubscriptionPeriod instance if available.</summary>
-    public static StoreProductSubscriptionPeriod? TryCreateStoreProductSubscriptionPeriod()
-    {
-        var instance = TryCreateInstance("StoreProductSubscriptionPeriod");
-        return instance != null ? new StoreProductSubscriptionPeriod(instance) : null;
-    }
-
-    /// <summary>Creates a StoreSubscriptionInfo wrapper from a GDExtension instance.</summary>
-    public static StoreSubscriptionInfo CreateStoreSubscriptionInfo(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new StoreSubscriptionInfo instance if available.</summary>
-    public static StoreSubscriptionInfo? TryCreateStoreSubscriptionInfo()
-    {
-        var instance = TryCreateInstance("StoreSubscriptionInfo");
-        return instance != null ? new StoreSubscriptionInfo(instance) : null;
-    }
-
-    /// <summary>Creates a StoreSubscriptionInfoRenewalInfo wrapper from a GDExtension instance.</summary>
-    public static StoreSubscriptionInfoRenewalInfo CreateStoreSubscriptionInfoRenewalInfo(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new StoreSubscriptionInfoRenewalInfo instance if available.</summary>
-    public static StoreSubscriptionInfoRenewalInfo? TryCreateStoreSubscriptionInfoRenewalInfo()
-    {
-        var instance = TryCreateInstance("StoreSubscriptionInfoRenewalInfo");
-        return instance != null ? new StoreSubscriptionInfoRenewalInfo(instance) : null;
-    }
-
-    /// <summary>Creates a StoreSubscriptionInfoStatus wrapper from a GDExtension instance.</summary>
-    public static StoreSubscriptionInfoStatus CreateStoreSubscriptionInfoStatus(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new StoreSubscriptionInfoStatus instance if available.</summary>
-    public static StoreSubscriptionInfoStatus? TryCreateStoreSubscriptionInfoStatus()
-    {
-        var instance = TryCreateInstance("StoreSubscriptionInfoStatus");
-        return instance != null ? new StoreSubscriptionInfoStatus(instance) : null;
-    }
-
-    /// <summary>Creates a StoreTransaction wrapper from a GDExtension instance.</summary>
-    public static StoreTransaction CreateStoreTransaction(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new StoreTransaction instance if available.</summary>
-    public static StoreTransaction? TryCreateStoreTransaction()
-    {
-        var instance = TryCreateInstance("StoreTransaction");
-        return instance != null ? new StoreTransaction(instance) : null;
-    }
-
-    /// <summary>Creates a StoreView wrapper from a GDExtension instance.</summary>
-    public static StoreView CreateStoreView(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new StoreView instance if available.</summary>
-    public static StoreView? TryCreateStoreView()
-    {
-        var instance = TryCreateInstance("StoreView");
-        return instance != null ? new StoreView(instance) : null;
-    }
-
-    /// <summary>Creates a SubscriptionOfferView wrapper from a GDExtension instance.</summary>
-    public static SubscriptionOfferView CreateSubscriptionOfferView(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new SubscriptionOfferView instance if available.</summary>
-    public static SubscriptionOfferView? TryCreateSubscriptionOfferView()
-    {
-        var instance = TryCreateInstance("SubscriptionOfferView");
-        return instance != null ? new SubscriptionOfferView(instance) : null;
-    }
-
-    /// <summary>Creates a SubscriptionStoreView wrapper from a GDExtension instance.</summary>
-    public static SubscriptionStoreView CreateSubscriptionStoreView(GodotObject instance)
-        => new(instance);
-
-    /// <summary>Creates a new SubscriptionStoreView instance if available.</summary>
-    public static SubscriptionStoreView? TryCreateSubscriptionStoreView()
-    {
-        var instance = TryCreateInstance("SubscriptionStoreView");
-        return instance != null ? new SubscriptionStoreView(instance) : null;
+        var instance = TryCreateInstance("AppleFilePicker");
+        return instance != null ? new AppleFilePicker(instance) : null;
     }
 
     #endregion

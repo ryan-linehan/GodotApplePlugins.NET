@@ -63,7 +63,7 @@ public partial class GKMatchmakerViewController : GodotObject
     }
 
     /// <summary>
-    /// Shows the matchmaking UI and invokes the callback with '(GKMatch match, Variant error)' where only one argument is non-'null'. Errors are reported as strings such as "cancelled" when the user dismisses the sheet.
+    /// Shows the matchmaking UI and invokes the callback with '(GKMatch match, Variant error)' where only one argument is non-'null'. Errors are reported as GKError objects.
     /// </summary>
     public void RequestMatch(GKMatchRequest request, Callable callback)
     {
