@@ -6,137 +6,22 @@
 namespace GodotApplePlugins.NET;
 
 /// <summary>
-/// Enum from ProductView.
+/// Enum from StoreSubscriptionInfoStatus.
 /// </summary>
-public enum ProductViewViewStyle
+public enum StoreSubscriptionInfoStatusRenewalState
 {
-    /// <summary>The system automatically chooses the most appropriate style.</summary>
-    Automatic = 0,
-    /// <summary>A compact style that displays minimal information.</summary>
-    Compact = 1,
-    /// <summary>A large style that displays more detailed information.</summary>
-    Large = 2,
-    /// <summary>The regular style.</summary>
-    Regular = 3,
-}
-
-/// <summary>
-/// Enum from GKAccessPoint.
-/// </summary>
-public enum GKAccessPointLocation
-{
-    /// <summary>Display the access point in the top-leading corner.</summary>
-    TopLeading = 0,
-    /// <summary>Display the access point in the top-trailing corner.</summary>
-    TopTrailing = 1,
-    /// <summary>Display the access point in the bottom-leading corner.</summary>
-    BottomLeading = 2,
-    /// <summary>Display the access point in the bottom-trailing corner.</summary>
-    BottomTrailing = 3,
-}
-
-/// <summary>
-/// Enum from GKMatch.
-/// </summary>
-public enum GKMatchSendDataMode
-{
-    /// <summary>Uses GameKit's reliable data channel (ordered delivery with retries).</summary>
-    Reliable = 0,
-    /// <summary>Uses GameKit's unreliable channel, useful for latency-sensitive updates.</summary>
-    Unreliable = 1,
-}
-
-/// <summary>
-/// Enum from GKLeaderboard.
-/// </summary>
-public enum GKLeaderboardAppleLeaderboardType
-{
-    /// <summary>A leaderboard that never expires, showing all-time rankings of all players.</summary>
-    Classic = 0,
-    /// <summary>A leaderboard that recurs, allowing players a fresh start to compete and earn higher ranks in each ocurrence.</summary>
-    Recurring = 1,
-    Unknown = 2,
-}
-
-/// <summary>
-/// Enum from GKLeaderboard.
-/// </summary>
-public enum GKLeaderboardTimeScope
-{
-    /// <summary>Scans the current day.</summary>
-    Today = 0,
-    /// <summary>Restricts results to the current week.</summary>
-    Week = 1,
-    /// <summary>Returns scores across the entire history of the leaderboard.</summary>
-    AllTime = 2,
-}
-
-/// <summary>
-/// Enum from GKLeaderboard.
-/// </summary>
-public enum GKLeaderboardPlayerScope
-{
-    /// <summary>Loads data for all players of the game.</summary>
-    Global = 0,
-    /// <summary>Loads only data for friends of the local player.</summary>
-    FriendsOnly = 1,
-}
-
-/// <summary>
-/// Enum from StoreProductSubscriptionPeriod.
-/// </summary>
-public enum StoreProductSubscriptionPeriodUnit
-{
-    /// <summary>A subscription period of one day.</summary>
-    Day = 0,
-    /// <summary>A subscription period of one month.</summary>
-    Month = 1,
-    /// <summary>A subscription period of one week.</summary>
-    Week = 2,
-    /// <summary>A subscription period of one year.</summary>
-    Year = 3,
-}
-
-/// <summary>
-/// Enum from StoreKitManager.
-/// </summary>
-public enum StoreKitManagerStoreKitStatus
-{
-    /// <summary>The operation completed successfully.</summary>
-    Ok = 0,
-    /// <summary>The product identifier is invalid.</summary>
-    InvalidProduct = 1,
-    /// <summary>The operation was cancelled.</summary>
-    Cancelled = 2,
-    /// <summary>The transaction could not be verified.</summary>
-    UnverifiedTransaction = 3,
-    /// <summary>The user cancelled the operation.</summary>
-    UserCancelled = 4,
-    /// <summary>The purchase is pending (e.g., waiting for parental approval).</summary>
-    PurchasePending = 5,
-    /// <summary>An unknown status occurred.</summary>
-    UnknownStatus = 6,
-}
-
-/// <summary>
-/// Enum from StoreKitManager.
-/// </summary>
-public enum StoreKitManagerVerificationError
-{
-    /// <summary>The certificate chain was parsable, but was invalid due to one or more revoked certificates.</summary>
-    RevokedCertificate = 0,
-    /// <summary>The certificate chain was parsable, but it was invalid for signing this data.</summary>
-    InvalidCertificateChain = 1,
-    /// <summary>The device verification properties were invalid for this device.</summary>
-    InvalidDeviceVerification = 2,
-    /// <summary>Th JWS header and any data included in it or it's certificate chain had an invalid encoding.</summary>
-    InvalidEncoding = 3,
-    /// <summary>The certificate chain was valid for signing this data, but the leaf's public key was invalid for the JWS signature.</summary>
-    InvalidSignature = 4,
-    /// <summary>Either the JWS header or any certificate in the chain was missing necessary properties for verification.</summary>
-    MissingRequiredProperties = 5,
-    /// <summary>A new error code was introduced that was not previously handled.</summary>
-    Other = 6,
+    /// <summary>The renewal state is unknown or not available.</summary>
+    Unknown = 0,
+    /// <summary>The subscription has expired.</summary>
+    Expired = 1,
+    /// <summary>The subscription is currently active.</summary>
+    Subscribed = 2,
+    /// <summary>The subscription is in the billing retry period after a failed renewal.</summary>
+    InBillingRetryPeriod = 3,
+    /// <summary>The subscription is in the grace period after a failed renewal.</summary>
+    InGracePeriod = 4,
+    /// <summary>The subscription was revoked by Apple.</summary>
+    Revoked = 5,
 }
 
 /// <summary>
@@ -158,6 +43,46 @@ public enum SubscriptionStoreViewControlStyle
     PagedPicker = 5,
     /// <summary>A prominent paged picker style.</summary>
     PagedProminentPicker = 6,
+}
+
+/// <summary>
+/// Enum from GKMatchRequest.
+/// </summary>
+public enum GKMatchRequestMatchType
+{
+    PeerToPeer = 0,
+    Hosted = 1,
+    TurnBased = 2,
+}
+
+/// <summary>
+/// Enum from StoreProductSubscriptionPeriod.
+/// </summary>
+public enum StoreProductSubscriptionPeriodUnit
+{
+    /// <summary>A subscription period of one day.</summary>
+    Day = 0,
+    /// <summary>A subscription period of one month.</summary>
+    Month = 1,
+    /// <summary>A subscription period of one week.</summary>
+    Week = 2,
+    /// <summary>A subscription period of one year.</summary>
+    Year = 3,
+}
+
+/// <summary>
+/// Enum from GKAccessPoint.
+/// </summary>
+public enum GKAccessPointLocation
+{
+    /// <summary>Display the access point in the top-leading corner.</summary>
+    TopLeading = 0,
+    /// <summary>Display the access point in the top-trailing corner.</summary>
+    TopTrailing = 1,
+    /// <summary>Display the access point in the bottom-leading corner.</summary>
+    BottomLeading = 2,
+    /// <summary>Display the access point in the bottom-trailing corner.</summary>
+    BottomTrailing = 3,
 }
 
 /// <summary>
@@ -242,23 +167,107 @@ public enum AVAudioSessionSessionMode
 }
 
 /// <summary>
-/// Enum from ASAuthorizationAppleIDCredential.
+/// Enum from GKLeaderboard.
 /// </summary>
-public enum ASAuthorizationAppleIDCredentialUserDetectionStatus
+public enum GKLeaderboardAppleLeaderboardType
 {
-    Unsupported = 0,
-    Unknown = 1,
-    LikelyReal = 2,
+    /// <summary>A leaderboard that never expires, showing all-time rankings of all players.</summary>
+    Classic = 0,
+    /// <summary>A leaderboard that recurs, allowing players a fresh start to compete and earn higher ranks in each ocurrence.</summary>
+    Recurring = 1,
+    Unknown = 2,
 }
 
 /// <summary>
-/// Enum from ASAuthorizationAppleIDCredential.
+/// Enum from GKLeaderboard.
 /// </summary>
-public enum ASAuthorizationAppleIDCredentialUserAgeRange
+public enum GKLeaderboardTimeScope
 {
-    NotKnown = 0,
-    Child = 1,
-    NotChild = 2,
+    /// <summary>Scans the current day.</summary>
+    Today = 0,
+    /// <summary>Restricts results to the current week.</summary>
+    Week = 1,
+    /// <summary>Returns scores across the entire history of the leaderboard.</summary>
+    AllTime = 2,
+}
+
+/// <summary>
+/// Enum from GKLeaderboard.
+/// </summary>
+public enum GKLeaderboardPlayerScope
+{
+    /// <summary>Loads data for all players of the game.</summary>
+    Global = 0,
+    /// <summary>Loads only data for friends of the local player.</summary>
+    FriendsOnly = 1,
+}
+
+/// <summary>
+/// Enum from GKMatch.
+/// </summary>
+public enum GKMatchSendDataMode
+{
+    /// <summary>Uses GameKit's reliable data channel (ordered delivery with retries).</summary>
+    Reliable = 0,
+    /// <summary>Uses GameKit's unreliable channel, useful for latency-sensitive updates.</summary>
+    Unreliable = 1,
+}
+
+/// <summary>
+/// Enum from ProductView.
+/// </summary>
+public enum ProductViewViewStyle
+{
+    /// <summary>The system automatically chooses the most appropriate style.</summary>
+    Automatic = 0,
+    /// <summary>A compact style that displays minimal information.</summary>
+    Compact = 1,
+    /// <summary>A large style that displays more detailed information.</summary>
+    Large = 2,
+    /// <summary>The regular style.</summary>
+    Regular = 3,
+}
+
+/// <summary>
+/// Enum from StoreKitManager.
+/// </summary>
+public enum StoreKitManagerStoreKitStatus
+{
+    /// <summary>The operation completed successfully.</summary>
+    Ok = 0,
+    /// <summary>The product identifier is invalid.</summary>
+    InvalidProduct = 1,
+    /// <summary>The operation was cancelled.</summary>
+    Cancelled = 2,
+    /// <summary>The transaction could not be verified.</summary>
+    UnverifiedTransaction = 3,
+    /// <summary>The user cancelled the operation.</summary>
+    UserCancelled = 4,
+    /// <summary>The purchase is pending (e.g., waiting for parental approval).</summary>
+    PurchasePending = 5,
+    /// <summary>An unknown status occurred.</summary>
+    UnknownStatus = 6,
+}
+
+/// <summary>
+/// Enum from StoreKitManager.
+/// </summary>
+public enum StoreKitManagerVerificationError
+{
+    /// <summary>The certificate chain was parsable, but was invalid due to one or more revoked certificates.</summary>
+    RevokedCertificate = 0,
+    /// <summary>The certificate chain was parsable, but it was invalid for signing this data.</summary>
+    InvalidCertificateChain = 1,
+    /// <summary>The device verification properties were invalid for this device.</summary>
+    InvalidDeviceVerification = 2,
+    /// <summary>Th JWS header and any data included in it or it's certificate chain had an invalid encoding.</summary>
+    InvalidEncoding = 3,
+    /// <summary>The certificate chain was valid for signing this data, but the leaf's public key was invalid for the JWS signature.</summary>
+    InvalidSignature = 4,
+    /// <summary>Either the JWS header or any certificate in the chain was missing necessary properties for verification.</summary>
+    MissingRequiredProperties = 5,
+    /// <summary>A new error code was introduced that was not previously handled.</summary>
+    Other = 6,
 }
 
 /// <summary>
@@ -277,32 +286,23 @@ public enum StoreProductSubscriptionOfferOfferType
 }
 
 /// <summary>
-/// Enum from StoreSubscriptionInfoStatus.
+/// Enum from ASAuthorizationAppleIDCredential.
 /// </summary>
-public enum StoreSubscriptionInfoStatusRenewalState
+public enum ASAuthorizationAppleIDCredentialUserDetectionStatus
 {
-    /// <summary>The renewal state is unknown or not available.</summary>
-    Unknown = 0,
-    /// <summary>The subscription has expired.</summary>
-    Expired = 1,
-    /// <summary>The subscription is currently active.</summary>
-    Subscribed = 2,
-    /// <summary>The subscription is in the billing retry period after a failed renewal.</summary>
-    InBillingRetryPeriod = 3,
-    /// <summary>The subscription is in the grace period after a failed renewal.</summary>
-    InGracePeriod = 4,
-    /// <summary>The subscription was revoked by Apple.</summary>
-    Revoked = 5,
+    Unsupported = 0,
+    Unknown = 1,
+    LikelyReal = 2,
 }
 
 /// <summary>
-/// Enum from GKMatchRequest.
+/// Enum from ASAuthorizationAppleIDCredential.
 /// </summary>
-public enum GKMatchRequestMatchType
+public enum ASAuthorizationAppleIDCredentialUserAgeRange
 {
-    PeerToPeer = 0,
-    Hosted = 1,
-    TurnBased = 2,
+    NotKnown = 0,
+    Child = 1,
+    NotChild = 2,
 }
 
 /// <summary>
