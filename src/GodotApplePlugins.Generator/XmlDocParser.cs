@@ -14,7 +14,7 @@ public static class XmlDocParser
     {
         var classes = new List<GdClass>();
 
-        foreach (var file in Directory.GetFiles(path, "*.xml"))
+        foreach (var file in Directory.GetFiles(path, "*.xml").OrderBy(f => f))
         {
             try
             {

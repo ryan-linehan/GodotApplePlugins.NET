@@ -20,14 +20,14 @@ public class CodeGenerator
     public void GenerateAll(List<GdClass> classes)
     {
         // Group by namespace
-        var byNamespace = classes.GroupBy(c => TypeMapper.GetNamespace(c.Name));
+        var byNamespace = classes.GroupBy(c => TypeMapper.GetNamespace(c.Name)).OrderBy(g => g.Key);
 
         foreach (var group in byNamespace)
         {
             var namespaceDir = Path.Combine(_outputPath, group.Key.Replace("GodotApplePlugins.NET.", "").Replace(".", "/"));
             Directory.CreateDirectory(namespaceDir);
 
-            foreach (var gdClass in group)
+            foreach (var gdClass in group.OrderBy(c => c.Name))
             {
                 var code = GenerateClass(gdClass);
                 var filePath = Path.Combine(namespaceDir, $"{gdClass.Name}.g.cs");
@@ -601,7 +601,8 @@ public class CodeGenerator
         var enumGroups = classes
             .SelectMany(c => c.Constants.Select(k => (Class: c, Constant: k)))
             .Where(x => !string.IsNullOrEmpty(x.Constant.EnumName))
-            .GroupBy(x => $"{x.Class.Name}.{x.Constant.EnumName}");
+            .GroupBy(x => $"{x.Class.Name}.{x.Constant.EnumName}")
+            .OrderBy(g => g.Key);
 
         foreach (var group in enumGroups)
         {
@@ -704,7 +705,7 @@ public class CodeGenerator
         sb.AppendLine();
 
         // Group by namespace for organization
-        var byNamespace = classes.GroupBy(c => TypeMapper.GetNamespace(c.Name));
+        var byNamespace = classes.GroupBy(c => TypeMapper.GetNamespace(c.Name)).OrderBy(g => g.Key);
 
         foreach (var group in byNamespace)
         {
@@ -714,7 +715,7 @@ public class CodeGenerator
             sb.AppendLine($"    #region {nsShort}");
             sb.AppendLine();
 
-            foreach (var gdClass in group)
+            foreach (var gdClass in group.OrderBy(c => c.Name))
             {
                 // Use fully qualified name for classes that conflict with their namespace
                 var typeName = conflictingClasses.Contains(gdClass.Name)
