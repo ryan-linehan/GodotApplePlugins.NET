@@ -136,7 +136,7 @@ public static class XmlDocParser
         {
             Name = element.Attribute("name")?.Value ?? "",
             Type = element.Attribute("type")?.Value ?? "Variant",
-            Description = element.Value?.Trim() ?? "",
+            Description = CleanDescription(element.Value ?? ""),
             DefaultValue = element.Attribute("default")?.Value,
             Getter = element.Attribute("getter")?.Value,
             Setter = element.Attribute("setter")?.Value,
@@ -173,7 +173,7 @@ public static class XmlDocParser
         {
             Name = element.Attribute("name")?.Value ?? "",
             Value = element.Attribute("value")?.Value ?? "0",
-            Description = element.Value?.Trim() ?? "",
+            Description = CleanDescription(element.Value ?? ""),
             EnumName = element.Attribute("enum")?.Value
         };
     }
