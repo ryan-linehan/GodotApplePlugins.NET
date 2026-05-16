@@ -20,6 +20,7 @@ public partial class GKLeaderboardEntry : GodotObject
     #region StringName Constants
 
     private static readonly StringName _propertyContext = "context";
+    private static readonly StringName _propertyDate = "date";
     private static readonly StringName _propertyFormattedScore = "formatted_score";
     private static readonly StringName _propertyPlayer = "player";
     private static readonly StringName _propertyRank = "rank";
@@ -49,6 +50,15 @@ public partial class GKLeaderboardEntry : GodotObject
     {
         get => _instance.Get(_propertyContext).AsInt32();
         set => _instance.Set(_propertyContext, value);
+    }
+
+    /// <summary>
+    /// Unix timestamp (seconds) when this score was recorded.
+    /// </summary>
+    public double Date
+    {
+        get => _instance.Get(_propertyDate).AsDouble();
+        set => _instance.Set(_propertyDate, value);
     }
 
     /// <summary>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="StoreKitManager" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<class name="StoreKitManager" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		Manages StoreKit interactions such as requesting products, purchasing, and restoring purchases.
 	</brief_description>
@@ -51,7 +51,7 @@
 		<method name="purchase_with_options">
 			<return type="void" />
 			<param index="0" name="product" type="StoreProduct" />
-			<param index="1" name="options" type="Array[StoreProductPurchaseOption]" />
+			<param index="1" name="options" type="Array" />
 			<description>
 				Initiates the purchase of a specific product, e.g. [code]purchase(product)[/code], and allows you to provide additional purchase options.
 				                This will raise the
@@ -63,7 +63,7 @@
 			<return type="void" />
 			<param index="0" name="productIds" type="PackedStringArray" />
 			<description>
-				Requests product information for a list of product identifiers, e.g. [code]request_products(["com.example.product1", "com.example.product2"])[/code].
+				Requests product information for a list of product identifiers, e.g. [code]request_products(PackedStringArray(["com.example.product1", "com.example.product2"]))[/code].
 				                This method will raise the [signal products_request_completed] signal when the information is retrieved.
 			</description>
 		</method>
@@ -74,10 +74,15 @@
 				                [signal restore_completed] signal when the product purchased have been restored.
 			</description>
 		</method>
+		<method name="start">
+			<return type="void" />
+			<description>
+			</description>
+		</method>
 	</methods>
 	<signals>
 		<signal name="products_request_completed">
-			<param index="0" name="products" type="Array[StoreProduct]" />
+			<param index="0" name="products" type="Array" />
 			<param index="1" name="status" type="int" />
 			<description>
 				Emitted when a product request completes.
@@ -88,7 +93,7 @@
 		<signal name="purchase_completed">
 			<param index="0" name="transaction" type="StoreTransaction" />
 			<param index="1" name="status" type="int" />
-			<param index="2" name="message" type="String" />
+			<param index="2" name="error_message" type="String" />
 			<description>
 				Emitted when a purchase completes.
 				                [param transaction] is the [StoreTransaction] on success.
@@ -103,7 +108,7 @@
 		</signal>
 		<signal name="restore_completed">
 			<param index="0" name="status" type="int" />
-			<param index="1" name="message" type="String" />
+			<param index="1" name="error_message" type="String" />
 			<description>
 				Emitted when the restore process completes. `arg1` is the [enum StoreKitStatus], and `arg2` is an error message if applicable.
 			</description>

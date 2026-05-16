@@ -69,7 +69,7 @@ public partial class StoreSubscriptionInfoRenewalInfo : GodotObject
     }
 
     /// <summary>
-    /// The original transaction identifier for the subscription. Returns [code]0[/code] when unavailable.
+    /// The original transaction identifier for the subscription. Returns '0' when unavailable.
     /// </summary>
     public int OriginalTransactionId
     {

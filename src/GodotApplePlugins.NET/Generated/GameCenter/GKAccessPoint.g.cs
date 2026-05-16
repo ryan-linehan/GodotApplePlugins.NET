@@ -20,13 +20,20 @@ public partial class GKAccessPoint : GodotObject
     #region StringName Constants
 
     private static readonly StringName _methodTrigger = "trigger";
+    private static readonly StringName _methodTriggerForChallenges = "trigger_for_challenges";
+    private static readonly StringName _methodTriggerForFriending = "trigger_for_friending";
+    private static readonly StringName _methodTriggerForPlayTogether = "trigger_for_play_together";
     private static readonly StringName _methodTriggerWithAchievement = "trigger_with_achievement";
+    private static readonly StringName _methodTriggerWithChallengeDefinitionId = "trigger_with_challenge_definition_id";
+    private static readonly StringName _methodTriggerWithGameActivity = "trigger_with_game_activity";
+    private static readonly StringName _methodTriggerWithGameActivityDefinitionId = "trigger_with_game_activity_definition_id";
     private static readonly StringName _methodTriggerWithLeaderboard = "trigger_with_leaderboard";
     private static readonly StringName _methodTriggerWithLeaderboardSet = "trigger_with_leaderboard_set";
     private static readonly StringName _methodTriggerWithPlayer = "trigger_with_player";
     private static readonly StringName _methodTriggerWithState = "trigger_with_state";
     private static readonly StringName _propertyActive = "active";
     private static readonly StringName _propertyFrameInScreenCoordinates = "frame_in_screen_coordinates";
+    private static readonly StringName _propertyFrameInUnitCoordinates = "frame_in_unit_coordinates";
     private static readonly StringName _propertyIsPresentingGameCenter = "is_presenting_game_center";
     private static readonly StringName _propertyLocation = "location";
     private static readonly StringName _propertyShowHighlights = "show_highlights";
@@ -68,6 +75,15 @@ public partial class GKAccessPoint : GodotObject
     }
 
     /// <summary>
+    /// Read-only frame of the access point normalized to the main screen size (0.0 to 1.0 in each axis). Returns 'Rect2(0, 0, 0, 0)' when the screen size is unavailable or on visionOS.
+    /// </summary>
+    public Rect2 FrameInUnitCoordinates
+    {
+        get => _instance.Get(_propertyFrameInUnitCoordinates).AsRect2();
+        set => _instance.Set(_propertyFrameInUnitCoordinates, value);
+    }
+
+    /// <summary>
     /// A Boolean value that indicates whether the game is presenting the Game Center dashboard.
     /// </summary>
     public bool IsPresentingGameCenter
@@ -77,7 +93,7 @@ public partial class GKAccessPoint : GodotObject
     }
 
     /// <summary>
-    /// The corner of the screen to display the access point. Use the [enum Location] constants.
+    /// The corner of the screen to display the access point. Use the Location constants.
     /// </summary>
     public int Location
     {
@@ -112,11 +128,59 @@ public partial class GKAccessPoint : GodotObject
     }
 
     /// <summary>
+    /// Displays the Game Center dashboard in the Challenges context. done is called (with no arguments) when the dashboard presentation completes or is dismissed. Available on iOS 26 and macOS 26. On older OS versions, tvOS, and visionOS, this method performs no action.
+    /// </summary>
+    public void TriggerForChallenges(Callable done)
+    {
+        _instance.Call(_methodTriggerForChallenges, done);
+    }
+
+    /// <summary>
+    /// Displays the Game Center dashboard in the Friending context. done is called (with no arguments) when the dashboard presentation completes or is dismissed. Available on iOS 26 and macOS 26. On older OS versions, tvOS, and visionOS, this method performs no action.
+    /// </summary>
+    public void TriggerForFriending(Callable done)
+    {
+        _instance.Call(_methodTriggerForFriending, done);
+    }
+
+    /// <summary>
+    /// Displays the Game Center dashboard in the Play Together context. done is called (with no arguments) when the dashboard presentation completes or is dismissed. Available on iOS 26 and macOS 26. On older OS versions, tvOS, and visionOS, this method performs no action.
+    /// </summary>
+    public void TriggerForPlayTogether(Callable done)
+    {
+        _instance.Call(_methodTriggerForPlayTogether, done);
+    }
+
+    /// <summary>
     /// Displays the Game Center dashboard in a state that shows a specific achievement. done is called (with no arguments) when the dashboard presentation completes or is dismissed. Only available on macOS 15, iOS 18, tvOS 14, and visionOS 1; earlier versions perform no action.
     /// </summary>
     public void TriggerWithAchievement(string achievementid, Callable done)
     {
         _instance.Call(_methodTriggerWithAchievement, achievementid, done);
+    }
+
+    /// <summary>
+    /// Displays the Game Center dashboard focused on the challenge definition with identifier challengeDefinitionID. done is called (with no arguments) when the dashboard presentation completes or is dismissed. Available on iOS 26 and macOS 26. On older OS versions, tvOS, and visionOS, this method performs no action.
+    /// </summary>
+    public void TriggerWithChallengeDefinitionId(string challengedefinitionid, Callable done)
+    {
+        _instance.Call(_methodTriggerWithChallengeDefinitionId, challengedefinitionid, done);
+    }
+
+    /// <summary>
+    /// Displays the Game Center dashboard focused on gameActivity. done is called (with no arguments) when the dashboard presentation completes or is dismissed. Available on iOS 26 and macOS 26. On older OS versions, tvOS, and visionOS, this method performs no action.
+    /// </summary>
+    public void TriggerWithGameActivity(GodotObject gameactivity, Callable done)
+    {
+        _instance.Call(_methodTriggerWithGameActivity, gameactivity, done);
+    }
+
+    /// <summary>
+    /// Displays the Game Center dashboard focused on the game activity definition with identifier gameActivityDefinitionID. done is called (with no arguments) when the dashboard presentation completes or is dismissed. Available on iOS 26 and macOS 26. On older OS versions, tvOS, and visionOS, this method performs no action.
+    /// </summary>
+    public void TriggerWithGameActivityDefinitionId(string gameactivitydefinitionid, Callable done)
+    {
+        _instance.Call(_methodTriggerWithGameActivityDefinitionId, gameactivitydefinitionid, done);
     }
 
     /// <summary>
@@ -146,7 +210,7 @@ public partial class GKAccessPoint : GodotObject
     /// <summary>
     /// Displays the Game Center dashboard in the specified state. See [enum GKGameCenterViewController.State] for values. done is called (with no arguments) when the dashboard presentation completes or is dismissed.
     /// </summary>
-    public void TriggerWithState(GodotObject state, Callable done)
+    public void TriggerWithState(int state, Callable done)
     {
         _instance.Call(_methodTriggerWithState, state, done);
     }

@@ -44,7 +44,7 @@ public partial class GameCenterManager : GodotObject
     public GodotObject Instance => _instance;
 
     /// <summary>
-    /// Access the shared [GKAccessPoint] object to manage the visibility and state of the Game Center access point.
+    /// Access the shared GKAccessPoint object to manage the visibility and state of the Game Center access point.
     /// </summary>
     public GKAccessPoint AccessPoint
     {
@@ -53,7 +53,7 @@ public partial class GameCenterManager : GodotObject
     }
 
     /// <summary>
-    /// Returns the wrapper for [code skip-lint]GKLocalPlayer.local[/code]. Use this after successful authentication to call methods such as [code]load_friends()[/code] or [code]fetch_items_for_identity_verification_signature()[/code].
+    /// Returns the wrapper for [code skip-lint]GKLocalPlayer.local'. Use this after successful authentication to call methods such as 'load_friends()' or 'fetch_items_for_identity_verification_signature()'.
     /// </summary>
     public GKLocalPlayer LocalPlayer
     {

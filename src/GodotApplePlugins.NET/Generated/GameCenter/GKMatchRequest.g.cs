@@ -24,6 +24,13 @@ public partial class GKMatchRequest : GodotObject
     private static readonly StringName _propertyInviteMessage = "invite_message";
     private static readonly StringName _propertyMaxPlayers = "max_players";
     private static readonly StringName _propertyMinPlayers = "min_players";
+    private static readonly StringName _propertyPlayerAttributes = "player_attributes";
+    private static readonly StringName _propertyPlayerGroup = "player_group";
+    private static readonly StringName _propertyProperties = "properties";
+    private static readonly StringName _propertyQueueName = "queue_name";
+    private static readonly StringName _propertyRecipientProperties = "recipient_properties";
+    private static readonly StringName _propertyRecipientResponse = "recipient_response";
+    private static readonly StringName _propertyRecipients = "recipients";
 
     #endregion
 
@@ -52,7 +59,7 @@ public partial class GKMatchRequest : GodotObject
     }
 
     /// <summary>
-    /// Optional text Apple shows when the player sends invitations (see the [code skip-lint]invite_message[/code] example in the guide).
+    /// Optional text Apple shows when the player sends invitations (see the [code skip-lint]invite_message' example in the guide).
     /// </summary>
     public string InviteMessage
     {
@@ -78,10 +85,52 @@ public partial class GKMatchRequest : GodotObject
         set => _instance.Set(_propertyMinPlayers, value);
     }
 
+    public int PlayerAttributes
+    {
+        get => _instance.Get(_propertyPlayerAttributes).AsInt32();
+        set => _instance.Set(_propertyPlayerAttributes, value);
+    }
+
+    public int PlayerGroup
+    {
+        get => _instance.Get(_propertyPlayerGroup).AsInt32();
+        set => _instance.Set(_propertyPlayerGroup, value);
+    }
+
+    public Godot.Collections.Dictionary Properties
+    {
+        get => _instance.Get(_propertyProperties).AsGodotDictionary();
+        set => _instance.Set(_propertyProperties, value);
+    }
+
+    public string QueueName
+    {
+        get => _instance.Get(_propertyQueueName).AsString();
+        set => _instance.Set(_propertyQueueName, value);
+    }
+
+    public Godot.Collections.Dictionary RecipientProperties
+    {
+        get => _instance.Get(_propertyRecipientProperties).AsGodotDictionary();
+        set => _instance.Set(_propertyRecipientProperties, value);
+    }
+
+    public Variant RecipientResponse
+    {
+        get => _instance.Get(_propertyRecipientResponse);
+        set => _instance.Set(_propertyRecipientResponse, value);
+    }
+
+    public Godot.Collections.Array Recipients
+    {
+        get => _instance.Get(_propertyRecipients).AsGodotArray();
+        set => _instance.Set(_propertyRecipients, value);
+    }
+
     /// <summary>
     /// Returns Apple's maximum supported player count for the supplied match type ('peer_to_peer', [code skip-lint]hosted', or 'turn_based').
     /// </summary>
-    public int MaxPlayersAllowedForMatch(GodotObject fortype)
+    public int MaxPlayersAllowedForMatch(int fortype)
     {
         var result = _instance.Call(_methodMaxPlayersAllowedForMatch, fortype);
         return result.AsInt32();

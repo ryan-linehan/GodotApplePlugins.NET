@@ -19,11 +19,13 @@ public partial class GKPlayer : GodotObject
 {
     #region StringName Constants
 
+    private static readonly StringName _methodAnonymousGuestPlayer = "anonymous_guest_player";
     private static readonly StringName _methodLoadPhoto = "load_photo";
     private static readonly StringName _methodScopedidsarepersistent = "scopedIDsArePersistent";
     private static readonly StringName _propertyAlias = "alias";
     private static readonly StringName _propertyDisplayName = "display_name";
     private static readonly StringName _propertyGamePlayerId = "game_player_id";
+    private static readonly StringName _propertyGuestIdentifier = "guest_identifier";
     private static readonly StringName _propertyIsInvitable = "is_invitable";
     private static readonly StringName _propertyTeamPlayerId = "team_player_id";
 
@@ -72,6 +74,15 @@ public partial class GKPlayer : GodotObject
     }
 
     /// <summary>
+    /// Guest identifier for anonymous players, or an empty string for signed-in Game Center accounts.
+    /// </summary>
+    public string GuestIdentifier
+    {
+        get => _instance.Get(_propertyGuestIdentifier).AsString();
+        set => _instance.Set(_propertyGuestIdentifier, value);
+    }
+
+    /// <summary>
     /// True if the player allows Game Center invitations.
     /// </summary>
     public bool IsInvitable
@@ -87,6 +98,15 @@ public partial class GKPlayer : GodotObject
     {
         get => _instance.Get(_propertyTeamPlayerId).AsString();
         set => _instance.Set(_propertyTeamPlayerId, value);
+    }
+
+    /// <summary>
+    /// Creates an anonymous guest player object for identifier using Apple's guest-player API.
+    /// </summary>
+    public GKPlayer AnonymousGuestPlayer(string identifier)
+    {
+        var result = _instance.Call(_methodAnonymousGuestPlayer, identifier);
+        return new GKPlayer((GodotObject)result.Obj!);
     }
 
     /// <summary>
