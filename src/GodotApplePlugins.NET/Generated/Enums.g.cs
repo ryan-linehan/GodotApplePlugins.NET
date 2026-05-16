@@ -6,6 +6,493 @@
 namespace GodotApplePlugins.NET;
 
 /// <summary>
+/// Enum from ARCamera.
+/// </summary>
+public enum ARCameraTrackingState
+{
+    /// <summary>Camera tracking is not available.</summary>
+    NotAvailable = 0,
+    /// <summary>Camera tracking is available but currently limited.</summary>
+    Limited = 1,
+    /// <summary>Camera tracking is operating normally.</summary>
+    Normal = 2,
+}
+
+/// <summary>
+/// Enum from ARCamera.
+/// </summary>
+public enum ARCameraTrackingStateReason
+{
+    /// <summary>No specific reason is reported for limited tracking.</summary>
+    None = 0,
+    /// <summary>Tracking is limited because the session is still initializing.</summary>
+    Initializing = 1,
+    /// <summary>Tracking is limited because the device is moving too quickly.</summary>
+    ExcessiveMotion = 2,
+    /// <summary>Tracking is limited because the scene lacks enough visual features.</summary>
+    InsufficientFeatures = 3,
+    /// <summary>Tracking is limited because ARKit is attempting to relocalize in a known map.</summary>
+    Relocalizing = 4,
+}
+
+/// <summary>
+/// Enum from ARCoachingOverlay.
+/// </summary>
+public enum ARCoachingOverlayGoal
+{
+    /// <summary>Guide the user until general tracking quality is sufficient.</summary>
+    Tracking = 0,
+    /// <summary>Guide the user until a horizontal plane is found.</summary>
+    HorizontalPlane = 1,
+    /// <summary>Guide the user until a vertical plane is found.</summary>
+    VerticalPlane = 2,
+    /// <summary>Guide the user until any supported plane is found.</summary>
+    AnyPlane = 3,
+    /// <summary>Guide the user until geo tracking becomes available.</summary>
+    GeoTracking = 4,
+}
+
+/// <summary>
+/// Enum from ARCollaborationData.
+/// </summary>
+public enum ARCollaborationDataPriority
+{
+    /// <summary>This packet is essential for accurate shared-session synchronization.</summary>
+    Critical = 0,
+    /// <summary>This packet improves shared-session quality but may be dropped if needed.</summary>
+    Optional = 1,
+}
+
+/// <summary>
+/// Enum from ARFaceAnchor.
+/// </summary>
+public enum ARFaceAnchorBlendShapeLocation
+{
+    /// <summary>Blend shape coefficient for eye blink left.</summary>
+    EyeBlinkLeft = 0,
+    /// <summary>Blend shape coefficient for eye look down left.</summary>
+    EyeLookDownLeft = 1,
+    /// <summary>Blend shape coefficient for eye look in left.</summary>
+    EyeLookInLeft = 2,
+    /// <summary>Blend shape coefficient for eye look out left.</summary>
+    EyeLookOutLeft = 3,
+    /// <summary>Blend shape coefficient for eye look up left.</summary>
+    EyeLookUpLeft = 4,
+    /// <summary>Blend shape coefficient for eye squint left.</summary>
+    EyeSquintLeft = 5,
+    /// <summary>Blend shape coefficient for eye wide left.</summary>
+    EyeWideLeft = 6,
+    /// <summary>Blend shape coefficient for eye blink right.</summary>
+    EyeBlinkRight = 7,
+    /// <summary>Blend shape coefficient for eye look down right.</summary>
+    EyeLookDownRight = 8,
+    /// <summary>Blend shape coefficient for eye look in right.</summary>
+    EyeLookInRight = 9,
+    /// <summary>Blend shape coefficient for eye look out right.</summary>
+    EyeLookOutRight = 10,
+    /// <summary>Blend shape coefficient for eye look up right.</summary>
+    EyeLookUpRight = 11,
+    /// <summary>Blend shape coefficient for eye squint right.</summary>
+    EyeSquintRight = 12,
+    /// <summary>Blend shape coefficient for eye wide right.</summary>
+    EyeWideRight = 13,
+    /// <summary>Blend shape coefficient for jaw forward.</summary>
+    JawForward = 14,
+    /// <summary>Blend shape coefficient for jaw left.</summary>
+    JawLeft = 15,
+    /// <summary>Blend shape coefficient for jaw right.</summary>
+    JawRight = 16,
+    /// <summary>Blend shape coefficient for jaw open.</summary>
+    JawOpen = 17,
+    /// <summary>Blend shape coefficient for mouth close.</summary>
+    MouthClose = 18,
+    /// <summary>Blend shape coefficient for mouth funnel.</summary>
+    MouthFunnel = 19,
+    /// <summary>Blend shape coefficient for mouth pucker.</summary>
+    MouthPucker = 20,
+    /// <summary>Blend shape coefficient for mouth left.</summary>
+    MouthLeft = 21,
+    /// <summary>Blend shape coefficient for mouth right.</summary>
+    MouthRight = 22,
+    /// <summary>Blend shape coefficient for mouth smile left.</summary>
+    MouthSmileLeft = 23,
+    /// <summary>Blend shape coefficient for mouth smile right.</summary>
+    MouthSmileRight = 24,
+    /// <summary>Blend shape coefficient for mouth frown left.</summary>
+    MouthFrownLeft = 25,
+    /// <summary>Blend shape coefficient for mouth frown right.</summary>
+    MouthFrownRight = 26,
+    /// <summary>Blend shape coefficient for mouth dimple left.</summary>
+    MouthDimpleLeft = 27,
+    /// <summary>Blend shape coefficient for mouth dimple right.</summary>
+    MouthDimpleRight = 28,
+    /// <summary>Blend shape coefficient for mouth stretch left.</summary>
+    MouthStretchLeft = 29,
+    /// <summary>Blend shape coefficient for mouth stretch right.</summary>
+    MouthStretchRight = 30,
+    /// <summary>Blend shape coefficient for mouth roll lower.</summary>
+    MouthRollLower = 31,
+    /// <summary>Blend shape coefficient for mouth roll upper.</summary>
+    MouthRollUpper = 32,
+    /// <summary>Blend shape coefficient for mouth shrug lower.</summary>
+    MouthShrugLower = 33,
+    /// <summary>Blend shape coefficient for mouth shrug upper.</summary>
+    MouthShrugUpper = 34,
+    /// <summary>Blend shape coefficient for mouth press left.</summary>
+    MouthPressLeft = 35,
+    /// <summary>Blend shape coefficient for mouth press right.</summary>
+    MouthPressRight = 36,
+    /// <summary>Blend shape coefficient for mouth lower down left.</summary>
+    MouthLowerDownLeft = 37,
+    /// <summary>Blend shape coefficient for mouth lower down right.</summary>
+    MouthLowerDownRight = 38,
+    /// <summary>Blend shape coefficient for mouth upper up left.</summary>
+    MouthUpperUpLeft = 39,
+    /// <summary>Blend shape coefficient for mouth upper up right.</summary>
+    MouthUpperUpRight = 40,
+    /// <summary>Blend shape coefficient for brow down left.</summary>
+    BrowDownLeft = 41,
+    /// <summary>Blend shape coefficient for brow down right.</summary>
+    BrowDownRight = 42,
+    /// <summary>Blend shape coefficient for brow inner up.</summary>
+    BrowInnerUp = 43,
+    /// <summary>Blend shape coefficient for brow outer up left.</summary>
+    BrowOuterUpLeft = 44,
+    /// <summary>Blend shape coefficient for brow outer up right.</summary>
+    BrowOuterUpRight = 45,
+    /// <summary>Blend shape coefficient for cheek puff.</summary>
+    CheekPuff = 46,
+    /// <summary>Blend shape coefficient for cheek squint left.</summary>
+    CheekSquintLeft = 47,
+    /// <summary>Blend shape coefficient for cheek squint right.</summary>
+    CheekSquintRight = 48,
+    /// <summary>Blend shape coefficient for nose sneer left.</summary>
+    NoseSneerLeft = 49,
+    /// <summary>Blend shape coefficient for nose sneer right.</summary>
+    NoseSneerRight = 50,
+    /// <summary>Blend shape coefficient for tongue out.</summary>
+    TongueOut = 51,
+}
+
+/// <summary>
+/// Enum from ARFrame.
+/// </summary>
+public enum ARFrameWorldMappingStatus
+{
+    /// <summary>No world mapping information is available yet.</summary>
+    NotAvailable = 0,
+    /// <summary>World mapping has started but remains limited.</summary>
+    Limited = 1,
+    /// <summary>ARKit is actively extending the mapped area.</summary>
+    Extending = 2,
+    /// <summary>The local environment is well mapped.</summary>
+    Mapped = 3,
+}
+
+/// <summary>
+/// Enum from ARGeoAnchor.
+/// </summary>
+public enum ARGeoAnchorAltitudeSource
+{
+    /// <summary>The altitude source is unknown.</summary>
+    Unknown = 0,
+    /// <summary>The altitude was estimated from a coarse data source.</summary>
+    Coarse = 1,
+    /// <summary>The altitude was determined from a precise data source.</summary>
+    Precise = 2,
+    /// <summary>The altitude value was provided explicitly by the user or app.</summary>
+    UserDefined = 3,
+}
+
+/// <summary>
+/// Enum from ARHandAnchor.
+/// </summary>
+public enum ARHandAnchorChirality
+{
+    /// <summary>The anchor represents the left hand.</summary>
+    Left = 0,
+    /// <summary>The anchor represents the right hand.</summary>
+    Right = 1,
+}
+
+/// <summary>
+/// Enum from ARHandSkeleton.
+/// </summary>
+public enum ARHandSkeletonJointName
+{
+    /// <summary>Joint identifier for the wrist.</summary>
+    Wrist = 0,
+    /// <summary>Joint identifier for the thumb knuckle.</summary>
+    ThumbKnuckle = 1,
+    /// <summary>Joint identifier for the thumb intermediate base.</summary>
+    ThumbIntermediateBase = 2,
+    /// <summary>Joint identifier for the thumb intermediate tip.</summary>
+    ThumbIntermediateTip = 3,
+    /// <summary>Joint identifier for the thumb tip.</summary>
+    ThumbTip = 4,
+    /// <summary>Joint identifier for the index finger metacarpal.</summary>
+    IndexFingerMetacarpal = 5,
+    /// <summary>Joint identifier for the index finger knuckle.</summary>
+    IndexFingerKnuckle = 6,
+    /// <summary>Joint identifier for the index finger intermediate base.</summary>
+    IndexFingerIntermediateBase = 7,
+    /// <summary>Joint identifier for the index finger intermediate tip.</summary>
+    IndexFingerIntermediateTip = 8,
+    /// <summary>Joint identifier for the index finger tip.</summary>
+    IndexFingerTip = 9,
+    /// <summary>Joint identifier for the middle finger metacarpal.</summary>
+    MiddleFingerMetacarpal = 10,
+    /// <summary>Joint identifier for the middle finger knuckle.</summary>
+    MiddleFingerKnuckle = 11,
+    /// <summary>Joint identifier for the middle finger intermediate base.</summary>
+    MiddleFingerIntermediateBase = 12,
+    /// <summary>Joint identifier for the middle finger intermediate tip.</summary>
+    MiddleFingerIntermediateTip = 13,
+    /// <summary>Joint identifier for the middle finger tip.</summary>
+    MiddleFingerTip = 14,
+    /// <summary>Joint identifier for the ring finger metacarpal.</summary>
+    RingFingerMetacarpal = 15,
+    /// <summary>Joint identifier for the ring finger knuckle.</summary>
+    RingFingerKnuckle = 16,
+    /// <summary>Joint identifier for the ring finger intermediate base.</summary>
+    RingFingerIntermediateBase = 17,
+    /// <summary>Joint identifier for the ring finger intermediate tip.</summary>
+    RingFingerIntermediateTip = 18,
+    /// <summary>Joint identifier for the ring finger tip.</summary>
+    RingFingerTip = 19,
+    /// <summary>Joint identifier for the little finger metacarpal.</summary>
+    LittleFingerMetacarpal = 20,
+    /// <summary>Joint identifier for the little finger knuckle.</summary>
+    LittleFingerKnuckle = 21,
+    /// <summary>Joint identifier for the little finger intermediate base.</summary>
+    LittleFingerIntermediateBase = 22,
+    /// <summary>Joint identifier for the little finger intermediate tip.</summary>
+    LittleFingerIntermediateTip = 23,
+    /// <summary>Joint identifier for the little finger tip.</summary>
+    LittleFingerTip = 24,
+    /// <summary>Joint identifier for the forearm wrist.</summary>
+    ForearmWrist = 25,
+    /// <summary>Joint identifier for the forearm arm.</summary>
+    ForearmArm = 26,
+}
+
+/// <summary>
+/// Enum from ARMeshAnchor.
+/// </summary>
+public enum ARMeshAnchorMeshClassification
+{
+    /// <summary>No semantic classification is available for this face.</summary>
+    None = 0,
+    /// <summary>The mesh face is classified as a wall.</summary>
+    Wall = 1,
+    /// <summary>The mesh face is classified as a floor.</summary>
+    Floor = 2,
+    /// <summary>The mesh face is classified as a ceiling.</summary>
+    Ceiling = 3,
+    /// <summary>The mesh face is classified as a table-like surface.</summary>
+    Table = 4,
+    /// <summary>The mesh face is classified as a seat.</summary>
+    Seat = 5,
+    /// <summary>The mesh face is classified as a window.</summary>
+    Window = 6,
+    /// <summary>The mesh face is classified as a door.</summary>
+    Door = 7,
+}
+
+/// <summary>
+/// Enum from ARPlaneAnchor.
+/// </summary>
+public enum ARPlaneAnchorAlignment
+{
+    /// <summary>The plane is horizontally aligned.</summary>
+    Horizontal = 0,
+    /// <summary>The plane is vertically aligned.</summary>
+    Vertical = 1,
+    /// <summary>The plane is aligned to a slanted surface.</summary>
+    Slanted = 2,
+}
+
+/// <summary>
+/// Enum from ARPlaneAnchor.
+/// </summary>
+public enum ARPlaneAnchorClassification
+{
+    /// <summary>No semantic classification is available for this plane.</summary>
+    None = 0,
+    /// <summary>The plane is classified as a wall.</summary>
+    Wall = 1,
+    /// <summary>The plane is classified as a floor.</summary>
+    Floor = 2,
+    /// <summary>The plane is classified as a ceiling.</summary>
+    Ceiling = 3,
+    /// <summary>The plane is classified as a table.</summary>
+    Table = 4,
+    /// <summary>The plane is classified as a seat.</summary>
+    Seat = 5,
+    /// <summary>The plane is classified as a window.</summary>
+    Window = 6,
+    /// <summary>The plane is classified as a door.</summary>
+    Door = 7,
+    /// <summary>The plane is classified as stairs.</summary>
+    Stairs = 8,
+    /// <summary>The plane is classified as a bed.</summary>
+    Bed = 9,
+    /// <summary>The plane is classified as a cabinet.</summary>
+    Cabinet = 10,
+    /// <summary>The plane is classified as a home appliance.</summary>
+    HomeAppliance = 11,
+    /// <summary>The plane is classified as a television.</summary>
+    Tv = 12,
+    /// <summary>The plane is classified as a plant.</summary>
+    Plant = 13,
+}
+
+/// <summary>
+/// Enum from ARPlaneAnchor.
+/// </summary>
+public enum ARPlaneAnchorClassificationStatus
+{
+    /// <summary>Plane classification is not available on this device.</summary>
+    NotAvailable = 0,
+    /// <summary>Plane classification support is present but no classification has been produced yet.</summary>
+    Undetermined = 1,
+    /// <summary>The plane could not be classified.</summary>
+    Unknown = 2,
+    /// <summary>The plane has a valid semantic classification.</summary>
+    Known = 3,
+}
+
+/// <summary>
+/// Enum from ARRaycastQuery.
+/// </summary>
+public enum ARRaycastQueryTarget
+{
+    /// <summary>Match against the actual geometry of detected planes.</summary>
+    ExistingPlaneGeometry = 1,
+    /// <summary>Match against infinite extensions of detected planes.</summary>
+    ExistingPlaneInfinite = 2,
+    /// <summary>Match against estimated planes inferred from feature points.</summary>
+    EstimatedPlane = 3,
+}
+
+/// <summary>
+/// Enum from ARRaycastQuery.
+/// </summary>
+public enum ARRaycastQueryTargetAlignment
+{
+    /// <summary>Restrict matches to horizontal surfaces.</summary>
+    Horizontal = 0,
+    /// <summary>Restrict matches to vertical surfaces.</summary>
+    Vertical = 1,
+    /// <summary>Allow matches on surfaces of any supported alignment.</summary>
+    Any = 2,
+}
+
+/// <summary>
+/// Enum from ARRaycastResult.
+/// </summary>
+public enum ARRaycastResultTarget
+{
+    /// <summary>The hit came from existing plane geometry.</summary>
+    ExistingPlaneGeometry = 1,
+    /// <summary>The hit came from an infinite extension of an existing plane.</summary>
+    ExistingPlaneInfinite = 2,
+    /// <summary>The hit came from an estimated plane.</summary>
+    EstimatedPlane = 3,
+}
+
+/// <summary>
+/// Enum from ARRaycastResult.
+/// </summary>
+public enum ARRaycastResultTargetAlignment
+{
+    /// <summary>The hit surface is horizontally aligned.</summary>
+    Horizontal = 0,
+    /// <summary>The hit surface is vertically aligned.</summary>
+    Vertical = 1,
+    /// <summary>The hit surface alignment was not restricted.</summary>
+    Any = 2,
+}
+
+/// <summary>
+/// Enum from ARSession.
+/// </summary>
+public enum ARSessionRunOption
+{
+    /// <summary>Reset session tracking when the configuration is run.</summary>
+    ResetTracking = 1,
+    /// <summary>Remove existing anchors when the configuration is run.</summary>
+    RemoveExistingAnchors = 2,
+    /// <summary>Stop existing tracked raycasts when the configuration is run.</summary>
+    StopTrackedRaycasts = 4,
+    /// <summary>Reset accumulated scene-reconstruction data when the configuration is run.</summary>
+    ResetSceneReconstruction = 8,
+}
+
+/// <summary>
+/// Enum from ARWorldTrackingConfiguration.
+/// </summary>
+public enum ARWorldTrackingConfigurationEnvironmentTexturing
+{
+    /// <summary>Disable environment texturing.</summary>
+    None = 0,
+    /// <summary>Use manually provided environment probes only.</summary>
+    Manual = 1,
+    /// <summary>Allow ARKit to generate environment probes automatically.</summary>
+    Automatic = 2,
+}
+
+/// <summary>
+/// Enum from ARWorldTrackingConfiguration.
+/// </summary>
+public enum ARWorldTrackingConfigurationFrameSemantics
+{
+    /// <summary>Enable person segmentation mattes.</summary>
+    PersonSegmentation = 1,
+    /// <summary>Enable person segmentation mattes with estimated depth.</summary>
+    PersonSegmentationWithDepth = 2,
+    /// <summary>Enable body detection semantics.</summary>
+    BodyDetection = 4,
+}
+
+/// <summary>
+/// Enum from ARWorldTrackingConfiguration.
+/// </summary>
+public enum ARWorldTrackingConfigurationPlaneDetection
+{
+    /// <summary>Detect horizontal planes.</summary>
+    Horizontal = 1,
+    /// <summary>Detect vertical planes.</summary>
+    Vertical = 2,
+    /// <summary>Detect slanted planes when supported.</summary>
+    Slanted = 4,
+}
+
+/// <summary>
+/// Enum from ARWorldTrackingConfiguration.
+/// </summary>
+public enum ARWorldTrackingConfigurationSceneReconstruction
+{
+    /// <summary>Reconstruct scene geometry as a mesh.</summary>
+    Mesh = 1,
+    /// <summary>Reconstruct scene geometry and classify mesh faces.</summary>
+    MeshWithClassification = 3,
+}
+
+/// <summary>
+/// Enum from ARWorldTrackingConfiguration.
+/// </summary>
+public enum ARWorldTrackingConfigurationWorldAlignment
+{
+    /// <summary>Align the world so the Y axis matches gravity.</summary>
+    Gravity = 0,
+    /// <summary>Align the world to gravity and the device heading.</summary>
+    GravityAndHeading = 1,
+    /// <summary>Align the world relative to the camera orientation at session start.</summary>
+    Camera = 2,
+}
+
+/// <summary>
 /// Enum from ASAuthorizationAppleIDCredential.
 /// </summary>
 public enum ASAuthorizationAppleIDCredentialUserAgeRange
@@ -58,7 +545,7 @@ public enum AVAudioSessionRouteSharingPolicy
     LongFormAudio = 1,
     /// <summary>Independent route sharing policy.</summary>
     Independent = 2,
-    /// <summary>Alias for [constant LONG_FORM_AUDIO].</summary>
+    /// <summary>Alias for LONG_FORM_AUDIO.</summary>
     LongForm = 3,
 }
 
@@ -77,7 +564,7 @@ public enum AVAudioSessionSessionCategory
     Playback = 3,
     /// <summary>Recording-only mode for utilities that only capture audio.</summary>
     Record = 4,
-    /// <summary>Similar to [constant AMBIENT] but pauses other audio sessions when your project starts.</summary>
+    /// <summary>Similar to AMBIENT but pauses other audio sessions when your project starts.</summary>
     SoloAmbient = 5,
     /// <summary>Default fallback when the platform does not expose audio sessions (macOS desktop).</summary>
     Unknown = 6,
@@ -107,6 +594,49 @@ public enum AVAudioSessionSessionMode
 }
 
 /// <summary>
+/// Enum from CMDeviceMotion.
+/// </summary>
+public enum CMDeviceMotionMagneticFieldCalibrationAccuracy
+{
+    /// <summary>The magnetometer has not been calibrated; magnetic_field is not reliable.</summary>
+    Uncalibrated = -1,
+    /// <summary>Low calibration accuracy.</summary>
+    Low = 0,
+    /// <summary>Medium calibration accuracy.</summary>
+    Medium = 1,
+    /// <summary>High calibration accuracy.</summary>
+    High = 2,
+}
+
+/// <summary>
+/// Enum from CMMotionActivity.
+/// </summary>
+public enum CMMotionActivityConfidence
+{
+    /// <summary>Low confidence in the classification.</summary>
+    Low = 0,
+    /// <summary>Medium confidence in the classification.</summary>
+    Medium = 1,
+    /// <summary>High confidence in the classification.</summary>
+    High = 2,
+}
+
+/// <summary>
+/// Enum from CMMotionManager.
+/// </summary>
+public enum CMMotionManagerAttitudeReferenceFrame
+{
+    /// <summary>Z axis vertical, X axis aligned with an arbitrary direction in the horizontal plane.</summary>
+    XarbitraryZVertical = 1,
+    /// <summary>Same as XARBITRARY_Z_VERTICAL but corrected for magnetometer drift.</summary>
+    XarbitraryCorrectedZVertical = 2,
+    /// <summary>Z axis vertical, X axis pointing toward magnetic north. Requires the magnetometer.</summary>
+    XmagneticNorthZVertical = 4,
+    /// <summary>Z axis vertical, X axis pointing toward true north. Requires the magnetometer and Location Services.</summary>
+    XtrueNorthZVertical = 8,
+}
+
+/// <summary>
 /// Enum from GKAccessPoint.
 /// </summary>
 public enum GKAccessPointLocation
@@ -119,6 +649,125 @@ public enum GKAccessPointLocation
     BottomLeading = 2,
     /// <summary>Display the access point in the bottom-trailing corner.</summary>
     BottomTrailing = 3,
+}
+
+/// <summary>
+/// Enum from GKChallenge.
+/// </summary>
+public enum GKChallengeChallengeState
+{
+    /// <summary>The challenge is invalid or no longer available.</summary>
+    Invalid = 0,
+    /// <summary>The challenge has been issued and is waiting for completion.</summary>
+    Pending = 1,
+    /// <summary>The receiving player completed the challenge.</summary>
+    Completed = 2,
+    /// <summary>The receiving player declined the challenge.</summary>
+    Declined = 3,
+}
+
+/// <summary>
+/// Enum from GKChallenge.
+/// </summary>
+public enum GKChallengeChallengeType
+{
+    /// <summary>A score-based challenge backed by [code skip-lint]GKScoreChallenge'.</summary>
+    Score = 0,
+    /// <summary>An achievement-based challenge backed by [code skip-lint]GKAchievementChallenge'.</summary>
+    Achievement = 1,
+    /// <summary>A challenge payload type that this wrapper does not recognize.</summary>
+    Unknown = 2,
+}
+
+/// <summary>
+/// Enum from GKError.
+/// </summary>
+public enum GKErrorCode
+{
+    /// <summary>The system can't complete the requested operation because Game Center doesn't recognize the app.</summary>
+    GameUnrecognized = 0,
+    /// <summary>Game Center isn't available for this app, device, or account.</summary>
+    NotSupported = 1,
+    /// <summary>The system can't complete the requested operation because the game isn't available on the App Store.</summary>
+    AppUnlisted = 2,
+    /// <summary>The system can't complete the requested operation due to an unknown error.</summary>
+    Unknown = 3,
+    /// <summary>The operation was canceled by the user or by the system.</summary>
+    Cancelled = 4,
+    /// <summary>The system can't complete the requested operation due to an error communicating with the server.</summary>
+    CommunicationsFailure = 5,
+    /// <summary>The system can't complete the requested operation because the player is invalid.</summary>
+    InvalidPlayer = 6,
+    /// <summary>The system can't complete the requested operation because one or more parameters are invalid.</summary>
+    InvalidParameter = 7,
+    /// <summary>The properties of the game session request are impossible to fulfill.</summary>
+    GameSessionRequestInvalid = 8,
+    /// <summary>The system can't complete the requested operation because the API isn't available.</summary>
+    ApiNotAvailable = 9,
+    /// <summary>The system can't complete the requested operation because the connection timed out.</summary>
+    ConnectionTimeout = 10,
+    /// <summary>The operation uses an obsolete Game Center API.</summary>
+    ApiObsolete = 11,
+    /// <summary>The system can't complete the requested operation because the user denied it.</summary>
+    UserDenied = 12,
+    /// <summary>The system can't complete the requested operation because the user name or password are incorrect.</summary>
+    InvalidCredentials = 13,
+    /// <summary>The local player is not authenticated with Game Center.</summary>
+    NotAuthenticated = 14,
+    /// <summary>The system can't complete the requested operation because the local player is already authenticating.</summary>
+    AuthenticationInProgress = 15,
+    /// <summary>The system can't complete the requested operation because the user disabled this feature in Restrictions.</summary>
+    ParentalControlsBlocked = 16,
+    /// <summary>The player's status exceeds the maximum length.</summary>
+    PlayerStatusExceedsMaximumLength = 17,
+    /// <summary>The player's status is invalid.</summary>
+    PlayerStatusInvalid = 18,
+    /// <summary>The system can't complete the requested operation because this feature isn't available to underage players.</summary>
+    Underage = 19,
+    /// <summary>The system can't complete the requested operation to retrieve a player's photo.</summary>
+    PlayerPhotoFailure = 20,
+    /// <summary>The system can't complete the requested operation because the user hasn't signed in to iCloud or hasn't enabled iCloud Drive.</summary>
+    UbiquityContainerUnavailable = 21,
+    /// <summary>The app or player is not authorized to perform this operation.</summary>
+    NotAuthorized = 22,
+    /// <summary>The system can't complete the requested operation because it can't access the player's iCloud account.</summary>
+    IcloudUnavailable = 23,
+    /// <summary>The system can't complete the requested operation because the player enabled Lockdown Mode on the device.</summary>
+    LockdownMode = 24,
+    /// <summary>Access to the friends list was denied because a required usage description is missing.</summary>
+    FriendListDescriptionMissing = 25,
+    /// <summary>Access to the local player's friends list is restricted by system policy.</summary>
+    FriendListRestricted = 26,
+    /// <summary>Access to the local player's friends list was denied by the user.</summary>
+    FriendListDenied = 27,
+    /// <summary>The player can't send a friend request at this time from this device.</summary>
+    FriendRequestNotAvailable = 28,
+    /// <summary>The system can't complete the requested operation because the match request is invalid.</summary>
+    MatchRequestInvalid = 29,
+    /// <summary>An unexpected player has connected to a match.</summary>
+    UnexpectedConnection = 30,
+    /// <summary>The system can't complete the requested operation because the receiving player has disabled invitations.</summary>
+    InvitationsDisabled = 31,
+    /// <summary>The system can't complete the requested operation because the match isn't connected to other players.</summary>
+    MatchNotConnected = 32,
+    /// <summary>The system can't complete the requested operation because the player is using automatch.</summary>
+    RestrictedToAutomatch = 33,
+    /// <summary>The system can't complete the requested operation because the match data is too large.</summary>
+    TurnBasedMatchDataTooLarge = 34,
+    /// <summary>The system can't complete the requested operation because it exceeds the maximum number of sessions.</summary>
+    TurnBasedTooManySessions = 35,
+    /// <summary>The system can't complete the requested operation because the specified participant is invalid.</summary>
+    TurnBasedInvalidParticipant = 36,
+    /// <summary>The system can't complete the requested operation because the participant doesn't have the required turn state.</summary>
+    TurnBasedInvalidTurn = 37,
+    /// <summary>The system can't complete the requested operation because the session is in an invalid state.</summary>
+    TurnBasedInvalidState = 38,
+    /// <summary>The system can't complete the requested operation because the system hasn't set the score.</summary>
+    ScoreNotSet = 39,
+    /// <summary>The challenge request failed due to invalid challenge data. (Deprecated)</summary>
+    ChallengeInvalid = 40,
+    /// <summary>The operation failed because Game Center is running in debug mode.</summary>
+    DebugMode = 41,
 }
 
 /// <summary>
@@ -190,11 +839,40 @@ public enum GKMatchSendDataMode
 /// <summary>
 /// Enum from GKMatchRequest.
 /// </summary>
+public enum GKMatchRequestInviteRecipientResponse
+{
+    Accepted = 0,
+    Declined = 1,
+    Failed = 2,
+    Incompatible = 3,
+    UnableToConnect = 4,
+    NoAnswer = 5,
+    Unknown = 6,
+}
+
+/// <summary>
+/// Enum from GKMatchRequest.
+/// </summary>
 public enum GKMatchRequestMatchType
 {
     PeerToPeer = 0,
     Hosted = 1,
     TurnBased = 2,
+}
+
+/// <summary>
+/// Enum from GKTurnBasedMatchmakerViewController.
+/// </summary>
+public enum GKTurnBasedMatchmakerViewControllerMatchmakingMode
+{
+    /// <summary>Use Apple's default turn-based matchmaking behavior.</summary>
+    Default = 0,
+    /// <summary>Restrict matchmaking to nearby players.</summary>
+    NearbyOnly = 1,
+    /// <summary>Restrict to automatch players only.</summary>
+    AutomatchOnly = 2,
+    /// <summary>Restrict to invited players only.</summary>
+    InviteOnly = 3,
 }
 
 /// <summary>

@@ -19,13 +19,22 @@ public partial class GKMatchmakerViewController : GodotObject
 {
     #region StringName Constants
 
+    private static readonly StringName _methodAddPlayersToMatch = "add_players_to_match";
     private static readonly StringName _methodCreateController = "create_controller";
+    private static readonly StringName _methodCreateControllerFromInvite = "create_controller_from_invite";
     private static readonly StringName _methodPresent = "present";
     private static readonly StringName _methodRequestMatch = "request_match";
+    private static readonly StringName _methodSetHostedPlayerDidConnect = "set_hosted_player_did_connect";
+    private static readonly StringName _propertyCanStartWithMinimumPlayers = "can_start_with_minimum_players";
+    private static readonly StringName _propertyGetMatchPropertiesForRecipient = "get_match_properties_for_recipient";
+    private static readonly StringName _propertyIsHosted = "is_hosted";
+    private static readonly StringName _propertyMatchmakingMode = "matchmaking_mode";
+    private static readonly StringName _propertyMatchRequest = "match_request";
     private static readonly StringName _signalCancelled = "cancelled";
     private static readonly StringName _signalDidFindHostedPlayers = "did_find_hosted_players";
     private static readonly StringName _signalDidFindMatch = "did_find_match";
     private static readonly StringName _signalFailedWithError = "failed_with_error";
+    private static readonly StringName _signalHostedPlayerDidAccept = "hosted_player_did_accept";
 
     #endregion
 
@@ -46,11 +55,73 @@ public partial class GKMatchmakerViewController : GodotObject
     public GodotObject Instance => _instance;
 
     /// <summary>
+    /// When supported, allows starting the match once minimum player count is met.
+    /// </summary>
+    public bool CanStartWithMinimumPlayers
+    {
+        get => _instance.Get(_propertyCanStartWithMinimumPlayers).AsBool();
+        set => _instance.Set(_propertyCanStartWithMinimumPlayers, value);
+    }
+
+    /// <summary>
+    /// Optional [code skip-lint]Callable' used for hosted matches. It receives a GKPlayer recipient and should return a [code skip-lint]Dictionary' of match properties.
+    /// </summary>
+    public Variant GetMatchPropertiesForRecipient
+    {
+        get => _instance.Get(_propertyGetMatchPropertiesForRecipient);
+        set => _instance.Set(_propertyGetMatchPropertiesForRecipient, value);
+    }
+
+    /// <summary>
+    /// If 'true', matchmaking is configured for hosted/server scenarios.
+    /// </summary>
+    public bool IsHosted
+    {
+        get => _instance.Get(_propertyIsHosted).AsBool();
+        set => _instance.Set(_propertyIsHosted, value);
+    }
+
+    /// <summary>
+    /// The underlying match request used to configure this controller.
+    /// </summary>
+    public GKMatchRequest MatchRequest
+    {
+        get => new GKMatchRequest((GodotObject)_instance.Get(_propertyMatchRequest).Obj!);
+        set => _instance.Set(_propertyMatchRequest, value.Instance);
+    }
+
+    /// <summary>
+    /// Controls matchmaking strategy. Raw values map to default/nearby-only/automatch-only/invite-only modes.
+    /// </summary>
+    public int MatchmakingMode
+    {
+        get => _instance.Get(_propertyMatchmakingMode).AsInt32();
+        set => _instance.Set(_propertyMatchmakingMode, value);
+    }
+
+    /// <summary>
+    /// Adds additional players to an existing GKMatch.
+    /// </summary>
+    public void AddPlayersToMatch(GKMatch match)
+    {
+        _instance.Call(_methodAddPlayersToMatch, match.Instance);
+    }
+
+    /// <summary>
     /// Builds a wrapper around Apple's view controller for the supplied [code skip-lint]GKMatchRequest'. Configure the returned object and call present to display it.
     /// </summary>
     public GKMatchmakerViewController CreateController(GKMatchRequest request)
     {
         var result = _instance.Call(_methodCreateController, request.Instance);
+        return new GKMatchmakerViewController((GodotObject)result.Obj!);
+    }
+
+    /// <summary>
+    /// Creates a matchmaking controller configured from an accepted GKInvite.
+    /// </summary>
+    public GKMatchmakerViewController CreateControllerFromInvite(GodotObject invite)
+    {
+        var result = _instance.Call(_methodCreateControllerFromInvite, invite);
         return new GKMatchmakerViewController((GodotObject)result.Obj!);
     }
 
@@ -63,11 +134,19 @@ public partial class GKMatchmakerViewController : GodotObject
     }
 
     /// <summary>
-    /// Shows the matchmaking UI and invokes the callback with '(GKMatch match, Variant error)' where only one argument is non-'null'. Errors are reported as GKError objects.
+    /// Shows the matchmaking UI and invokes the callback with '(GKMatch match, Variant error)' where only one argument is non-'null'. Errors are reported as [code skip-lint]GKError' objects.
     /// </summary>
     public void RequestMatch(GKMatchRequest request, Callable callback)
     {
         _instance.Call(_methodRequestMatch, request.Instance, callback);
+    }
+
+    /// <summary>
+    /// Notifies GameKit that a hosted player has connected or disconnected.
+    /// </summary>
+    public void SetHostedPlayerDidConnect(GKPlayer player, bool didconnect)
+    {
+        _instance.Call(_methodSetHostedPlayerDidConnect, player.Instance, didconnect);
     }
 
     #region Signals
@@ -96,6 +175,12 @@ public partial class GKMatchmakerViewController : GodotObject
     [Signal]
     public delegate void FailedWithErrorEventHandler(string message);
 
+    /// <summary>
+    /// Emitted when a hosted player accepts the match invitation.
+    /// </summary>
+    [Signal]
+    public delegate void HostedPlayerDidAcceptEventHandler(GKPlayer player);
+
     private void ConnectSignals()
     {
         _instance.Connect(_signalCancelled,
@@ -113,6 +198,10 @@ public partial class GKMatchmakerViewController : GodotObject
         _instance.Connect(_signalFailedWithError,
             Callable.From<string>((p0) =>
                 EmitSignal(SignalName.FailedWithError, p0)));
+
+        _instance.Connect(_signalHostedPlayerDidAccept,
+            Callable.From<GodotObject>((p0) =>
+                EmitSignal(SignalName.HostedPlayerDidAccept, new GKPlayer(p0))));
 
     }
 

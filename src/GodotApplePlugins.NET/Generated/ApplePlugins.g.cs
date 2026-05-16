@@ -43,6 +43,424 @@ public static class ApplePlugins
 
     #region Core
 
+    /// <summary>Creates a ARAnchor wrapper from a GDExtension instance.</summary>
+    public static ARAnchor CreateARAnchor(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARAnchor instance if available.</summary>
+    public static ARAnchor? TryCreateARAnchor()
+    {
+        var instance = TryCreateInstance("ARAnchor");
+        return instance != null ? new ARAnchor(instance) : null;
+    }
+
+    /// <summary>Creates a ARBodyAnchor wrapper from a GDExtension instance.</summary>
+    public static ARBodyAnchor CreateARBodyAnchor(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARBodyAnchor instance if available.</summary>
+    public static ARBodyAnchor? TryCreateARBodyAnchor()
+    {
+        var instance = TryCreateInstance("ARBodyAnchor");
+        return instance != null ? new ARBodyAnchor(instance) : null;
+    }
+
+    /// <summary>Creates a ARBodySkeleton wrapper from a GDExtension instance.</summary>
+    public static ARBodySkeleton CreateARBodySkeleton(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARBodySkeleton instance if available.</summary>
+    public static ARBodySkeleton? TryCreateARBodySkeleton()
+    {
+        var instance = TryCreateInstance("ARBodySkeleton");
+        return instance != null ? new ARBodySkeleton(instance) : null;
+    }
+
+    /// <summary>Creates a ARBodyTrackingConfiguration wrapper from a GDExtension instance.</summary>
+    public static ARBodyTrackingConfiguration CreateARBodyTrackingConfiguration(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARBodyTrackingConfiguration instance if available.</summary>
+    public static ARBodyTrackingConfiguration? TryCreateARBodyTrackingConfiguration()
+    {
+        var instance = TryCreateInstance("ARBodyTrackingConfiguration");
+        return instance != null ? new ARBodyTrackingConfiguration(instance) : null;
+    }
+
+    /// <summary>Creates a ARCamera wrapper from a GDExtension instance.</summary>
+    public static ARCamera CreateARCamera(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARCamera instance if available.</summary>
+    public static ARCamera? TryCreateARCamera()
+    {
+        var instance = TryCreateInstance("ARCamera");
+        return instance != null ? new ARCamera(instance) : null;
+    }
+
+    /// <summary>Creates a ARCoachingOverlay wrapper from a GDExtension instance.</summary>
+    public static ARCoachingOverlay CreateARCoachingOverlay(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARCoachingOverlay instance if available.</summary>
+    public static ARCoachingOverlay? TryCreateARCoachingOverlay()
+    {
+        var instance = TryCreateInstance("ARCoachingOverlay");
+        return instance != null ? new ARCoachingOverlay(instance) : null;
+    }
+
+    /// <summary>Creates a ARCollaborationData wrapper from a GDExtension instance.</summary>
+    public static ARCollaborationData CreateARCollaborationData(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARCollaborationData instance if available.</summary>
+    public static ARCollaborationData? TryCreateARCollaborationData()
+    {
+        var instance = TryCreateInstance("ARCollaborationData");
+        return instance != null ? new ARCollaborationData(instance) : null;
+    }
+
+    /// <summary>Creates a AREnvironmentProbeAnchor wrapper from a GDExtension instance.</summary>
+    public static AREnvironmentProbeAnchor CreateAREnvironmentProbeAnchor(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new AREnvironmentProbeAnchor instance if available.</summary>
+    public static AREnvironmentProbeAnchor? TryCreateAREnvironmentProbeAnchor()
+    {
+        var instance = TryCreateInstance("AREnvironmentProbeAnchor");
+        return instance != null ? new AREnvironmentProbeAnchor(instance) : null;
+    }
+
+    /// <summary>Creates a ARFaceAnchor wrapper from a GDExtension instance.</summary>
+    public static ARFaceAnchor CreateARFaceAnchor(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARFaceAnchor instance if available.</summary>
+    public static ARFaceAnchor? TryCreateARFaceAnchor()
+    {
+        var instance = TryCreateInstance("ARFaceAnchor");
+        return instance != null ? new ARFaceAnchor(instance) : null;
+    }
+
+    /// <summary>Creates a ARFrame wrapper from a GDExtension instance.</summary>
+    public static ARFrame CreateARFrame(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARFrame instance if available.</summary>
+    public static ARFrame? TryCreateARFrame()
+    {
+        var instance = TryCreateInstance("ARFrame");
+        return instance != null ? new ARFrame(instance) : null;
+    }
+
+    /// <summary>Creates a ARGeoAnchor wrapper from a GDExtension instance.</summary>
+    public static ARGeoAnchor CreateARGeoAnchor(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARGeoAnchor instance if available.</summary>
+    public static ARGeoAnchor? TryCreateARGeoAnchor()
+    {
+        var instance = TryCreateInstance("ARGeoAnchor");
+        return instance != null ? new ARGeoAnchor(instance) : null;
+    }
+
+    /// <summary>Creates a ARGeoTrackingConfiguration wrapper from a GDExtension instance.</summary>
+    public static ARGeoTrackingConfiguration CreateARGeoTrackingConfiguration(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARGeoTrackingConfiguration instance if available.</summary>
+    public static ARGeoTrackingConfiguration? TryCreateARGeoTrackingConfiguration()
+    {
+        var instance = TryCreateInstance("ARGeoTrackingConfiguration");
+        return instance != null ? new ARGeoTrackingConfiguration(instance) : null;
+    }
+
+    /// <summary>Creates a ARHandAnchor wrapper from a GDExtension instance.</summary>
+    public static ARHandAnchor CreateARHandAnchor(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARHandAnchor instance if available.</summary>
+    public static ARHandAnchor? TryCreateARHandAnchor()
+    {
+        var instance = TryCreateInstance("ARHandAnchor");
+        return instance != null ? new ARHandAnchor(instance) : null;
+    }
+
+    /// <summary>Creates a ARHandSkeleton wrapper from a GDExtension instance.</summary>
+    public static ARHandSkeleton CreateARHandSkeleton(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARHandSkeleton instance if available.</summary>
+    public static ARHandSkeleton? TryCreateARHandSkeleton()
+    {
+        var instance = TryCreateInstance("ARHandSkeleton");
+        return instance != null ? new ARHandSkeleton(instance) : null;
+    }
+
+    /// <summary>Creates a ARImageAnchor wrapper from a GDExtension instance.</summary>
+    public static ARImageAnchor CreateARImageAnchor(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARImageAnchor instance if available.</summary>
+    public static ARImageAnchor? TryCreateARImageAnchor()
+    {
+        var instance = TryCreateInstance("ARImageAnchor");
+        return instance != null ? new ARImageAnchor(instance) : null;
+    }
+
+    /// <summary>Creates a ARLightEstimate wrapper from a GDExtension instance.</summary>
+    public static ARLightEstimate CreateARLightEstimate(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARLightEstimate instance if available.</summary>
+    public static ARLightEstimate? TryCreateARLightEstimate()
+    {
+        var instance = TryCreateInstance("ARLightEstimate");
+        return instance != null ? new ARLightEstimate(instance) : null;
+    }
+
+    /// <summary>Creates a ARMeshAnchor wrapper from a GDExtension instance.</summary>
+    public static ARMeshAnchor CreateARMeshAnchor(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARMeshAnchor instance if available.</summary>
+    public static ARMeshAnchor? TryCreateARMeshAnchor()
+    {
+        var instance = TryCreateInstance("ARMeshAnchor");
+        return instance != null ? new ARMeshAnchor(instance) : null;
+    }
+
+    /// <summary>Creates a ARPlaneAnchor wrapper from a GDExtension instance.</summary>
+    public static ARPlaneAnchor CreateARPlaneAnchor(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARPlaneAnchor instance if available.</summary>
+    public static ARPlaneAnchor? TryCreateARPlaneAnchor()
+    {
+        var instance = TryCreateInstance("ARPlaneAnchor");
+        return instance != null ? new ARPlaneAnchor(instance) : null;
+    }
+
+    /// <summary>Creates a ARPointCloud wrapper from a GDExtension instance.</summary>
+    public static ARPointCloud CreateARPointCloud(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARPointCloud instance if available.</summary>
+    public static ARPointCloud? TryCreateARPointCloud()
+    {
+        var instance = TryCreateInstance("ARPointCloud");
+        return instance != null ? new ARPointCloud(instance) : null;
+    }
+
+    /// <summary>Creates a ARRaycastQuery wrapper from a GDExtension instance.</summary>
+    public static ARRaycastQuery CreateARRaycastQuery(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARRaycastQuery instance if available.</summary>
+    public static ARRaycastQuery? TryCreateARRaycastQuery()
+    {
+        var instance = TryCreateInstance("ARRaycastQuery");
+        return instance != null ? new ARRaycastQuery(instance) : null;
+    }
+
+    /// <summary>Creates a ARRaycastResult wrapper from a GDExtension instance.</summary>
+    public static ARRaycastResult CreateARRaycastResult(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARRaycastResult instance if available.</summary>
+    public static ARRaycastResult? TryCreateARRaycastResult()
+    {
+        var instance = TryCreateInstance("ARRaycastResult");
+        return instance != null ? new ARRaycastResult(instance) : null;
+    }
+
+    /// <summary>Creates a ARSession wrapper from a GDExtension instance.</summary>
+    public static ARSession CreateARSession(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARSession instance if available.</summary>
+    public static ARSession? TryCreateARSession()
+    {
+        var instance = TryCreateInstance("ARSession");
+        return instance != null ? new ARSession(instance) : null;
+    }
+
+    /// <summary>Creates a ARTrackedRaycast wrapper from a GDExtension instance.</summary>
+    public static ARTrackedRaycast CreateARTrackedRaycast(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARTrackedRaycast instance if available.</summary>
+    public static ARTrackedRaycast? TryCreateARTrackedRaycast()
+    {
+        var instance = TryCreateInstance("ARTrackedRaycast");
+        return instance != null ? new ARTrackedRaycast(instance) : null;
+    }
+
+    /// <summary>Creates a ARWorldMap wrapper from a GDExtension instance.</summary>
+    public static ARWorldMap CreateARWorldMap(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARWorldMap instance if available.</summary>
+    public static ARWorldMap? TryCreateARWorldMap()
+    {
+        var instance = TryCreateInstance("ARWorldMap");
+        return instance != null ? new ARWorldMap(instance) : null;
+    }
+
+    /// <summary>Creates a ARWorldTrackingConfiguration wrapper from a GDExtension instance.</summary>
+    public static ARWorldTrackingConfiguration CreateARWorldTrackingConfiguration(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ARWorldTrackingConfiguration instance if available.</summary>
+    public static ARWorldTrackingConfiguration? TryCreateARWorldTrackingConfiguration()
+    {
+        var instance = TryCreateInstance("ARWorldTrackingConfiguration");
+        return instance != null ? new ARWorldTrackingConfiguration(instance) : null;
+    }
+
+    /// <summary>Creates a CMAbsoluteAltitudeData wrapper from a GDExtension instance.</summary>
+    public static CMAbsoluteAltitudeData CreateCMAbsoluteAltitudeData(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMAbsoluteAltitudeData instance if available.</summary>
+    public static CMAbsoluteAltitudeData? TryCreateCMAbsoluteAltitudeData()
+    {
+        var instance = TryCreateInstance("CMAbsoluteAltitudeData");
+        return instance != null ? new CMAbsoluteAltitudeData(instance) : null;
+    }
+
+    /// <summary>Creates a CMAccelerometerData wrapper from a GDExtension instance.</summary>
+    public static CMAccelerometerData CreateCMAccelerometerData(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMAccelerometerData instance if available.</summary>
+    public static CMAccelerometerData? TryCreateCMAccelerometerData()
+    {
+        var instance = TryCreateInstance("CMAccelerometerData");
+        return instance != null ? new CMAccelerometerData(instance) : null;
+    }
+
+    /// <summary>Creates a CMAltimeter wrapper from a GDExtension instance.</summary>
+    public static CMAltimeter CreateCMAltimeter(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMAltimeter instance if available.</summary>
+    public static CMAltimeter? TryCreateCMAltimeter()
+    {
+        var instance = TryCreateInstance("CMAltimeter");
+        return instance != null ? new CMAltimeter(instance) : null;
+    }
+
+    /// <summary>Creates a CMAltitudeData wrapper from a GDExtension instance.</summary>
+    public static CMAltitudeData CreateCMAltitudeData(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMAltitudeData instance if available.</summary>
+    public static CMAltitudeData? TryCreateCMAltitudeData()
+    {
+        var instance = TryCreateInstance("CMAltitudeData");
+        return instance != null ? new CMAltitudeData(instance) : null;
+    }
+
+    /// <summary>Creates a CMDeviceMotion wrapper from a GDExtension instance.</summary>
+    public static CMDeviceMotion CreateCMDeviceMotion(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMDeviceMotion instance if available.</summary>
+    public static CMDeviceMotion? TryCreateCMDeviceMotion()
+    {
+        var instance = TryCreateInstance("CMDeviceMotion");
+        return instance != null ? new CMDeviceMotion(instance) : null;
+    }
+
+    /// <summary>Creates a CMGyroData wrapper from a GDExtension instance.</summary>
+    public static CMGyroData CreateCMGyroData(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMGyroData instance if available.</summary>
+    public static CMGyroData? TryCreateCMGyroData()
+    {
+        var instance = TryCreateInstance("CMGyroData");
+        return instance != null ? new CMGyroData(instance) : null;
+    }
+
+    /// <summary>Creates a CMHeadphoneMotionManager wrapper from a GDExtension instance.</summary>
+    public static CMHeadphoneMotionManager CreateCMHeadphoneMotionManager(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMHeadphoneMotionManager instance if available.</summary>
+    public static CMHeadphoneMotionManager? TryCreateCMHeadphoneMotionManager()
+    {
+        var instance = TryCreateInstance("CMHeadphoneMotionManager");
+        return instance != null ? new CMHeadphoneMotionManager(instance) : null;
+    }
+
+    /// <summary>Creates a CMMagnetometerData wrapper from a GDExtension instance.</summary>
+    public static CMMagnetometerData CreateCMMagnetometerData(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMMagnetometerData instance if available.</summary>
+    public static CMMagnetometerData? TryCreateCMMagnetometerData()
+    {
+        var instance = TryCreateInstance("CMMagnetometerData");
+        return instance != null ? new CMMagnetometerData(instance) : null;
+    }
+
+    /// <summary>Creates a CMMotionActivity wrapper from a GDExtension instance.</summary>
+    public static CMMotionActivity CreateCMMotionActivity(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMMotionActivity instance if available.</summary>
+    public static CMMotionActivity? TryCreateCMMotionActivity()
+    {
+        var instance = TryCreateInstance("CMMotionActivity");
+        return instance != null ? new CMMotionActivity(instance) : null;
+    }
+
+    /// <summary>Creates a CMMotionActivityManager wrapper from a GDExtension instance.</summary>
+    public static CMMotionActivityManager CreateCMMotionActivityManager(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMMotionActivityManager instance if available.</summary>
+    public static CMMotionActivityManager? TryCreateCMMotionActivityManager()
+    {
+        var instance = TryCreateInstance("CMMotionActivityManager");
+        return instance != null ? new CMMotionActivityManager(instance) : null;
+    }
+
+    /// <summary>Creates a CMMotionManager wrapper from a GDExtension instance.</summary>
+    public static CMMotionManager CreateCMMotionManager(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMMotionManager instance if available.</summary>
+    public static CMMotionManager? TryCreateCMMotionManager()
+    {
+        var instance = TryCreateInstance("CMMotionManager");
+        return instance != null ? new CMMotionManager(instance) : null;
+    }
+
+    /// <summary>Creates a CMPedometer wrapper from a GDExtension instance.</summary>
+    public static CMPedometer CreateCMPedometer(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMPedometer instance if available.</summary>
+    public static CMPedometer? TryCreateCMPedometer()
+    {
+        var instance = TryCreateInstance("CMPedometer");
+        return instance != null ? new CMPedometer(instance) : null;
+    }
+
+    /// <summary>Creates a CMPedometerData wrapper from a GDExtension instance.</summary>
+    public static CMPedometerData CreateCMPedometerData(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new CMPedometerData instance if available.</summary>
+    public static CMPedometerData? TryCreateCMPedometerData()
+    {
+        var instance = TryCreateInstance("CMPedometerData");
+        return instance != null ? new CMPedometerData(instance) : null;
+    }
+
     /// <summary>Creates a SignalProxy wrapper from a GDExtension instance.</summary>
     public static SignalProxy CreateSignalProxy(GodotObject instance)
         => new(instance);
@@ -89,6 +507,17 @@ public static class ApplePlugins
     {
         var instance = TryCreateInstance("ASPasswordCredential");
         return instance != null ? new ASPasswordCredential(instance) : null;
+    }
+
+    /// <summary>Creates a ASWebAuthenticationSession wrapper from a GDExtension instance.</summary>
+    public static ASWebAuthenticationSession CreateASWebAuthenticationSession(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new ASWebAuthenticationSession instance if available.</summary>
+    public static ASWebAuthenticationSession? TryCreateASWebAuthenticationSession()
+    {
+        var instance = TryCreateInstance("ASWebAuthenticationSession");
+        return instance != null ? new ASWebAuthenticationSession(instance) : null;
     }
 
     #endregion
@@ -169,6 +598,17 @@ public static class ApplePlugins
         return instance != null ? new GKAchievement(instance) : null;
     }
 
+    /// <summary>Creates a GKAchievementChallenge wrapper from a GDExtension instance.</summary>
+    public static GKAchievementChallenge CreateGKAchievementChallenge(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKAchievementChallenge instance if available.</summary>
+    public static GKAchievementChallenge? TryCreateGKAchievementChallenge()
+    {
+        var instance = TryCreateInstance("GKAchievementChallenge");
+        return instance != null ? new GKAchievementChallenge(instance) : null;
+    }
+
     /// <summary>Creates a GKAchievementDescription wrapper from a GDExtension instance.</summary>
     public static GKAchievementDescription CreateGKAchievementDescription(GodotObject instance)
         => new(instance);
@@ -180,6 +620,61 @@ public static class ApplePlugins
         return instance != null ? new GKAchievementDescription(instance) : null;
     }
 
+    /// <summary>Creates a GKChallenge wrapper from a GDExtension instance.</summary>
+    public static GKChallenge CreateGKChallenge(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKChallenge instance if available.</summary>
+    public static GKChallenge? TryCreateGKChallenge()
+    {
+        var instance = TryCreateInstance("GKChallenge");
+        return instance != null ? new GKChallenge(instance) : null;
+    }
+
+    /// <summary>Creates a GKChallengeDefinition wrapper from a GDExtension instance.</summary>
+    public static GKChallengeDefinition CreateGKChallengeDefinition(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKChallengeDefinition instance if available.</summary>
+    public static GKChallengeDefinition? TryCreateGKChallengeDefinition()
+    {
+        var instance = TryCreateInstance("GKChallengeDefinition");
+        return instance != null ? new GKChallengeDefinition(instance) : null;
+    }
+
+    /// <summary>Creates a GKError wrapper from a GDExtension instance.</summary>
+    public static GKError CreateGKError(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKError instance if available.</summary>
+    public static GKError? TryCreateGKError()
+    {
+        var instance = TryCreateInstance("GKError");
+        return instance != null ? new GKError(instance) : null;
+    }
+
+    /// <summary>Creates a GKGameActivity wrapper from a GDExtension instance.</summary>
+    public static GKGameActivity CreateGKGameActivity(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKGameActivity instance if available.</summary>
+    public static GKGameActivity? TryCreateGKGameActivity()
+    {
+        var instance = TryCreateInstance("GKGameActivity");
+        return instance != null ? new GKGameActivity(instance) : null;
+    }
+
+    /// <summary>Creates a GKGameActivityDefinition wrapper from a GDExtension instance.</summary>
+    public static GKGameActivityDefinition CreateGKGameActivityDefinition(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKGameActivityDefinition instance if available.</summary>
+    public static GKGameActivityDefinition? TryCreateGKGameActivityDefinition()
+    {
+        var instance = TryCreateInstance("GKGameActivityDefinition");
+        return instance != null ? new GKGameActivityDefinition(instance) : null;
+    }
+
     /// <summary>Creates a GKGameCenterViewController wrapper from a GDExtension instance.</summary>
     public static GKGameCenterViewController CreateGKGameCenterViewController(GodotObject instance)
         => new(instance);
@@ -189,6 +684,17 @@ public static class ApplePlugins
     {
         var instance = TryCreateInstance("GKGameCenterViewController");
         return instance != null ? new GKGameCenterViewController(instance) : null;
+    }
+
+    /// <summary>Creates a GKInvite wrapper from a GDExtension instance.</summary>
+    public static GKInvite CreateGKInvite(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKInvite instance if available.</summary>
+    public static GKInvite? TryCreateGKInvite()
+    {
+        var instance = TryCreateInstance("GKInvite");
+        return instance != null ? new GKInvite(instance) : null;
     }
 
     /// <summary>Creates a GKLeaderboard wrapper from a GDExtension instance.</summary>
@@ -211,6 +717,17 @@ public static class ApplePlugins
     {
         var instance = TryCreateInstance("GKLeaderboardEntry");
         return instance != null ? new GKLeaderboardEntry(instance) : null;
+    }
+
+    /// <summary>Creates a GKLeaderboardScore wrapper from a GDExtension instance.</summary>
+    public static GKLeaderboardScore CreateGKLeaderboardScore(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKLeaderboardScore instance if available.</summary>
+    public static GKLeaderboardScore? TryCreateGKLeaderboardScore()
+    {
+        var instance = TryCreateInstance("GKLeaderboardScore");
+        return instance != null ? new GKLeaderboardScore(instance) : null;
     }
 
     /// <summary>Creates a GKLeaderboardSet wrapper from a GDExtension instance.</summary>
@@ -246,6 +763,17 @@ public static class ApplePlugins
         return instance != null ? new GKMatch(instance) : null;
     }
 
+    /// <summary>Creates a GKMatchmaker wrapper from a GDExtension instance.</summary>
+    public static GKMatchmaker CreateGKMatchmaker(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKMatchmaker instance if available.</summary>
+    public static GKMatchmaker? TryCreateGKMatchmaker()
+    {
+        var instance = TryCreateInstance("GKMatchmaker");
+        return instance != null ? new GKMatchmaker(instance) : null;
+    }
+
     /// <summary>Creates a GKMatchmakerViewController wrapper from a GDExtension instance.</summary>
     public static GKMatchmakerViewController CreateGKMatchmakerViewController(GodotObject instance)
         => new(instance);
@@ -268,6 +796,17 @@ public static class ApplePlugins
         return instance != null ? new GKMatchRequest(instance) : null;
     }
 
+    /// <summary>Creates a GKNotificationBanner wrapper from a GDExtension instance.</summary>
+    public static GKNotificationBanner CreateGKNotificationBanner(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKNotificationBanner instance if available.</summary>
+    public static GKNotificationBanner? TryCreateGKNotificationBanner()
+    {
+        var instance = TryCreateInstance("GKNotificationBanner");
+        return instance != null ? new GKNotificationBanner(instance) : null;
+    }
+
     /// <summary>Creates a GKPlayer wrapper from a GDExtension instance.</summary>
     public static GKPlayer CreateGKPlayer(GodotObject instance)
         => new(instance);
@@ -288,6 +827,83 @@ public static class ApplePlugins
     {
         var instance = TryCreateInstance("GKSavedGame");
         return instance != null ? new GKSavedGame(instance) : null;
+    }
+
+    /// <summary>Creates a GKScoreChallenge wrapper from a GDExtension instance.</summary>
+    public static GKScoreChallenge CreateGKScoreChallenge(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKScoreChallenge instance if available.</summary>
+    public static GKScoreChallenge? TryCreateGKScoreChallenge()
+    {
+        var instance = TryCreateInstance("GKScoreChallenge");
+        return instance != null ? new GKScoreChallenge(instance) : null;
+    }
+
+    /// <summary>Creates a GKTurnBasedExchange wrapper from a GDExtension instance.</summary>
+    public static GKTurnBasedExchange CreateGKTurnBasedExchange(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKTurnBasedExchange instance if available.</summary>
+    public static GKTurnBasedExchange? TryCreateGKTurnBasedExchange()
+    {
+        var instance = TryCreateInstance("GKTurnBasedExchange");
+        return instance != null ? new GKTurnBasedExchange(instance) : null;
+    }
+
+    /// <summary>Creates a GKTurnBasedExchangeReply wrapper from a GDExtension instance.</summary>
+    public static GKTurnBasedExchangeReply CreateGKTurnBasedExchangeReply(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKTurnBasedExchangeReply instance if available.</summary>
+    public static GKTurnBasedExchangeReply? TryCreateGKTurnBasedExchangeReply()
+    {
+        var instance = TryCreateInstance("GKTurnBasedExchangeReply");
+        return instance != null ? new GKTurnBasedExchangeReply(instance) : null;
+    }
+
+    /// <summary>Creates a GKTurnBasedMatch wrapper from a GDExtension instance.</summary>
+    public static GKTurnBasedMatch CreateGKTurnBasedMatch(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKTurnBasedMatch instance if available.</summary>
+    public static GKTurnBasedMatch? TryCreateGKTurnBasedMatch()
+    {
+        var instance = TryCreateInstance("GKTurnBasedMatch");
+        return instance != null ? new GKTurnBasedMatch(instance) : null;
+    }
+
+    /// <summary>Creates a GKTurnBasedMatchmakerViewController wrapper from a GDExtension instance.</summary>
+    public static GKTurnBasedMatchmakerViewController CreateGKTurnBasedMatchmakerViewController(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKTurnBasedMatchmakerViewController instance if available.</summary>
+    public static GKTurnBasedMatchmakerViewController? TryCreateGKTurnBasedMatchmakerViewController()
+    {
+        var instance = TryCreateInstance("GKTurnBasedMatchmakerViewController");
+        return instance != null ? new GKTurnBasedMatchmakerViewController(instance) : null;
+    }
+
+    /// <summary>Creates a GKTurnBasedParticipant wrapper from a GDExtension instance.</summary>
+    public static GKTurnBasedParticipant CreateGKTurnBasedParticipant(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKTurnBasedParticipant instance if available.</summary>
+    public static GKTurnBasedParticipant? TryCreateGKTurnBasedParticipant()
+    {
+        var instance = TryCreateInstance("GKTurnBasedParticipant");
+        return instance != null ? new GKTurnBasedParticipant(instance) : null;
+    }
+
+    /// <summary>Creates a GKVoiceChat wrapper from a GDExtension instance.</summary>
+    public static GKVoiceChat CreateGKVoiceChat(GodotObject instance)
+        => new(instance);
+
+    /// <summary>Creates a new GKVoiceChat instance if available.</summary>
+    public static GKVoiceChat? TryCreateGKVoiceChat()
+    {
+        var instance = TryCreateInstance("GKVoiceChat");
+        return instance != null ? new GKVoiceChat(instance) : null;
     }
 
     #endregion

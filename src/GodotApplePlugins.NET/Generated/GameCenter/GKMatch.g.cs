@@ -19,11 +19,16 @@ public partial class GKMatch : GodotObject
 {
     #region StringName Constants
 
+    private static readonly StringName _methodChooseBestHostingPlayer = "choose_best_hosting_player";
     private static readonly StringName _methodDisconnect = "disconnect";
+    private static readonly StringName _methodRematch = "rematch";
     private static readonly StringName _methodSend = "send";
     private static readonly StringName _methodSendDataToAllPlayers = "send_data_to_all_players";
+    private static readonly StringName _methodVoiceChat = "voice_chat";
     private static readonly StringName _propertyExpectedPlayerCount = "expected_player_count";
+    private static readonly StringName _propertyPlayerProperties = "player_properties";
     private static readonly StringName _propertyPlayers = "players";
+    private static readonly StringName _propertyProperties = "properties";
     private static readonly StringName _propertyShouldReinviteDisconnectedPlayer = "should_reinvite_disconnected_player";
     private static readonly StringName _signalDataReceived = "data_received";
     private static readonly StringName _signalDataReceivedForRecipientFromPlayer = "data_received_for_recipient_from_player";
@@ -58,7 +63,16 @@ public partial class GKMatch : GodotObject
     }
 
     /// <summary>
-    /// Array of [code skip-lint]GKPlayer[/code] instances that are currently connected.
+    /// Player-specific properties reported by GameKit for this match.
+    /// </summary>
+    public Godot.Collections.Dictionary PlayerProperties
+    {
+        get => _instance.Get(_propertyPlayerProperties).AsGodotDictionary();
+        set => _instance.Set(_propertyPlayerProperties, value);
+    }
+
+    /// <summary>
+    /// Array of [code skip-lint]GKPlayer' instances that are currently connected.
     /// </summary>
     public Godot.Collections.Array Players
     {
@@ -67,12 +81,29 @@ public partial class GKMatch : GodotObject
     }
 
     /// <summary>
-    /// Optional [code skip-lint]Callable[/code] that receives a [code skip-lint]GKPlayer[/code] and returns [code]true[/code] if the player should be reinvited after disconnecting (see the sample in [code skip-lint]GameCenterGuide.md[/code]).
+    /// Match-level custom properties provided by GameKit.
+    /// </summary>
+    public Godot.Collections.Dictionary Properties
+    {
+        get => _instance.Get(_propertyProperties).AsGodotDictionary();
+        set => _instance.Set(_propertyProperties, value);
+    }
+
+    /// <summary>
+    /// Optional [code skip-lint]Callable' that receives a [code skip-lint]GKPlayer' and returns 'true' if the player should be reinvited after disconnecting (see the sample in [code skip-lint]GameCenterGuide.md').
     /// </summary>
     public Variant ShouldReinviteDisconnectedPlayer
     {
         get => _instance.Get(_propertyShouldReinviteDisconnectedPlayer);
         set => _instance.Set(_propertyShouldReinviteDisconnectedPlayer, value);
+    }
+
+    /// <summary>
+    /// Asks GameKit to choose the best host candidate for this peer-to-peer match. The callback receives '(GKPlayer player, Variant error)', where both values can be 'null' if no candidate is available.
+    /// </summary>
+    public void ChooseBestHostingPlayer(Callable callback)
+    {
+        _instance.Call(_methodChooseBestHostingPlayer, callback);
     }
 
     /// <summary>
@@ -84,9 +115,17 @@ public partial class GKMatch : GodotObject
     }
 
     /// <summary>
+    /// Requests a rematch with the same players. The callback receives '(GKMatch match, Variant error)'.
+    /// </summary>
+    public void Rematch(Callable callback)
+    {
+        _instance.Call(_methodRematch, callback);
+    }
+
+    /// <summary>
     /// Sends a payload to the specified [code skip-lint]ArrayGKPlayer'. Returns a [enum @GlobalScope.Error] value ([code skip-lint]OK' on success, [code skip-lint]FAILED' when the payload could not be converted or Apple reported an error). Choose a SendDataMode constant for dataMode.
     /// </summary>
-    public int Send(byte[] data, Godot.Collections.Array toplayers, GodotObject datamode)
+    public int Send(byte[] data, Godot.Collections.Array toplayers, int datamode)
     {
         var result = _instance.Call(_methodSend, data, toplayers, datamode);
         return result.AsInt32();
@@ -95,10 +134,19 @@ public partial class GKMatch : GodotObject
     /// <summary>
     /// Broadcasts the packed bytes to everyone in the match. Return value matches send. Use the SendDataMode constants.
     /// </summary>
-    public int SendDataToAllPlayers(byte[] data, GodotObject datamode)
+    public int SendDataToAllPlayers(byte[] data, int datamode)
     {
         var result = _instance.Call(_methodSendDataToAllPlayers, data, datamode);
         return result.AsInt32();
+    }
+
+    /// <summary>
+    /// Returns a [code skip-lint]GKVoiceChat' object for the named channel, or 'null' if voice chat is unavailable.
+    /// </summary>
+    public GodotObject VoiceChat(string channel)
+    {
+        var result = _instance.Call(_methodVoiceChat, channel);
+        return result.AsGodotObject();
     }
 
     #region Signals

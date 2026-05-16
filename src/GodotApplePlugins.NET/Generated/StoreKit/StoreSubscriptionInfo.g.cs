@@ -53,7 +53,7 @@ public partial class StoreSubscriptionInfo : GodotObject
     }
 
     /// <summary>
-    /// The subscription group level used for upgrade/downgrade ranking. Returns [code]-1[/code] when unavailable.
+    /// The subscription group level used for upgrade/downgrade ranking. Returns '-1' when unavailable.
     /// </summary>
     public int GroupLevel
     {
@@ -71,7 +71,7 @@ public partial class StoreSubscriptionInfo : GodotObject
     }
 
     /// <summary>
-    /// Fetches the current status entries for this subscription. The callback receives a [code skip-lint]ArrayStoreSubscriptionInfoStatus' on success, or a 'String' describing the error.
+    /// Fetches the current status entries for this subscription. The callback receives a [code skip-lint]ArrayStoreSubscriptionInfoStatus' on success, or a [code skip-lint]String' describing the error.
     /// </summary>
     public void Getstatus(Callable callback)
     {
@@ -79,7 +79,7 @@ public partial class StoreSubscriptionInfo : GodotObject
     }
 
     /// <summary>
-    /// Fetches status entries for the subscription group identifier. The callback receives a [code skip-lint]ArrayStoreSubscriptionInfoStatus' on success, or a 'String' describing the error.
+    /// Fetches status entries for the subscription group identifier. The callback receives a [code skip-lint]ArrayStoreSubscriptionInfoStatus' on success, or a [code skip-lint]String' describing the error.
     /// </summary>
     public void StatusForGroupId(string groupId, Callable status)
     {
@@ -87,7 +87,7 @@ public partial class StoreSubscriptionInfo : GodotObject
     }
 
     /// <summary>
-    /// Fetches the status entry for the provided transaction identifier. The callback receives a [code skip-lint]StoreSubscriptionInfoStatus' when available, an empty [code skip-lint]ArrayStoreSubscriptionInfoStatus' when no status is found, or a 'String' describing the error. On macOS, this requires macOS 15.4 or newer; earlier versions perform no action.
+    /// Fetches the status entry for the provided transaction identifier. The callback receives a [code skip-lint]StoreSubscriptionInfoStatus' when available, an empty [code skip-lint]ArrayStoreSubscriptionInfoStatus' when no status is found, or a [code skip-lint]String' describing the error. On macOS, this requires macOS 15.4 or newer; earlier versions perform no action.
     /// </summary>
     public void StatusForTransaction(int transactionId, Callable status)
     {

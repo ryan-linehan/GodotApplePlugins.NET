@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="GKAchievementDescription" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<class name="GKAchievementDescription" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		Metadata for every achievement that is defined in App Store Connect.
 	</brief_description>
@@ -36,24 +36,44 @@
 	<tutorials>
 	</tutorials>
 	<methods>
+		<method name="incomplete_achievement_image" qualifiers="static">
+			<return type="Variant" />
+			<description>
+				Returns Apple's shared image for an incomplete achievement as an [code skip-lint]Image[/code] [code skip-lint]Variant[/code].
+			</description>
+		</method>
 		<method name="load_achievement_descriptions" qualifiers="static">
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
-				Loads the entire catalog of achievement descriptions and calls the callback with [code skip-lint]Array[GKAchievementDescription][/code] and a [code skip-lint]Variant[/code] error ([code]null[/code] on success, or a [GKError] from GameKit).
+				Loads the entire catalog of achievement descriptions and calls the callback with [code skip-lint]Array[GKAchievementDescription][/code] and a [code skip-lint]Variant[/code] error ([code]null[/code] on success, or a [code skip-lint]GKError[/code] from GameKit).
 			</description>
 		</method>
 		<method name="load_image">
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
-				Downloads the image for this description. The callback receives [code](Image image, Variant error)[/code] where exactly one argument is [code]null[/code]. If an error occurs, it is returned as a [GKError].
+				Downloads the image for this description. The callback receives [code](Image image, Variant error)[/code] where exactly one argument is [code]null[/code]. If an error occurs, it is returned as a [code skip-lint]GKError[/code].
+			</description>
+		</method>
+		<method name="placeholder_completed_achievement_image" qualifiers="static">
+			<return type="Variant" />
+			<description>
+				Returns Apple's shared placeholder image for a completed achievement as an [code skip-lint]Image[/code] [code skip-lint]Variant[/code].
 			</description>
 		</method>
 	</methods>
 	<members>
 		<member name="achieved_description" type="String" setter="" getter="get_achieved_description" default="&quot;&quot;">
 			Text shown after the player completes the achievement.
+		</member>
+		<member name="activity_identifier" type="String" setter="" getter="get_activity_identifier" default="&quot;&quot;">
+			Game activity identifier attached to this achievement description.
+			Available on iOS 26, macOS 26, tvOS 26, and visionOS 26. Returns an empty string on earlier versions.
+		</member>
+		<member name="activity_properties" type="Dictionary[String, String]" setter="" getter="get_activity_properties" default="{}">
+			String key/value properties for the activity associated with this achievement description.
+			Available on iOS 26, macOS 26, tvOS 26, and visionOS 26. Returns an empty dictionary on earlier versions.
 		</member>
 		<member name="group_identifier" type="String" setter="" getter="get_group_identifier" default="&quot;&quot;">
 			The optional group identifier configured on App Store Connect.
@@ -72,6 +92,10 @@
 		</member>
 		<member name="rarity_percent" type="Variant" setter="" getter="get_rarity_percent">
 			Either a double with Apple's reported rarity or [code]null[/code] on platforms that do not expose this data.
+		</member>
+		<member name="release_state" type="int" setter="" getter="get_release_state" default="0">
+			Raw integer value of Apple's release state for this achievement description.
+			Available on iOS 18.4, macOS 15.4, tvOS 18.4, and visionOS 2.4. Returns [code]0[/code] on earlier versions.
 		</member>
 		<member name="title" type="String" setter="" getter="get_title" default="&quot;&quot;">
 			Display title, localized according to the player's language.
