@@ -46,9 +46,9 @@ public partial class AppleFilePicker : GodotObject
     /// <summary>
     /// Opens the file picker. allowed_types should be an array of strings representing the file extensions or UTTypes you want to allow (e.g. '["txt", "png"]' or '["public.plain-text"]'). allow_multiple if true, allows selecting multiple files. Results will be emitted via the files_selected signal. If false (default), results are emitted via file_selected.
     /// </summary>
-    public void PickDocument(string[] allowedTypes, bool allowMultiple)
+    public void PickDocument(Godot.Collections.Array allowedTypes, bool allowMultiple)
     {
-        _instance.Call(_methodPickDocument, new Godot.Collections.Array(allowedTypes.Select(x => Variant.From(x))), allowMultiple);
+        _instance.Call(_methodPickDocument, allowedTypes, allowMultiple);
     }
 
     #region Signals
@@ -69,7 +69,7 @@ public partial class AppleFilePicker : GodotObject
     /// Emitted when multiple files are selected (when 'allow_multiple' is true).
     /// </summary>
     [Signal]
-    public delegate void FilesSelectedEventHandler(AppleURL[] urls, string[] paths);
+    public delegate void FilesSelectedEventHandler(Godot.Collections.Array urls, string[] paths);
 
     private void ConnectSignals()
     {
@@ -82,7 +82,7 @@ public partial class AppleFilePicker : GodotObject
 
         _instance.Connect(_signalFilesSelected,
             Callable.From<Godot.Collections.Array, string[]>((p0, p1) =>
-                EmitSignal(SignalName.FilesSelected, p0.Select(x => new AppleURL((GodotObject)x.Obj!)).ToArray(), p1)));
+                EmitSignal(SignalName.FilesSelected, p0, p1)));
 
     }
 

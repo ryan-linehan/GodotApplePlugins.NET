@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="GKPlayer" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<class name="GKPlayer" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		Represents any Game Center player (local or remote).
 	</brief_description>
@@ -22,6 +22,13 @@
 	<tutorials>
 	</tutorials>
 	<methods>
+		<method name="anonymous_guest_player" qualifiers="static">
+			<return type="GKPlayer" />
+			<param index="0" name="identifier" type="String" />
+			<description>
+				Creates an anonymous guest player object for [param identifier] using Apple's guest-player API.
+			</description>
+		</method>
 		<method name="load_photo">
 			<return type="void" />
 			<param index="0" name="small" type="bool" />
@@ -44,13 +51,16 @@
 		<member name="display_name" type="String" setter="" getter="get_display_name" default="&quot;&quot;">
 			Localized display name suited for UI.
 		</member>
-		<member name="game_player_id" type="String" setter="" getter="get_game_player_id" default="&quot;3A1A5DFA112D1986F2A9B8B70BA0C191091130C5655EAAE5BEB8DA81A7E8D933&quot;">
+		<member name="game_player_id" type="String" setter="" getter="get_game_player_id" default="&quot;19F693964FA5E7CF4DFE2B10A3D7BAAD546324E606C675CA4A6D409BB2FB962D&quot;">
 			Stable, per-game identifier used by Apple to uniquely address the player.
+		</member>
+		<member name="guest_identifier" type="String" setter="" getter="get_guest_identifier" default="&quot;&quot;">
+			Guest identifier for anonymous players, or an empty string for signed-in Game Center accounts.
 		</member>
 		<member name="is_invitable" type="bool" setter="" getter="get_is_invitable" default="false">
 			True if the player allows Game Center invitations.
 		</member>
-		<member name="team_player_id" type="String" setter="" getter="get_team_player_id" default="&quot;9F4676D491BEFBDBE610639D1BE4C88004BA58052F5A10BD18F672C0159CF939&quot;">
+		<member name="team_player_id" type="String" setter="" getter="get_team_player_id" default="&quot;20D575AFF852729358327FDDC3E5DE0AF469B6D2010171A2A999DD0767D00DC6&quot;">
 			Team-scoped identifier shared with other games from the same developer account.
 		</member>
 	</members>

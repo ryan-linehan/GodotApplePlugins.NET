@@ -24,6 +24,7 @@ public partial class StoreKitManager : GodotObject
     private static readonly StringName _methodPurchaseWithOptions = "purchase_with_options";
     private static readonly StringName _methodRequestProducts = "request_products";
     private static readonly StringName _methodRestorePurchases = "restore_purchases";
+    private static readonly StringName _methodStart = "start";
     private static readonly StringName _signalProductsRequestCompleted = "products_request_completed";
     private static readonly StringName _signalPurchaseCompleted = "purchase_completed";
     private static readonly StringName _signalPurchaseIntent = "purchase_intent";
@@ -79,13 +80,13 @@ public partial class StoreKitManager : GodotObject
     /// <summary>
     /// Initiates the purchase of a specific product, e.g. 'purchase(product)', and allows you to provide additional purchase options. This will raise the purchase_completed signal, either to indicate that an error took place, or the status of the purchase.
     /// </summary>
-    public void PurchaseWithOptions(StoreProduct product, StoreProductPurchaseOption[] options)
+    public void PurchaseWithOptions(StoreProduct product, Godot.Collections.Array options)
     {
-        _instance.Call(_methodPurchaseWithOptions, product.Instance, new Godot.Collections.Array(options.Select(x => Variant.From(x.Instance))));
+        _instance.Call(_methodPurchaseWithOptions, product.Instance, options);
     }
 
     /// <summary>
-    /// Requests product information for a list of product identifiers, e.g. 'request_products(["com.example.product1", "com.example.product2"])'. This method will raise the products_request_completed signal when the information is retrieved.
+    /// Requests product information for a list of product identifiers, e.g. 'request_products(PackedStringArray(["com.example.product1", "com.example.product2"]))'. This method will raise the products_request_completed signal when the information is retrieved.
     /// </summary>
     public void RequestProducts(string[] productids)
     {
@@ -95,11 +96,11 @@ public partial class StoreKitManager : GodotObject
     /// <summary>
     /// Async version of RequestProducts that awaits the ProductsRequestCompleted signal.
     /// </summary>
-    public async Task<(StoreProduct[], int)> RequestProductsAsync(string[] productids)
+    public async Task<(Godot.Collections.Array, int)> RequestProductsAsync(string[] productids)
     {
         _instance.Call(_methodRequestProducts, productids);
         var result = await ToSignal(this, SignalName.ProductsRequestCompleted);
-        return (result[0].AsGodotArray().Select(x => new StoreProduct((GodotObject)x.Obj!)).ToArray(), result[1].AsInt32());
+        return (result[0].AsGodotArray(), result[1].AsInt32());
     }
 
     /// <summary>
@@ -120,19 +121,24 @@ public partial class StoreKitManager : GodotObject
         return (result[0].AsInt32(), result[1].AsString());
     }
 
+    public void Start()
+    {
+        _instance.Call(_methodStart);
+    }
+
     #region Signals
 
     /// <summary>
     /// Emitted when a product request completes. products is an Array of StoreProducts (or nulls). status indicates success or failure.
     /// </summary>
     [Signal]
-    public delegate void ProductsRequestCompletedEventHandler(StoreProduct[] products, int status);
+    public delegate void ProductsRequestCompletedEventHandler(Godot.Collections.Array products, int status);
 
     /// <summary>
     /// Emitted when a purchase completes. transaction is the StoreTransaction on success. status indicates the result (OK, cancelled, invalid product, etc.). error_message contains error details if failed.
     /// </summary>
     [Signal]
-    public delegate void PurchaseCompletedEventHandler(StoreTransaction transaction, int status, string message);
+    public delegate void PurchaseCompletedEventHandler(StoreTransaction transaction, int status, string errorMessage);
 
     [Signal]
     public delegate void PurchaseIntentEventHandler(StoreProduct product);
@@ -141,7 +147,7 @@ public partial class StoreKitManager : GodotObject
     /// Emitted when the restore process completes. `arg1` is the StoreKitStatus, and `arg2` is an error message if applicable.
     /// </summary>
     [Signal]
-    public delegate void RestoreCompletedEventHandler(int status, string message);
+    public delegate void RestoreCompletedEventHandler(int status, string errorMessage);
 
     [Signal]
     public delegate void SupscriptionUpdateEventHandler(StoreSubscriptionInfoStatus status);
@@ -159,7 +165,7 @@ public partial class StoreKitManager : GodotObject
     {
         _instance.Connect(_signalProductsRequestCompleted,
             Callable.From<Godot.Collections.Array, int>((p0, p1) =>
-                EmitSignal(SignalName.ProductsRequestCompleted, p0.Select(x => new StoreProduct((GodotObject)x.Obj!)).ToArray(), p1)));
+                EmitSignal(SignalName.ProductsRequestCompleted, p0, p1)));
 
         _instance.Connect(_signalPurchaseCompleted,
             Callable.From<GodotObject, int, string>((p0, p1, p2) =>

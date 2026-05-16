@@ -23,12 +23,17 @@ public partial class GKLeaderboard : GodotObject
     private static readonly StringName _methodLoadImage = "load_image";
     private static readonly StringName _methodLoadLeaderboards = "load_leaderboards";
     private static readonly StringName _methodLoadLocalPlayerEntries = "load_local_player_entries";
+    private static readonly StringName _methodLoadPreviousOccurrence = "load_previous_occurrence";
     private static readonly StringName _methodSubmitScore = "submit_score";
     private static readonly StringName _propertyActivityIdentifier = "activity_identifier";
     private static readonly StringName _propertyActivityProperties = "activity_properties";
+    private static readonly StringName _propertyBaseLeaderboardId = "base_leaderboard_id";
     private static readonly StringName _propertyDuration = "duration";
     private static readonly StringName _propertyGroupIdentifier = "group_identifier";
+    private static readonly StringName _propertyIsHidden = "is_hidden";
+    private static readonly StringName _propertyLeaderboardDescription = "leaderboard_description";
     private static readonly StringName _propertyNextStartDate = "next_start_date";
+    private static readonly StringName _propertyReleaseState = "release_state";
     private static readonly StringName _propertyStartDate = "start_date";
     private static readonly StringName _propertyTitle = "title";
     private static readonly StringName _propertyType = "type";
@@ -60,12 +65,21 @@ public partial class GKLeaderboard : GodotObject
     }
 
     /// <summary>
-    /// Dictionary copy of Apple's [code]activityProperties[/code], containing keys such as [code]eventStartDate[/code] when available.
+    /// Dictionary copy of Apple's 'activityProperties', containing keys such as 'eventStartDate' when available.
     /// </summary>
     public Godot.Collections.Dictionary ActivityProperties
     {
         get => _instance.Get(_propertyActivityProperties).AsGodotDictionary();
         set => _instance.Set(_propertyActivityProperties, value);
+    }
+
+    /// <summary>
+    /// Identifier of the base leaderboard that this recurring leaderboard belongs to.
+    /// </summary>
+    public string BaseLeaderboardId
+    {
+        get => _instance.Get(_propertyBaseLeaderboardId).AsString();
+        set => _instance.Set(_propertyBaseLeaderboardId, value);
     }
 
     /// <summary>
@@ -86,10 +100,37 @@ public partial class GKLeaderboard : GodotObject
         set => _instance.Set(_propertyGroupIdentifier, value);
     }
 
+    /// <summary>
+    /// True when Apple marks this leaderboard as hidden. Available on iOS 26, macOS 26, tvOS 26, and visionOS 26. Returns 'false' on earlier versions.
+    /// </summary>
+    public bool IsHidden
+    {
+        get => _instance.Get(_propertyIsHidden).AsBool();
+        set => _instance.Set(_propertyIsHidden, value);
+    }
+
+    /// <summary>
+    /// Localized long-form description text for the leaderboard. Available on iOS 26, macOS 26, tvOS 26, and visionOS 26. Returns an empty string on earlier versions.
+    /// </summary>
+    public string LeaderboardDescription
+    {
+        get => _instance.Get(_propertyLeaderboardDescription).AsString();
+        set => _instance.Set(_propertyLeaderboardDescription, value);
+    }
+
     public double NextStartDate
     {
         get => _instance.Get(_propertyNextStartDate).AsDouble();
         set => _instance.Set(_propertyNextStartDate, value);
+    }
+
+    /// <summary>
+    /// Raw integer value of Apple's release state for this leaderboard. Available on iOS 26, macOS 26, tvOS 26, and visionOS 26. Returns '0' on earlier versions.
+    /// </summary>
+    public int ReleaseState
+    {
+        get => _instance.Get(_propertyReleaseState).AsInt32();
+        set => _instance.Set(_propertyReleaseState, value);
     }
 
     public double StartDate
@@ -108,7 +149,7 @@ public partial class GKLeaderboard : GodotObject
     }
 
     /// <summary>
-    /// The Apple leaderboard type returned as an integer value: [code]0[/code] ([code skip-lint]classic[/code]), [code]1[/code] ([code skip-lint]recurring[/code]), or [code]2[/code] ([code skip-lint]unknown[/code]).
+    /// The Apple leaderboard type returned as an integer value: '0' ([code skip-lint]classic'), '1' ([code skip-lint]recurring'), or '2' ([code skip-lint]unknown').
     /// </summary>
     public int Type
     {
@@ -117,15 +158,15 @@ public partial class GKLeaderboard : GodotObject
     }
 
     /// <summary>
-    /// Loads the local player's score together with the specified [code skip-lint]Array' of [code skip-lint]GKPlayer' objects for the given time scope (use the TimeScope values). The callback receives '(GKLeaderboardEntry local, ArrayGKLeaderboardEntry scores, Variant error)' where the first entry can be 'null' if the local player has not posted a score. If 'error' is not null, it contains a GKError.
+    /// Loads the local player's score together with the specified [code skip-lint]Array' of [code skip-lint]GKPlayer' objects for the given time scope (use the TimeScope values). The callback receives '(GKLeaderboardEntry local, ArrayGKLeaderboardEntry scores, Variant error)' where the first entry can be 'null' if the local player has not posted a score. If 'error' is not null, it contains a [code skip-lint]GKError'.
     /// </summary>
-    public void LoadEntries(Godot.Collections.Array players, GodotObject timescope, Callable callback)
+    public void LoadEntries(Godot.Collections.Array players, int timescope, Callable callback)
     {
         _instance.Call(_methodLoadEntries, players, timescope, callback);
     }
 
     /// <summary>
-    /// Downloads the leaderboard icon. The callback arguments are '(Image image, Variant error)' with exactly one being 'null', matching the [code skip-lint]load_image' helper shown in the guide. 'error' is a GKError.
+    /// Downloads the leaderboard icon. The callback arguments are '(Image image, Variant error)' with exactly one being 'null', matching the [code skip-lint]load_image' helper shown in the guide. 'error' is a [code skip-lint]GKError'.
     /// </summary>
     public void LoadImage(Callable callback)
     {
@@ -133,7 +174,7 @@ public partial class GKLeaderboard : GodotObject
     }
 
     /// <summary>
-    /// Fetches leaderboard metadata. Pass an empty array to load every leaderboard configured for the app, or provide specific identifiers. The callback receives [code skip-lint]ArrayGKLeaderboard' and a [code skip-lint]Variant' error string ('null' on success).
+    /// Fetches leaderboard metadata. Pass a [code skip-lint]PackedStringArray'. Use [code skip-lint]PackedStringArray()' to load every leaderboard configured for the app, or 'PackedStringArray(["leaderboard_id"])' to request specific identifiers. The callback receives [code skip-lint]ArrayGKLeaderboard' and a [code skip-lint]Variant' error string ('null' on success).
     /// </summary>
     public void LoadLeaderboards(string[] ids, Callable callback)
     {
@@ -141,15 +182,23 @@ public partial class GKLeaderboard : GodotObject
     }
 
     /// <summary>
-    /// Loads leaderboard entries for the local player. The callback receives '(GKLeaderboardEntry local, ArrayGKLeaderboardEntry scores, Variant range, Variant error)' where the first entry can be 'null' if the local player has not posted a score. The value `range` is the number of total player count that matched the scope. Supply PlayerScope and TimeScope integers for the first two parameters. If 'error' is not null, it is a GKError.
+    /// Loads leaderboard entries for the local player. The callback receives '(GKLeaderboardEntry local, ArrayGKLeaderboardEntry scores, Variant range, Variant error)' where the first entry can be 'null' if the local player has not posted a score. The value `range` is the number of total player count that matched the scope. Supply PlayerScope and TimeScope integers for the first two parameters. If 'error' is not null, it is a [code skip-lint]GKError'.
     /// </summary>
-    public void LoadLocalPlayerEntries(GodotObject playerscope, GodotObject timescope, int rangestart, int rangelenght, Callable callback)
+    public void LoadLocalPlayerEntries(int playerscope, int timescope, int rangestart, int rangelength, Callable callback)
     {
-        _instance.Call(_methodLoadLocalPlayerEntries, playerscope, timescope, rangestart, rangelenght, callback);
+        _instance.Call(_methodLoadLocalPlayerEntries, playerscope, timescope, rangestart, rangelength, callback);
     }
 
     /// <summary>
-    /// Submits a score for the provided player. The callback receives a [code skip-lint]Variant' with the GKError or 'null' when the submission succeeds. See [code skip-lint]GameCenterGuide.md' for an end-to-end example.
+    /// Loads the previous occurrence for a recurring leaderboard. The callback receives '(GKLeaderboard leaderboard, Variant error)'. On failure 'leaderboard' is 'null' and 'error' contains a [code skip-lint]GKError'.
+    /// </summary>
+    public void LoadPreviousOccurrence(Callable callback)
+    {
+        _instance.Call(_methodLoadPreviousOccurrence, callback);
+    }
+
+    /// <summary>
+    /// Submits a score for the provided player. The callback receives a [code skip-lint]Variant' with the [code skip-lint]GKError' or 'null' when the submission succeeds. See [code skip-lint]GameCenterGuide.md' for an end-to-end example.
     /// </summary>
     public void SubmitScore(int score, int context, GKPlayer player, Callable callback)
     {

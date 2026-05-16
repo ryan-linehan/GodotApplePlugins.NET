@@ -51,7 +51,7 @@ public partial class AVAudioSession : GodotObject
     /// <summary>
     /// Sets the shared audio session category, mode, route sharing policy, and options. category: The audio session category to set (e.g., PLAYBACK, RECORD). mode: The audio session mode (e.g., DEFAULT, GAME_CHAT). policy: The route sharing policy (e.g., ROUTE_SHARING_DEFAULT, LONG_FORM_AUDIO). options: A bitmask of CategoryOptions values (e.g., 'AVAudioSession.MIX_WITH_OTHERS | AVAudioSession.DUCK_OTHERS'). Returns OK on success, or FAILED if the setting could not be applied (e.g. on macOS where this is not supported, or if an error occurs).
     /// </summary>
-    public int SetCategory(GodotObject category, GodotObject mode, GodotObject policy, int options)
+    public int SetCategory(int category, int mode, int policy, int options)
     {
         var result = _instance.Call(_methodSetCategory, category, mode, policy, options);
         return result.AsInt32();

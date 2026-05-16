@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="AVAudioSession" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<class name="AVAudioSession" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		Controls the shared iOS/tvOS audio session from GDScript.
 	</brief_description>
@@ -13,9 +13,9 @@
 	<methods>
 		<method name="set_category">
 			<return type="int" />
-			<param index="0" name="category" type="SessionCategory" />
-			<param index="1" name="mode" type="SessionMode" />
-			<param index="2" name="policy" type="RouteSharingPolicy" />
+			<param index="0" name="category" type="int" enum="SessionCategory" />
+			<param index="1" name="mode" type="int" enum="SessionMode" />
+			<param index="2" name="policy" type="int" enum="RouteSharingPolicy" />
 			<param index="3" name="options" type="int" />
 			<description>
 				Sets the shared audio session category, mode, route sharing policy, and options.
