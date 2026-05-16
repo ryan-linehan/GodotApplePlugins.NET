@@ -472,6 +472,13 @@ public class CodeGenerator
             "float" => $"{expr}.AsDouble()",
             "String" => $"{expr}.AsString()",
             "string" => $"{expr}.AsString()",
+            "Array" => $"{expr}.AsGodotArray()",
+            "PackedStringArray" => $"{expr}.AsStringArray()",
+            "PackedByteArray" => $"{expr}.AsByteArray()",
+            "PackedInt32Array" => $"{expr}.AsInt32Array()",
+            "PackedInt64Array" => $"{expr}.AsInt64Array()",
+            "PackedFloat32Array" => $"{expr}.AsFloat32Array()",
+            "PackedFloat64Array" => $"{expr}.AsFloat64Array()",
             _ => $"{expr}.AsGodotObject()"
         };
     }

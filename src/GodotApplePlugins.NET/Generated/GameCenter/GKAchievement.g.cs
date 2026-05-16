@@ -19,9 +19,13 @@ public partial class GKAchievement : GodotObject
 {
     #region StringName Constants
 
+    private static readonly StringName _methodChallengeComposeController = "challenge_compose_controller";
     private static readonly StringName _methodLoadAchievements = "load_achievements";
+    private static readonly StringName _methodMake = "make";
+    private static readonly StringName _methodMakeForPlayer = "make_for_player";
     private static readonly StringName _methodReportAchievement = "report_achievement";
     private static readonly StringName _methodResetAchievements = "reset_achievements";
+    private static readonly StringName _methodSelectChallengeablePlayers = "select_challengeable_players";
     private static readonly StringName _propertyIdentifier = "identifier";
     private static readonly StringName _propertyIsCompleted = "is_completed";
     private static readonly StringName _propertyLastReportedDate = "last_reported_date";
@@ -56,7 +60,7 @@ public partial class GKAchievement : GodotObject
     }
 
     /// <summary>
-    /// Read-only flag that mirrors GameKit's [code]isCompleted[/code] property.
+    /// Read-only flag that mirrors GameKit's 'isCompleted' property.
     /// </summary>
     public bool IsCompleted
     {
@@ -71,7 +75,7 @@ public partial class GKAchievement : GodotObject
     }
 
     /// <summary>
-    /// The player's reported completion percentage (0-100). Update this and then call [method report_achievement] to submit it.
+    /// The player's reported completion percentage (0-100). Update this and then call report_achievement to submit it.
     /// </summary>
     public double PercentComplete
     {
@@ -80,7 +84,7 @@ public partial class GKAchievement : GodotObject
     }
 
     /// <summary>
-    /// The [code skip-lint]GKPlayer[/code] owner of this achievement, if GameKit was able to resolve it.
+    /// The [code skip-lint]GKPlayer' owner of this achievement, if GameKit was able to resolve it.
     /// </summary>
     public GKPlayer Player
     {
@@ -89,7 +93,7 @@ public partial class GKAchievement : GodotObject
     }
 
     /// <summary>
-    /// Matches Apple's [code]showsCompletionBanner[/code] flag. Set it to true when you want the system to display the stock achievement toast when the progress hits 100%.
+    /// Matches Apple's 'showsCompletionBanner' flag. Set it to true when you want the system to display the stock achievement toast when the progress hits 100%.
     /// </summary>
     public bool ShowsCompletionBanner
     {
@@ -98,11 +102,37 @@ public partial class GKAchievement : GodotObject
     }
 
     /// <summary>
+    /// Opens Apple's challenge compose UI for this achievement, prefilled with message and the players candidates. players should contain [code skip-lint]GKPlayer' objects.
+    /// </summary>
+    public void ChallengeComposeController(string message, Godot.Collections.Array players)
+    {
+        _instance.Call(_methodChallengeComposeController, message, players);
+    }
+
+    /// <summary>
     /// Loads the achievements that the local player has already reported. The callback is invoked with [code skip-lint]ArrayGKAchievement' and a [code skip-lint]Variant' error argument ('null' on success, or a localized error string).
     /// </summary>
     public void LoadAchievements(Callable callback)
     {
         _instance.Call(_methodLoadAchievements, callback);
+    }
+
+    /// <summary>
+    /// Creates a new achievement instance for the local player using the App Store Connect achievement identifier.
+    /// </summary>
+    public GKAchievement Make(string identifier)
+    {
+        var result = _instance.Call(_methodMake, identifier);
+        return new GKAchievement((GodotObject)result.Obj!);
+    }
+
+    /// <summary>
+    /// Creates a new achievement instance for player using the App Store Connect achievement identifier.
+    /// </summary>
+    public GKAchievement MakeForPlayer(string identifier, GKPlayer player)
+    {
+        var result = _instance.Call(_methodMakeForPlayer, identifier, player.Instance);
+        return new GKAchievement((GodotObject)result.Obj!);
     }
 
     /// <summary>
@@ -119,6 +149,14 @@ public partial class GKAchievement : GodotObject
     public void ResetAchievements(Callable callback)
     {
         _instance.Call(_methodResetAchievements, callback);
+    }
+
+    /// <summary>
+    /// Filters players to the subset that can currently be challenged for this achievement. The callback receives '(ArrayGKPlayer challengeable_players, Variant error)', where 'error' is 'null' on success or a [code skip-lint]GKError'.
+    /// </summary>
+    public void SelectChallengeablePlayers(Godot.Collections.Array players, Callable callback)
+    {
+        _instance.Call(_methodSelectChallengeablePlayers, players, callback);
     }
 
 }

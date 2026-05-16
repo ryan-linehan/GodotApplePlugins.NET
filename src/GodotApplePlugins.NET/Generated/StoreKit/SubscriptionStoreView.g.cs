@@ -43,7 +43,7 @@ public partial class SubscriptionStoreView : GodotObject
     public GodotObject Instance => _instance;
 
     /// <summary>
-    /// The visual style of the subscription controls. See [enum ControlStyle] for options.
+    /// The visual style of the subscription controls. See ControlStyle for options.
     /// </summary>
     public int ControlStyle
     {
@@ -52,7 +52,7 @@ public partial class SubscriptionStoreView : GodotObject
     }
 
     /// <summary>
-    /// The identifier of the subscription group to display. If set, this takes precedence over [member product_i_ds].
+    /// The identifier of the subscription group to display. If set, this takes precedence over product_i_ds.
     /// </summary>
     public string GroupId
     {
@@ -61,7 +61,7 @@ public partial class SubscriptionStoreView : GodotObject
     }
 
     /// <summary>
-    /// A list of specific product identifiers to display. Ignored if [member group_id] is set.
+    /// A list of specific product identifiers to display. Ignored if group_id is set.
     /// </summary>
     public string[] ProductIDs
     {

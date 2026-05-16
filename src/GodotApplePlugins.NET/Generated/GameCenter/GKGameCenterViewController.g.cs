@@ -54,7 +54,7 @@ public partial class GKGameCenterViewController : GodotObject
     /// <summary>
     /// Shows a leaderboard with the players on the specified scope. Use one of the [enum GKLeaderboard.PlayerScope] values.
     /// </summary>
-    public void ShowLeaderboard(GKLeaderboard leaderboard, GodotObject scope)
+    public void ShowLeaderboard(GKLeaderboard leaderboard, int scope)
     {
         _instance.Call(_methodShowLeaderboard, leaderboard.Instance, scope);
     }
@@ -62,7 +62,7 @@ public partial class GKGameCenterViewController : GodotObject
     /// <summary>
     /// Shows a leaderboard with the players on the specified scope and the time period. The scope should match [enum GKLeaderboard.PlayerScope] and the time scope should match [enum GKLeaderboard.TimeScope].
     /// </summary>
-    public void ShowLeaderboardTimePeriod(string id, GodotObject scope, GodotObject timescope)
+    public void ShowLeaderboardTimePeriod(string id, int scope, int timescope)
     {
         _instance.Call(_methodShowLeaderboardTimePeriod, id, scope, timescope);
     }
@@ -86,7 +86,7 @@ public partial class GKGameCenterViewController : GodotObject
     /// <summary>
     /// Used to present one of the different Game Center dashboards specified by the type parameter.
     /// </summary>
-    public void ShowType(GodotObject type)
+    public void ShowType(int type)
     {
         _instance.Call(_methodShowType, type);
     }

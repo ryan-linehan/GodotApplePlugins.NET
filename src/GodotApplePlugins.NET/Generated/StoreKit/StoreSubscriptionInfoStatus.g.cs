@@ -41,7 +41,7 @@ public partial class StoreSubscriptionInfoStatus : GodotObject
     public GodotObject Instance => _instance;
 
     /// <summary>
-    /// Verified renewal info for the subscription, or [code]null[/code] if it is missing or unverified.
+    /// Verified renewal info for the subscription, or 'null' if it is missing or unverified.
     /// </summary>
     public StoreSubscriptionInfoRenewalInfo RenewalInfo
     {
@@ -50,7 +50,7 @@ public partial class StoreSubscriptionInfoStatus : GodotObject
     }
 
     /// <summary>
-    /// The current renewal state. Use the [enum RenewalState] constants.
+    /// The current renewal state. Use the RenewalState constants.
     /// </summary>
     public int State
     {
@@ -59,7 +59,7 @@ public partial class StoreSubscriptionInfoStatus : GodotObject
     }
 
     /// <summary>
-    /// The latest verified transaction for the subscription, or [code]null[/code] if it is missing or unverified.
+    /// The latest verified transaction for the subscription, or 'null' if it is missing or unverified.
     /// </summary>
     public StoreTransaction Transaction
     {

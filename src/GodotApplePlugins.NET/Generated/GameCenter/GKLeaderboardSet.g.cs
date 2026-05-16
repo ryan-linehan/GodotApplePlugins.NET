@@ -13,10 +13,21 @@ using System.Threading.Tasks;
 namespace GodotApplePlugins.NET.GameCenter;
 
 /// <summary>
-/// Groups related Apple Game Center leaderboards.
+/// Represents a Game Center leaderboard set.
 /// </summary>
 public partial class GKLeaderboardSet : GodotObject
 {
+    #region StringName Constants
+
+    private static readonly StringName _methodLoadImage = "load_image";
+    private static readonly StringName _methodLoadLeaderboards = "load_leaderboards";
+    private static readonly StringName _methodLoadLeaderboardSets = "load_leaderboard_sets";
+    private static readonly StringName _propertyGroupIdentifier = "group_identifier";
+    private static readonly StringName _propertyIdentifier = "identifier";
+    private static readonly StringName _propertyTitle = "title";
+
+    #endregion
+
     private readonly GodotObject _instance;
 
     /// <summary>
@@ -31,5 +42,56 @@ public partial class GKLeaderboardSet : GodotObject
     /// Gets the underlying GDExtension object.
     /// </summary>
     public GodotObject Instance => _instance;
+
+    /// <summary>
+    /// Group identifier used to associate related leaderboard sets.
+    /// </summary>
+    public string GroupIdentifier
+    {
+        get => _instance.Get(_propertyGroupIdentifier).AsString();
+        set => _instance.Set(_propertyGroupIdentifier, value);
+    }
+
+    /// <summary>
+    /// Unique identifier for this leaderboard set.
+    /// </summary>
+    public string Identifier
+    {
+        get => _instance.Get(_propertyIdentifier).AsString();
+        set => _instance.Set(_propertyIdentifier, value);
+    }
+
+    /// <summary>
+    /// Localized display title.
+    /// </summary>
+    public string Title
+    {
+        get => _instance.Get(_propertyTitle).AsString();
+        set => _instance.Set(_propertyTitle, value);
+    }
+
+    /// <summary>
+    /// Loads the image for this leaderboard set. The callback receives '(Image image, Variant error)'.
+    /// </summary>
+    public void LoadImage(Callable callback)
+    {
+        _instance.Call(_methodLoadImage, callback);
+    }
+
+    /// <summary>
+    /// Loads available leaderboard sets. The callback receives '(ArrayGKLeaderboardSet sets, Variant error)'.
+    /// </summary>
+    public void LoadLeaderboardSets(Callable callback)
+    {
+        _instance.Call(_methodLoadLeaderboardSets, callback);
+    }
+
+    /// <summary>
+    /// Loads leaderboards that belong to this set. The callback receives '(ArrayGKLeaderboard leaderboards, Variant error)'.
+    /// </summary>
+    public void LoadLeaderboards(Callable callback)
+    {
+        _instance.Call(_methodLoadLeaderboards, callback);
+    }
 
 }

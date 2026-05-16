@@ -70,7 +70,7 @@ public partial class ASAuthorizationController : GodotObject
     /// Emitted when the authorization request fails. error contains the localized description of the error.
     /// </summary>
     [Signal]
-    public delegate void AuthorizationFailedEventHandler(string message);
+    public delegate void AuthorizationFailedEventHandler(string error);
 
     private void ConnectSignals()
     {

@@ -19,15 +19,20 @@ public partial class GKAchievementDescription : GodotObject
 {
     #region StringName Constants
 
+    private static readonly StringName _methodIncompleteAchievementImage = "incomplete_achievement_image";
     private static readonly StringName _methodLoadAchievementDescriptions = "load_achievement_descriptions";
     private static readonly StringName _methodLoadImage = "load_image";
+    private static readonly StringName _methodPlaceholderCompletedAchievementImage = "placeholder_completed_achievement_image";
     private static readonly StringName _propertyAchievedDescription = "achieved_description";
+    private static readonly StringName _propertyActivityIdentifier = "activity_identifier";
+    private static readonly StringName _propertyActivityProperties = "activity_properties";
     private static readonly StringName _propertyGroupIdentifier = "group_identifier";
     private static readonly StringName _propertyIdentifier = "identifier";
     private static readonly StringName _propertyIsHidden = "is_hidden";
     private static readonly StringName _propertyIsReplayable = "is_replayable";
     private static readonly StringName _propertyMaximumPoints = "maximum_points";
     private static readonly StringName _propertyRarityPercent = "rarity_percent";
+    private static readonly StringName _propertyReleaseState = "release_state";
     private static readonly StringName _propertyTitle = "title";
     private static readonly StringName _propertyUnachievedDescription = "unachieved_description";
 
@@ -55,6 +60,24 @@ public partial class GKAchievementDescription : GodotObject
     {
         get => _instance.Get(_propertyAchievedDescription).AsString();
         set => _instance.Set(_propertyAchievedDescription, value);
+    }
+
+    /// <summary>
+    /// Game activity identifier attached to this achievement description. Available on iOS 26, macOS 26, tvOS 26, and visionOS 26. Returns an empty string on earlier versions.
+    /// </summary>
+    public string ActivityIdentifier
+    {
+        get => _instance.Get(_propertyActivityIdentifier).AsString();
+        set => _instance.Set(_propertyActivityIdentifier, value);
+    }
+
+    /// <summary>
+    /// String key/value properties for the activity associated with this achievement description. Available on iOS 26, macOS 26, tvOS 26, and visionOS 26. Returns an empty dictionary on earlier versions.
+    /// </summary>
+    public GodotObject ActivityProperties
+    {
+        get => _instance.Get(_propertyActivityProperties).AsGodotObject();
+        set => _instance.Set(_propertyActivityProperties, value);
     }
 
     /// <summary>
@@ -103,12 +126,21 @@ public partial class GKAchievementDescription : GodotObject
     }
 
     /// <summary>
-    /// Either a double with Apple's reported rarity or [code]null[/code] on platforms that do not expose this data.
+    /// Either a double with Apple's reported rarity or 'null' on platforms that do not expose this data.
     /// </summary>
     public Variant RarityPercent
     {
         get => _instance.Get(_propertyRarityPercent);
         set => _instance.Set(_propertyRarityPercent, value);
+    }
+
+    /// <summary>
+    /// Raw integer value of Apple's release state for this achievement description. Available on iOS 18.4, macOS 15.4, tvOS 18.4, and visionOS 2.4. Returns '0' on earlier versions.
+    /// </summary>
+    public int ReleaseState
+    {
+        get => _instance.Get(_propertyReleaseState).AsInt32();
+        set => _instance.Set(_propertyReleaseState, value);
     }
 
     /// <summary>
@@ -130,7 +162,16 @@ public partial class GKAchievementDescription : GodotObject
     }
 
     /// <summary>
-    /// Loads the entire catalog of achievement descriptions and calls the callback with [code skip-lint]ArrayGKAchievementDescription' and a [code skip-lint]Variant' error ('null' on success, or a GKError from GameKit).
+    /// Returns Apple's shared image for an incomplete achievement as an [code skip-lint]Image' [code skip-lint]Variant'.
+    /// </summary>
+    public Variant IncompleteAchievementImage()
+    {
+        var result = _instance.Call(_methodIncompleteAchievementImage);
+        return result;
+    }
+
+    /// <summary>
+    /// Loads the entire catalog of achievement descriptions and calls the callback with [code skip-lint]ArrayGKAchievementDescription' and a [code skip-lint]Variant' error ('null' on success, or a [code skip-lint]GKError' from GameKit).
     /// </summary>
     public void LoadAchievementDescriptions(Callable callback)
     {
@@ -138,11 +179,20 @@ public partial class GKAchievementDescription : GodotObject
     }
 
     /// <summary>
-    /// Downloads the image for this description. The callback receives '(Image image, Variant error)' where exactly one argument is 'null'. If an error occurs, it is returned as a GKError.
+    /// Downloads the image for this description. The callback receives '(Image image, Variant error)' where exactly one argument is 'null'. If an error occurs, it is returned as a [code skip-lint]GKError'.
     /// </summary>
     public void LoadImage(Callable callback)
     {
         _instance.Call(_methodLoadImage, callback);
+    }
+
+    /// <summary>
+    /// Returns Apple's shared placeholder image for a completed achievement as an [code skip-lint]Image' [code skip-lint]Variant'.
+    /// </summary>
+    public Variant PlaceholderCompletedAchievementImage()
+    {
+        var result = _instance.Call(_methodPlaceholderCompletedAchievementImage);
+        return result;
     }
 
 }

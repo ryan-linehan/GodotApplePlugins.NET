@@ -62,7 +62,7 @@ public partial class ProductView : GodotObject
     }
 
     /// <summary>
-    /// The style of the product view. See [enum ViewStyle] for available options.
+    /// The style of the product view. See ViewStyle for available options.
     /// </summary>
     public int Style
     {
