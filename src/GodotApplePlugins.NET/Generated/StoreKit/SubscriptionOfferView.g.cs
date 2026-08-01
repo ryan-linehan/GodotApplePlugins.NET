@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace GodotApplePlugins.NET.StoreKit;
 
 /// <summary>
-/// A view for redeeming subscription offers.
+/// A view for redeeming In-App Purchase offer codes.
 /// </summary>
 public partial class SubscriptionOfferView : GodotObject
 {
@@ -61,7 +61,7 @@ public partial class SubscriptionOfferView : GodotObject
     }
 
     /// <summary>
-    /// Presents the offer code redemption view. note: The `callback` parameter is currently unused; use the success and error signals to handle the result.
+    /// Presents the Apple offer-code redemption sheet. The callback parameter is unused. Use success and error to handle the redemption flow. Use [signal StoreKitManager.transaction_updated] to deliver the product transaction.
     /// </summary>
     public void Present(Callable callback)
     {

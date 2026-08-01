@@ -22,6 +22,7 @@ public partial class StoreTransaction : GodotObject
     private static readonly StringName _methodFinish = "finish";
     private static readonly StringName _propertyExpirationDate = "expiration_date";
     private static readonly StringName _propertyIsUpgraded = "is_upgraded";
+    private static readonly StringName _propertyJwsRepresentation = "jws_representation";
     private static readonly StringName _propertyOriginalId = "original_id";
     private static readonly StringName _propertyOwnershipType = "ownership_type";
     private static readonly StringName _propertyProductId = "product_id";
@@ -62,6 +63,15 @@ public partial class StoreTransaction : GodotObject
     {
         get => _instance.Get(_propertyIsUpgraded).AsBool();
         set => _instance.Set(_propertyIsUpgraded, value);
+    }
+
+    /// <summary>
+    /// The JWS (JSON Web Signature) representation of the signed transaction, suitable for server-side receipt validation (for example the App Store Server API or a third-party validator such as RevenueCat). Empty when the transaction was not constructed from a verification result.
+    /// </summary>
+    public string JwsRepresentation
+    {
+        get => _instance.Get(_propertyJwsRepresentation).AsString();
+        set => _instance.Set(_propertyJwsRepresentation, value);
     }
 
     /// <summary>

@@ -20,6 +20,7 @@ public partial class StoreKitManager : GodotObject
     #region StringName Constants
 
     private static readonly StringName _methodFetchCurrentEntitlements = "fetch_current_entitlements";
+    private static readonly StringName _methodFetchUnfinishedTransactions = "fetch_unfinished_transactions";
     private static readonly StringName _methodPurchase = "purchase";
     private static readonly StringName _methodPurchaseWithOptions = "purchase_with_options";
     private static readonly StringName _methodRequestProducts = "request_products";
@@ -57,6 +58,14 @@ public partial class StoreKitManager : GodotObject
     public void FetchCurrentEntitlements()
     {
         _instance.Call(_methodFetchCurrentEntitlements);
+    }
+
+    /// <summary>
+    /// Delivers verified and unverified transactions that StoreKit has not finished. This includes consumable purchases that happened while the app was not running. After you deliver the product, call [method StoreTransaction.finish] on the transaction. start calls this method automatically. Call it again only when you need to retry processing unfinished transactions.
+    /// </summary>
+    public void FetchUnfinishedTransactions()
+    {
+        _instance.Call(_methodFetchUnfinishedTransactions);
     }
 
     /// <summary>
@@ -121,6 +130,9 @@ public partial class StoreKitManager : GodotObject
         return (result[0].AsInt32(), result[1].AsString());
     }
 
+    /// <summary>
+    /// Starts transaction and purchase-intent listeners, then checks for unfinished transactions. Connect all relevant signals before calling this method.
+    /// </summary>
     public void Start()
     {
         _instance.Call(_methodStart);
