@@ -6,8 +6,7 @@
 	<description>
 		This class contains details about a purchase, such as the product ID, purchase date, and expiration date (for subscriptions).
 
-		When you receive a transaction update, you must call the [method finish] method on the transaction once you have made sure 
-		that you have delivered the content to the user.
+		When you receive a transaction update, deliver the content first. Then call [method finish]. StoreKit can send the transaction again until you finish it. Make delivery idempotent by recording [member transaction_id] with the delivered product.
 	</description>
 	<tutorials>
 	</tutorials>
@@ -30,6 +29,9 @@
 		</member>
 		<member name="is_upgraded" type="bool" setter="" getter="get_is_upgraded" default="false">
 			Whether this transaction is an upgrade of another transaction.
+		</member>
+		<member name="jws_representation" type="String" setter="" getter="get_jws_representation" default="&quot;&quot;">
+			The JWS (JSON Web Signature) representation of the signed transaction, suitable for server-side receipt validation (for example the App Store Server API or a third-party validator such as RevenueCat). Empty when the transaction was not constructed from a verification result.
 		</member>
 		<member name="original_id" type="int" setter="" getter="get_original_id" default="0">
 			The transaction identifier of the original purchase.
